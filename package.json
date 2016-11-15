@@ -1,0 +1,14 @@
+{
+  "name": "poolber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "run-server"
+  },
+  "author": "David Z, Elvis S",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
