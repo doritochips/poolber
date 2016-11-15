@@ -1,27 +1,29 @@
+// Dependencies
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var morgan = require('morgan')
+var morgan = require('morgan');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
-
+var app = express();
+// files
 
 
 // middleware
-var app = express();
-
 
 app.use(express.static("public"));
 app.use(morgan('dev'));
+mongoose.connect('mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto');
 
 
-app.use(session({
-    secret: 'foo',
-    saveUninitialized: false, // don't create session until something stored 
-    resave: false, //don't save session if unmodified 
-    store: new MongoStore({
-        url: 'mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto'
-    })
-}));
+
+// import ride controller APIs
+var ride = require('./controllers/ride.controller.server.js');
+app.post('/ride', ride.post);
+app.get('/ride/:title.:format?', ride.show);
+app.get('/ride', ride.list);
+
 
 
 app.get('/', function(req, res){	
@@ -31,3 +33,4 @@ app.get('/', function(req, res){
 app.listen(3000, function(){
 	console.log("server on 3000");
 })
+
