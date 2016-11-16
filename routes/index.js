@@ -5,6 +5,6 @@ module.exports = function(app){
         if (file == "index.js") return;
         var name = file.substr(0, file.indexOf('.'));
         console.log(name);
-        require('./' + name)(app);
+        require('./' + name +'.routes.server')(app);
     });
 }
