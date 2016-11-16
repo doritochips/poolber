@@ -2,12 +2,22 @@ var Ride = require('../models/ride.model.server.js');
 var User = require('../models/user.model.server.js');
 
 exports.post = function(req, res) {
-    new Ride({title: req.body.title, author: req.body.author}).save();
+	console.log(req.body);
+    new Ride({
+    	title: req.body.title
+    }).save(function(err) {
+    	if (err){
+    		console.log(err);
+    	}
+    	else {
+    		res.jsonp(req.body);
+    	}
+	});
 };
 
 exports.list = function(req, res) {
-  Ride.find(function(err, threads) {
-    res.send(threads);
+  Ride.find(function(err, rides) {
+    res.send(rides);
   });
 };
 
