@@ -14,6 +14,11 @@ var app = express();
 
 app.use(express.static("public"));
 app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({
+	extended: true
+}));
+app.use(bodyParser.json());
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto');
 
 
