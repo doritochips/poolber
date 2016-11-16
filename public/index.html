@@ -7,9 +7,15 @@
   <!-- stylesheets-->    
   <link href="../core/css/css" rel="stylesheet">
   <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">  
+  <link href="../core/css/main.css" rel="stylesheet">  
 </head>
-<body ng-view class="app ng-scope body-wide body-auth">  
-  -->
+<body class="app ng-scope body-wide body-auth">  
+<div class="main-container">
+  <div id="content" class="content-container">
+  <div ng-view>
+  </div>
+  </div>
+  </div>
   <!-- Scripts-->
   <script async="" src="../core/js/analytics.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
@@ -21,4 +27,6 @@
   <script src="core/js/main.js"></script>
   <script src="module/module.js"></script>
   <script src="module/home/route.js"></script>
-</body></html>
+  <script src="module/controller/signup.controller.js"></script>
+</body>
+</html>
