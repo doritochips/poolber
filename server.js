@@ -20,10 +20,19 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
+// Add passport's middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto');
+
+//Database models
+require('./models/ride.model.server.js');
+require('./models/user.model.server.js');
+
+//Config files
+require('./config/passport.config.server.js')(passport);
 
 
 //require all routes

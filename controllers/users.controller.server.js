@@ -48,6 +48,7 @@ exports.signup = function (req, res) {
  * Signin after passport authentication
  */
 exports.signin = function (req, res, next) {
+    req.user = req.body;
 	passport.authenticate('local', function (err, user, info) {
 		if (err || !user) {
 			res.status(400).send(info);
@@ -58,6 +59,7 @@ exports.signin = function (req, res, next) {
 
 			req.login(user, function (err) {
 				if (err) {
+                    console.log(err);
 					res.status(400).send(err);
 				} else {
 					res.json(user);
