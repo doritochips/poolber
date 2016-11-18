@@ -37,8 +37,9 @@
 						</div>
 
 						<div class="divider divider-xl"></div>
+						<p ng-show="incorrect" class="error-msg text-center">{{errorMsg}}</p>
 						<div class="form-group" ng-click="submitUserinfo()">
-							<a href="#/" class="btn btn-primary btn-lg btn-block text-center">Log in</a>
+							<a class="btn btn-primary btn-lg btn-block text-center">Log in</a>
 						</div>
 					</fieldset>
 				</form>

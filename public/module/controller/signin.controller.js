@@ -1,19 +1,21 @@
-front.controller("SigninCtrl", ['$scope', '$http', function($scope, $http){
+front.controller("SigninCtrl", ['$window','$scope', '$http', 
+	function($window, $scope, $http){
 		// user
 		$scope.user = {
 			username:"",
 			password:""
 		};
 
+		$scope.duplicateKey = false;
+		$scope.keyErrorMsg = "";
 		// submit form
 		$scope.submitUserinfo = function(){
-			console.log($scope.user);
 			$http.post("/api/auth/signin", $scope.user).then(function(res){
-				console.log("logged in");
-				console.log(res);
+				$window.location.href = '/';
 			}, function(err){
-				console.log("something went wrong");
-				console.log(err);
+				$scope.duplicateKey = true;
+				console.log(err.data);
+				$scope.keyErrorMsg = err.data.errorMsg;
 			});
 		};
 

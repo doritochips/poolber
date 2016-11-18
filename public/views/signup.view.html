@@ -11,7 +11,7 @@
 			<div class="form-container">
 
 				<section>
-					<form name="signupForm" class="form-horizontal text-center">
+					<form name="signupForm" autocomplete="off" class="form-horizontal text-center">
 						<div class="form-group">
 							<div class="input-group input-group-first">
 								<span class="input-group-addon">
@@ -40,6 +40,7 @@
 
 						<div class="divider divider-lg"></div>
 						<div class="form-group">
+							<p ng-show="duplicateKeyError" class="error-msg">{{keyErrorMsg}}</p>
 							<p ng-show="!signupForm.username.$pristine" class="error-msg">{{errorMsg}}</p>
 							<p ng-show="!signupForm.password.$pristine" class="error-msg">{{errorMsg2}}</p>
 							<p class="additional-info text-small">By clicking on sign up, you agree to <a href="javascript:;">terms & conditions</a> and <a href="javascript:;">privacy policy</a></p>
