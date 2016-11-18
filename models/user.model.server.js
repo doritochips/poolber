@@ -1,7 +1,7 @@
 var mongoose = require('mongoose')
 var crypto = require('crypto')
 var Schema = mongoose.Schema;
-
+var validator = require('validator');
 /**
  * A Validation function for local strategy properties
  */
@@ -23,15 +23,13 @@ var UserSchema = new Schema({
   firstName: {
     type: String,
     trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your first name']
-  },
+    default: ''
+},
   lastName: {
     type: String,
     trim: true,
-    default: '',
-    validate: [validateLocalStrategyProperty, 'Please fill in your last name']
-  },
+    default: ''
+    },
   displayName: {
     type: String,
     trim: true
@@ -41,9 +39,8 @@ var UserSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    default: '',
-    validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
-  },
+    default: ''
+	},
   username: {
     type: String,
     unique: 'Username already exists',
@@ -72,7 +69,13 @@ var UserSchema = new Schema({
   },
   resetPasswordExpires: {
     type: Date
-  }
+  },
+  provider: {
+    type: String,
+    required: 'Provider is required'
+  },
+  providerData: {},
+  additionalProvidersData: {}
 });
 
 /**
@@ -82,21 +85,6 @@ UserSchema.pre('save', function (next) {
   if (this.password && this.isModified('password')) {
     this.salt = crypto.randomBytes(16).toString('base64');
     this.password = this.hashPassword(this.password);
-  }
-
-  next();
-});
-
-/**
- * Hook a pre validate method to test the local password
- */
-UserSchema.pre('validate', function (next) {
-  if (this.provider === 'local' && this.password && this.isModified('password')) {
-    var result = owasp.test(this.password);
-    if (result.errors.length) {
-      var error = result.errors.join(' ');
-      this.invalidate('password', error);
-    }
   }
 
   next();

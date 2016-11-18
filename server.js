@@ -5,7 +5,7 @@ var MongoStore = require('connect-mongo')(session);
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-
+var passport = require('passport');
 var app = express();
 // files
 
@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto');
 

@@ -1,8 +1,7 @@
-front.controller("SignupCtrl", ['$scope', '$http', function($scope, $http){
+front.controller("SigninCtrl", ['$scope', '$http', function($scope, $http){
 		// user
 		$scope.user = {
 			username:"",
-			email:"",
 			password:""
 		};
 
