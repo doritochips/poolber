@@ -21,3 +21,11 @@
 	background:url(../../source/background/2.jpg) center center no-repeat fixed;
 	background-size:cover;
 }
+
+.input-lg.input-error{
+  border-bottom:1px solid #fc6286;
+}
+
+.error-msg{
+  color: #fc6286;
+}
