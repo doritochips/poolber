@@ -13,6 +13,7 @@ var app = express();
 
 // middleware
 
+//should put one in the callback of the other for them to run in parallel
 app.use(express.static("public"));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
@@ -23,7 +24,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://dev:databasepassword@ds019856.mlab.com:19856/london2toronto');
 
 
-
+//require all routes
 require('./routes')(app);
 
 app.listen(3000, function(){
