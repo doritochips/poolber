@@ -7,7 +7,8 @@ front.config(function($routeProvider){
 		templateUrl:"views/login.view.html"
 	})
 	.when("/signup",{
-		templateUrl:"views/signup.view.html"	
+		templateUrl:"views/signup.view.html",
+		controller: "SignupCtrl"
 	})
 	.when("/404",{
 		templateUrl:"views/error/404.view.html"
