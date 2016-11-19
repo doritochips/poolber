@@ -1,4 +1,4 @@
-front.controller("SignupCtrl", ['$scope', '$http', function($scope, $http){
+front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $scope, $http){
 		// user
 		$scope.user = {
 			username:"",
@@ -6,9 +6,17 @@ front.controller("SignupCtrl", ['$scope', '$http', function($scope, $http){
 			password:""
 		};
 
+		$scope.duplicateKeyError = false;
+		$scope.keyErrorMsg = "";
+
 		// submit form
 		$scope.submitUserinfo = function(){
-			console.log($scope.user);
+			$http.post("/api/auth/signup", $scope.user).then(function(res){
+				$window.location.href = '/';
+			}, function(err){
+				$scope.duplicateKeyError = true;
+				$scope.keyErrorMsg = err.data.errorMsg;
+			});
 		}
 
 		// validation

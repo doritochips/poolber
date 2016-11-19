@@ -18,7 +18,7 @@
 								<span class="input-group-addon">
 									<span class="fa fa-envelope-o"></span>
 								</span>
-								<input type="email"
+								<input ng-model="user.username" type="text"
 								class="form-control input-lg"
 								placeholder="Email"
 								>
@@ -29,7 +29,7 @@
 								<span class="input-group-addon">
 									<span class="fa fa-key"></span>
 								</span>
-								<input type="password"
+								<input ng-model="user.password" type="password"
 								class="form-control input-lg"
 								placeholder="Password"
 								>
@@ -37,8 +37,9 @@
 						</div>
 
 						<div class="divider divider-xl"></div>
-						<div class="form-group">
-							<a href="#/" class="btn btn-primary btn-lg btn-block text-center">Log in</a>
+						<p ng-show="incorrect" class="error-msg text-center">{{errorMsg}}</p>
+						<div class="form-group" ng-click="submitUserinfo()">
+							<a class="btn btn-primary btn-lg btn-block text-center">Log in</a>
 						</div>
 					</fieldset>
 				</form>
