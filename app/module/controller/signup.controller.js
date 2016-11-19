@@ -12,7 +12,7 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 		// submit form
 		$scope.submitUserinfo = function(){
 			$http.post("/api/auth/signup", $scope.user).then(function(res){
-				$window.location.href = '/';
+				$window.location.href = '/dash.html';
 			}, function(err){
 				$scope.duplicateKeyError = true;
 				$scope.keyErrorMsg = err.data.errorMsg;
