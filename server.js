@@ -14,7 +14,7 @@ var app = express();
 // middleware
 
 //should put one in the callback of the other for them to run in parallel
-app.use(express.static("public"));
+app.use(express.static("app"));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
 	extended: true
