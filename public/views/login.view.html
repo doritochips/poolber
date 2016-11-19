@@ -10,7 +10,6 @@
 	<div class="signin-body">
 		<div class="container">
 			<div class="form-container">
-
 				<form class="form-horizontal">
 					<fieldset>
 						<div class="form-group">
@@ -37,7 +36,7 @@
 						</div>
 
 						<div class="divider divider-xl"></div>
-						<p ng-show="incorrect" class="error-msg text-center">{{errorMsg}}</p>
+						<p ng-show="duplicateKey" class="error-msg text-center">{{errorMsg}}</p>
 						<div class="form-group" ng-click="submitUserinfo()">
 							<a class="btn btn-primary btn-lg btn-block text-center">Log in</a>
 						</div>

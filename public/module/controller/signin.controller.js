@@ -7,7 +7,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		};
 
 		$scope.duplicateKey = false;
-		$scope.keyErrorMsg = "";
+		$scope.errorMsg = "";
 		// submit form
 		$scope.submitUserinfo = function(){
 			$http.post("/api/auth/signin", $scope.user).then(function(res){
@@ -15,7 +15,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 			}, function(err){
 				$scope.duplicateKey = true;
 				console.log(err.data);
-				$scope.keyErrorMsg = err.data.errorMsg;
+				$scope.errorMsg = err.data.message;
 			});
 		};
 
