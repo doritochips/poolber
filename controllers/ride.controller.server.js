@@ -16,6 +16,23 @@ exports.post = function(req, res) {
 	});
 };
 
+exports.read = function(req,res) {
+    res.json(req.article);
+}
+
+exports.update = function(req,res) {
+    var ride = req.ride;
+    ride.save(function(err){
+        if (err){
+            return res.status(400).send({
+                message: err
+            });
+        } else {
+            res.json(ride);
+        }
+    })
+};
+
 exports.list = function(req, res) {
     Ride.find().sort('-postDate').populate('rider', 'displayName')(function(err, rides) {
         if (err){
@@ -47,5 +64,18 @@ exports.rideByID = function(req, res, next, id) {
         }
         req.ride = ride;
         next()
+    });
+};
+
+exports.delete = function(req, res){
+    var ride = req.ride;
+    ride.remove(function(err) {
+        if (err){
+            return res.status(400).send({
+                message: err
+            });
+        } else {
+            res.json(ride);
+        }
     });
 };
