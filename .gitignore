@@ -10,16 +10,16 @@ Thumbs.db
 .nodemonignore
 .sass-cache/
 node_modules/
-public/lib/
+app/lib/
 app/tests/coverage/
-public/bower_components
+app/bower_components
 .bower-*/
 .idea/
 coverage/
 
 # MEAN.js app and assets
 # ======================
-public/dist/
+app/dist/
 uploads
 modules/users/client/img/profile/uploads
 config/env/local.js

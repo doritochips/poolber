@@ -1,1 +1,0 @@
-var front = angular.module('front',['ngRoute'])
