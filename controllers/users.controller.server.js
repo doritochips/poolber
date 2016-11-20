@@ -40,8 +40,7 @@ exports.signup = function (req, res) {
 			var current_date = (new Date()).valueOf().toString();
 			var random = Math.random().toString();
 			shasum.update(current_date + random);
-			var new_session = shasum.digest('hex').toString();
-			console.log(new_session);
+			var new_session = shasum.digest('hex').toString();			
 			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
 				if(error){
 					console.log(error);
@@ -57,6 +56,8 @@ exports.signup = function (req, res) {
 					});
 				}
 			});
+			//reset shasum
+			shasum = crypto.createHash('sha1');
 		}
 	});
 };
@@ -77,8 +78,7 @@ exports.signin = function (req, res, next) {
 			var current_date = (new Date()).valueOf().toString();
 			var random = Math.random().toString();
 			shasum.update(current_date + random);
-			var new_session = shasum.digest('hex').toString();
-			console.log(new_session);
+			var new_session = shasum.digest('hex').toString();			
 			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
 				if(error){
 					console.log(error);
@@ -94,6 +94,8 @@ exports.signin = function (req, res, next) {
 					});
 				}
 			});
+			// reset shsum
+			shasum = crypto.createHash('sha1');
 			
 		}
 	})(req, res, next);
