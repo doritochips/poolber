@@ -34,7 +34,7 @@ exports.update = function(req,res) {
 };
 
 exports.list = function(req, res) {
-    Ride.find().sort('-postDate').populate('rider', 'displayName')(function(err, rides) {
+    Ride.find().exec(function(err, rides) {
         if (err){
             return res.status(400).send({
                 message:err
