@@ -5,15 +5,20 @@ dash.directive('poolHeader', ['UserService', '$location', '$window', function(Us
 		link: function(scope, element, attr){
 			// get _id
 			var url = $location.absUrl();
-			var u_id = url.substring(url.indexOf('?')+1, url.indexOf('#'));	
-			UserService.getUserInfo(u_id).then(function(res){
+			var session = url.substring(url.indexOf('?')+1, url.indexOf('#'));
+			UserService.getUserInfo(session).then(function(res){
 				scope.user = res.data[0];
-				console.log(scope.user);
+				if(!scope.user){
+					$window.location.href = '/#/login';	
+				}
 			}, function(err){
 				$window.location.href = '/#/login';
 			});
+			
 			scope.logout = function(){
-				$window.location.href = '/#/';
+				UserService.logoutUser(session).then(function(res){
+					$window.location.href = '/#/';	
+				});				
 			}
 			
 		}	

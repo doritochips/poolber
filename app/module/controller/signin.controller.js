@@ -11,7 +11,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		// submit form
 		$scope.submitUserinfo = function(){
 			$http.post("/api/auth/signin", $scope.user).then(function(res){				
-				$window.location.href = '/dash.html?' + res.data._id;
+				$window.location.href = '/dash.html?' + res.data;
 			}, function(err){
 				$scope.duplicateKey = true;
 				console.log(err.data);
