@@ -3,7 +3,8 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 		$scope.rides = [];
 		$scope.currentPage = 0;
 		$scope.pageSize = 10;
-		
+		$scope.options = [10,20,50];
+
 		$http.get('/api/rides').then(function(res){
 			$scope.rides = res.data;
 			processData();
