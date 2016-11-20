@@ -4,12 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "run-server"
+    "test": "run-server",
+    "postinstall": "cd app && bower install"
   },
   "author": "David Z, Elvis S",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bower": "^1.8.0",
     "connect-mongo": "^1.3.2",
     "crypto": "0.0.3",
     "express": "^4.14.0",
