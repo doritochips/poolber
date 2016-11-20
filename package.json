@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "run-server"
+    "test": "run-server",
+    "postinstall": "cd app && bower install"
   },
   "author": "David Z, Elvis S",
   "license": "MIT",
