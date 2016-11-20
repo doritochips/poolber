@@ -14,10 +14,6 @@ front.config(function($routeProvider){
 	.when("/404",{
 		templateUrl:"views/error/404.view.html"
 	})
-	.when("/rides",{
-		templateUrl:"views/ride-list.view.html",
-		controller: "rideListCtrl"
-	})
 	.otherwise({
 		redirectTo:'/404'
 	})

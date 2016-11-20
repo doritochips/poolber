@@ -1,8 +1,9 @@
 front.controller("rideListCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
 		//do something
-		$scope.user = {
-			username:"",
-			password:""
-		};
+		$http.get('/api/ride').then(function(req,res){
+			console.log(res);
+		},function(req,res){
+			console.log(res);
+		})
 }]);

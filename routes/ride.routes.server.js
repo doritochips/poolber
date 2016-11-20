@@ -3,6 +3,6 @@
 var rides = require('../controllers/ride.controller.server.js');
 
 module.exports = function(app) {
-	app.post('/ride', rides.post);
-	app.get('/ride', rides.list);
+	app.post('/api/ride', rides.post);
+	app.get('/api/ride', rides.list);
 };
