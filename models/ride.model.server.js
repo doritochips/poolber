@@ -2,8 +2,16 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
 var rideSchema = new Schema({
-	departure: String,
-	destination:  String,
+	departure: { 
+		type: String, 
+		lowercase: true, 
+		trim: true 
+	},
+	destination:  { 
+		type: String, 
+		lowercase: true, 
+		trim: true 
+	},
 	scheduleDate: {
 		type: Date
 	},

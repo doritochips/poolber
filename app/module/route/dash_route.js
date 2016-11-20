@@ -1,7 +1,8 @@
 dash.config(function($routeProvider){
 	$routeProvider
 	.when("/",{
-		templateUrl:"views/dash.view.html"		
+		templateUrl:"views/dash.view.html",
+		controller: "rideListCtrl"		
 	})
 	.when("/requestRide", {
 		templateUrl:"views/request_ride.view.html"
@@ -20,3 +21,4 @@ dash.config(function($routeProvider){
 		redirectTo:'/404'
 	})
 })
+
