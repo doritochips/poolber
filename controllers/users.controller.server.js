@@ -37,15 +37,24 @@ exports.signup = function (req, res) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			// var current_date = (new Date()).valueOf().toString();
-			// var random = Math.random().toString();
-			// var new_session = shasum.digest('hex');
-			req.login(user, function (err) {
-				if (err) {
-                    console.log(err);
-					res.status(400).send(err);
-				} else {
-					res.json(user);
+			var current_date = (new Date()).valueOf().toString();
+			var random = Math.random().toString();
+			shasum.update(current_date + random);
+			var new_session = shasum.digest('hex').toString();
+			console.log(new_session);
+			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
+				if(error){
+					console.log(error);
+					res.status(400).send(error);
+				}else{
+					req.login(user, function (err) {
+						if (err) {
+		                    console.log(err);
+							res.status(400).send(err);
+						} else {
+							res.send(new_session);
+						}
+					});
 				}
 			});
 		}
@@ -65,28 +74,26 @@ exports.signin = function (req, res, next) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			// var current_date = (new Date()).valueOf().toString();
-			// var random = Math.random().toString();
-			// shasum.update(current_date + random);
-			// var new_session = shasum.digest('hex').toString();
-			// console.log(new_session);
-			// User.update({_id: user._id}, {session: new_session}, function(error){
-			// 	if(error){
-			// 		if(error){
-			// 			console.log(error);
-			// 			res.status(400).send(error);
-			// 		}else{
-						req.login(user, function (err) {
-							if (err) {
-			                    console.log(err);
-								res.status(400).send(err);
-							} else {
-								res.json(user);
-							}
-						});
-					//}
-				//}
-			//});
+			var current_date = (new Date()).valueOf().toString();
+			var random = Math.random().toString();
+			shasum.update(current_date + random);
+			var new_session = shasum.digest('hex').toString();
+			console.log(new_session);
+			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
+				if(error){
+					console.log(error);
+					res.status(400).send(error);
+				}else{
+					req.login(user, function (err) {
+						if (err) {
+		                    console.log(err);
+							res.status(400).send(err);
+						} else {
+							res.send(new_session);
+						}
+					});
+				}
+			});
 			
 		}
 	})(req, res, next);
@@ -95,7 +102,7 @@ exports.signin = function (req, res, next) {
 // get user information called by 'userService' factory
 exports.userinfo = function(req, res) {
 	
-	User.find({_id:req.body.u_id}, function(error, user){
+	User.find({session:req.body.session}, function(error, user){
 		if(error){
 			console.log(error);
 			res.status(400).send(error);
@@ -110,6 +117,12 @@ exports.userinfo = function(req, res) {
  * Signout
  */
 exports.signout = function (req, res) {
-	req.logout();
-	res.redirect('/');
+	User.update({session: req.body.session}, {$set:{session: -1}}, function(error){
+		if(error){
+			console.log(error);
+			res.status(500).send(error);
+		}else{
+			res.send("logout success");
+		}
+	})	
 };
