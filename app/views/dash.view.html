@@ -1,10 +1,10 @@
 <section>
     <div class="page page-table">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><strong>{{rides.length}} Rides Found</strong></div>
-                    <div class="panel-body">
+                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{rides.length}} Rides Found</strong></div>
+                    <div class="panel-body" style="overflow-x:scroll;">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -12,6 +12,7 @@
                                     <th>Destination</th>
                                     <th>ScheduleDate</th>
                                     <th>PostDate</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody ng-repeat="ride in rides | startFrom:currentPage*pageSize | limitTo:pageSize">
@@ -20,6 +21,7 @@
                                     <td>{{ride.destination}}</td>
                                     <td>{{ride.scheduleDate}}</td>
                                     <td>{{ride.postDate}}</td>
+                                    <td><a class="btn btn-primary" ng-click="getDetail(ride);"><span class="fa fa-chevron-right"></span></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -31,7 +33,7 @@
                         per page &nbsp &nbsp
                         <button class="btn btn-direction btn-left btn-danger" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous </button>
                         {{currentPage+1}}/{{numberOfPages()}}
-                        <button class="btn btn-direction btn-right btn-info" ng-disabled="currentPage >= rides.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
+                        <button class="btn btn-direction btn-right btn-primary" ng-disabled="currentPage >= rides.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
                         </div>
                     </div>
                 </div>
