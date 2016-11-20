@@ -1,24 +1,78 @@
 <div class="page page-dashboard">
-	<section class="panel panel-default">
-        <div class="panel-heading"><strong><i class="fa fa-send-o"></i>&nbsp</span>Post a Ride</strong></div>
-	        <div class="panel-body">            
-	            <div class="col-md-8 col-md-offset-2">
-	                <div class="form-group">
-	                    <div class="row">
-	                        <div class="col-sm-6">
-	                           <label for="departureCity">Departure City</label>
-	                           <input class="form-control col-sm-4" id="departureCity" placeholder="Enter Location">
-	                       </div>
-	                       <div class="col-sm-6">
-	                           <label for="Destination City">Destination City</label>
-	                           <input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-	                       </div>
-	                   </div>
-	               </div>
-	               <div class="form-group">	                
-	                <button type="submit" class="btn btn-primary btn-w-md">Submit</button>
-	            </div>
-	        </div>
-	    </div>
-	</section>
+	<section class="panel panel-default post-ride">
+		<div class="panel-heading"><strong><i class="fa fa-send-o"></i>&nbsp</span>Post a Ride</strong></div>
+		<div class="panel-body">            
+			<div class="col-md-8 col-md-offset-2">
+				<div class="form-group row">
+						<div class="col-sm-6">
+							<div class="inside-row">
+								<label for="departure">Departure City:</label>
+							</div>
+							<div class="inside-row">
+								<span class="ui-select">
+									<select class="col-sm-6" ng-model="form.departure" id="departure">				
+									<option ng-repeat="city in cities">
+									{{city}}</option>		
+									</select>
+								</span>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="inside-row">
+								<label for="departure">Destination City:</label>
+							</div>
+							<div class="inside-row">
+								<span class="ui-select">
+									<select class="col-sm-6" ng-model="form.destination" id="destination">
+									
+									<option ng-repeat="city in cities">
+									{{city}}</option>		
+									</select>
+									</select>
+								</span>
+							</div>
+						</div>
+				</div>
+				<div class="form-group row">
+
+					<div class="col-sm-6">
+						<label for="date">Date</label>	
+				        <p class="input-group">
+				          <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
+				          <span class="input-group-btn">
+				            <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
+				          </span>
+				        </p>				
+					</div>					
+					<div class="col-sm-6">
+						<label for="Destination City">Destination City</label>
+						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+					</div>					
+
+
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-6">
+						<label for="Destination City">Destination City</label>
+						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+					</div>
+					<div class="col-sm-6">
+						<label for="Destination City">Destination City</label>
+						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+					</div>
+					<div class="col-sm-6">
+						<label for="Destination City">Destination City</label>
+						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+					</div>
+					<div class="col-sm-6">
+						<label for="Destination City">Destination City</label>
+						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+					</div>
+			</div>
+			<div class="form-group row col-sm-12">	                
+				<button type="submit" class="btn btn-primary btn-w-md">Submit</button>
+			</div>
+		</div>
+	</div>
+</section>
 </div>

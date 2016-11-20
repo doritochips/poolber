@@ -8,7 +8,8 @@ dash.config(function($routeProvider){
 		templateUrl:"views/request_ride.view.html"
 	})
 	.when("/postRide",{
-		templateUrl:"views/post_ride.view.html"
+		templateUrl:"views/post_ride.view.html",
+		controller:"postRideCtrl"
 	})
 	.when("/404",{
 		templateUrl:"views/error/404.view.html"
