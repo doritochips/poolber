@@ -6,7 +6,10 @@
 var mongoose = require('mongoose');
 var passport = require('passport');
 var User = mongoose.model('User');
+var crypto = require('crypto');
 
+// sha1 encryption
+var shasum = crypto.createHash('sha1');
 /**
  * Signup
  */
@@ -34,8 +37,12 @@ exports.signup = function (req, res) {
 			user.password = undefined;
 			user.salt = undefined;
 
+			// var current_date = (new Date()).valueOf().toString();
+			// var random = Math.random().toString();
+			// var new_session = shasum.digest('hex');
 			req.login(user, function (err) {
 				if (err) {
+                    console.log(err);
 					res.status(400).send(err);
 				} else {
 					res.json(user);
@@ -58,16 +65,45 @@ exports.signin = function (req, res, next) {
 			user.password = undefined;
 			user.salt = undefined;
 
-			req.login(user, function (err) {
-				if (err) {
-                    console.log(err);
-					res.status(400).send(err);
-				} else {
-					res.json(user);
-				}
-			});
+			// var current_date = (new Date()).valueOf().toString();
+			// var random = Math.random().toString();
+			// shasum.update(current_date + random);
+			// var new_session = shasum.digest('hex').toString();
+			// console.log(new_session);
+			// User.update({_id: user._id}, {session: new_session}, function(error){
+			// 	if(error){
+			// 		if(error){
+			// 			console.log(error);
+			// 			res.status(400).send(error);
+			// 		}else{
+						req.login(user, function (err) {
+							if (err) {
+			                    console.log(err);
+								res.status(400).send(err);
+							} else {
+								res.json(user);
+							}
+						});
+					//}
+				//}
+			//});
+			
 		}
 	})(req, res, next);
+};
+
+// get user information called by 'userService' factory
+exports.userinfo = function(req, res) {
+	
+	User.find({_id:req.body.u_id}, function(error, user){
+		if(error){
+			console.log(error);
+			res.status(400).send(error);
+		}else{
+			res.json(user);
+		}
+		
+	})
 };
 
 /**

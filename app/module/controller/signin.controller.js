@@ -10,8 +10,8 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		$scope.errorMsg = "";
 		// submit form
 		$scope.submitUserinfo = function(){
-			$http.post("/api/auth/signin", $scope.user).then(function(res){
-				$window.location.href = '/dash.html';
+			$http.post("/api/auth/signin", $scope.user).then(function(res){				
+				$window.location.href = '/dash.html?' + res.data._id;
 			}, function(err){
 				$scope.duplicateKey = true;
 				console.log(err.data);
