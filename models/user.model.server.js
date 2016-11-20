@@ -63,6 +63,11 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  session: {
+    type: String,
+    trim: true,
+    default: '-1'
+  },
   /* For reset password */
   resetPasswordToken: {
     type: String

@@ -9,21 +9,29 @@
   <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">  
   <link href="../core/css/main.css" rel="stylesheet">  
 </head>
-<body ng-app="dash" class="app ng-scope body-wide body-auth">  
+<body ng-app="dash" id="app" class="app ng-scope">  
   <section pool-header id="header" class="header-container ng-scope header-fixed bg-white">  
   </section>
-  <div ng-view></div>
+  <div class="main-container">
+    <aside pool-sidebar   id="nav-container" class="nav-container ng-scope nav-fixed nav-vertical bg-dark">
+    </aside>
+    <div id="content" class="content-container">
+      <section class="view-container animate-fade-up">
+        <div ng-view></div>
+      </section>
+    </div>
+  </div>
   <!-- Scripts-->
   <script async="" src="../core/js/analytics.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
   <script src="bower_components/jquery/dist/jquery.min.js"></script>    
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="core/js/jquery.smooth-scroll.min.js"></script>
-  <script type="text/javascript" src="bower_components/vendor/vendor.js"></script>
-  <script src="core/js/main.js"></script>  
-  <script src="module/module.js"></script>
-  <script src="module/route/dash_route.js"></script>
-
+  <script src="core/js/jquery.smooth-scroll.min.js"></script> 
+  <script type="text/javascript" src="module/module.js"></script>  
+  <script type="text/javascript" src="module/service/user.service.js"></script>
+  <script type="text/javascript" src="module/route/dash_route.js"></script>
+  <script type="text/javascript" src="module/directive/header.directive.js"></script>
+  <script type="text/javascript" src="module/directive/sidebar.directive.js"></script>
 </body>
 </html>
