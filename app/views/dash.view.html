@@ -1,4 +1,73 @@
 <section>
+    <div class="page page-form">
+        <div class="row">
+            <!-- add new filter -->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong><span class="fa fa-filter"></span> Filter Rides</strong>
+                        <div class="pull-right">
+                            <button class="btn btn-dark btn-xs"><span class="fa fa-plus"></span> Add Filter</button>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group row">
+                                <div class="col-lg-3">
+                                    <div class="inside-row">
+                                        <label for="departure">Departure City:</label>
+                                    </div>
+                                    <div class="inside-row">
+                                        <span class="ui-select">
+                                            <select class="col-sm-6" ng-model="form.departure" id="departure">              
+                                            <option ng-repeat="city in cities">
+                                            {{city}}</option>       
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="inside-row">
+                                        <label for="departure">Destination City:</label>
+                                    </div>
+                                    <div class="inside-row">
+                                        <span class="ui-select">
+                                            <select class="col-sm-6" ng-model="form.destination" id="destination">
+                                            <option ng-repeat="city in cities">
+                                            {{city}}</option>       
+                                            </select>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="Destination City">Passengers</label>
+                                    <input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+                                </div>   
+                                <div class="col-lg-3">
+                                    <label for="date">Date</label>  
+                                    <p class="input-group">
+                                      <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
+                                      <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
+                                      </span>
+                                    </p>                
+                                </div> 
+                        </div>
+                    </div>                    
+                </div>
+            </div>  
+
+            <!-- current selections -->
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong><span class="fa fa-magic"></span> Current Selections</strong></div>
+                    <div class="panel-body">
+                        asdf
+                    </div>                    
+                </div>
+            </div> 
+        </div>
+    </div>
     <div class="page page-table">
         <div class="row">
             <div class="col-md-12">

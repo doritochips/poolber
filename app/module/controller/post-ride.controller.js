@@ -5,10 +5,10 @@ dash.controller("postRideCtrl", ["$http", "$scope", function($http, $scope){
 	
 	$scope.popup = {
 		opened:false
-	}
+	};
 	$scope.open = function(){
 		document.getElementById("datepicker").focus();
 		$scope.popup.opened  = true;		
-	}
+	};
 	
 }])

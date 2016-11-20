@@ -1,5 +1,18 @@
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
+		$scope.form = {		
+		};	
+		$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
+		
+		$scope.popup = {
+			opened:false
+		}
+		$scope.open = function(){
+			document.getElementById("datepicker").focus();
+			$scope.popup.opened  = true;		
+		};
+
+		//List controller
 		$scope.rides = [];
 		$scope.currentPage = 0;
 		$scope.pageSize = 10;
@@ -27,4 +40,9 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 				return Math.ceil($scope.rides.length/$scope.pageSize);
 			}
 		};
+
+		//initialize
+		init = function(){
+
+		}();
 }]);
