@@ -10,9 +10,8 @@
 							</div>
 							<div class="inside-row">
 								<span class="ui-select">
-									<select class="col-sm-6" ng-model="form.departure" id="departure">				
-									<option ng-repeat="city in cities">
-									{{city}}</option>		
+									<select class="col-sm-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]">		
+									<option ng-repeat="city in cities">{{city}}</option>		
 									</select>
 								</span>
 							</div>
@@ -23,11 +22,8 @@
 							</div>
 							<div class="inside-row">
 								<span class="ui-select">
-									<select class="col-sm-6" ng-model="form.destination" id="destination">
-									
-									<option ng-repeat="city in cities">
-									{{city}}</option>		
-									</select>
+									<select class="col-sm-6" ng-model="form.destination" id="destination" ng-init="form.destination = cities[0]">
+									<option ng-repeat="city in cities">{{city}}</option>		
 									</select>
 								</span>
 							</div>
@@ -38,7 +34,7 @@
 					<div class="col-sm-6">
 						<label for="date">Date</label>	
 				        <p class="input-group">
-				          <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
+				          <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened" placeholder="Pick a date" />
 				          <span class="input-group-btn">
 				            <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
 				          </span>
