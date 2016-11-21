@@ -1,18 +1,24 @@
-dash.directive("poolSidebar", ['$location', function($location){
-
+dash.directive("poolSidebar", ['$location', '$routeParams', function($location, $routeParams ){
     var controller = ['$scope', function($scope){
-		var activeClass = "open active";
-		var nonActiveClass = "";
-		//assign default
-		$scope.classList = [activeClass,"",""];
-		
+	
 		//when lick, clear all class and reassign the one clicked
 		$scope.activate = function(s){
 			for (var i in $scope.classList){
 				$scope.classList[i] = "";
 			}
-			$scope.classList[s] = activeClass;
+			$scope.classList[s] = $scope.activeClass;
 		};
+
+		init = function(){
+			$scope.activeClass = "open active";
+			$scope.nonActiveClass = "";
+			//assign default
+			$scope.classList = ["","",""];
+			//list ride, assign the index as active class
+			var routeList = ["/","/requestRide","/postRide"];
+			$scope.classList[routeList.indexOf($location.path())] = $scope.activeClass;
+			//console.log($scope.classList);
+		}();
     }]
     return{
         templateUrl:'views/layout/sidebar.view.html',
