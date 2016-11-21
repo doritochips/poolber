@@ -4,3 +4,10 @@
 .inside-row .ui-select{
 	margin:0px;
 }
+.ui-select{
+	width:100%;
+}
+
+textarea{
+	resize:none;
+}
