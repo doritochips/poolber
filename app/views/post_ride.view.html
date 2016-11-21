@@ -18,7 +18,7 @@
 						</div>
 						<div class="col-sm-6">
 							<div class="inside-row">
-								<label for="departure">Destination City:</label>
+								<label for="destination">Destination City:</label>
 							</div>
 							<div class="inside-row">
 								<span class="ui-select">
@@ -30,7 +30,6 @@
 						</div>
 				</div>
 				<div class="form-group row">
-
 					<div class="col-sm-6">
 						<label for="date">Date</label>	
 				        <p class="input-group">
@@ -39,33 +38,50 @@
 				            <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
 				          </span>
 				        </p>				
-					</div>					
+					</div>	
 					<div class="col-sm-6">
-						<label for="Destination City">Destination City</label>
-						<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-					</div>					
+						<div class="inside-row">
+							<label for="passengers">Passenger</label>
+						</div>
+						<div class="inside-row">
+							<span class="ui-select">
+								<select class="col-sm-6" ng-model="form.passengers" id="passengers" ng-init="form.passengers = passengers[0]" ng-options="passenger for passenger in passengers" uib-tooltip="Select number of passengers you can take." tooltip-placement="top" tooltip-trigger="'mouseenter'">
+								
+								</select>
+							</span>
+						</div>
+					</div>				
+				</div>
+				<div class="form-group row">										
+						
+					<div class="col-sm-6">
+						<div class="inside-row">
+							<label>Start Time</label>
+						</div>
+						<div uib-timepicker ng-model="form.startTime" hour-step="1" minute-step="15"></div> 
+					</div>						
+					
+					<div class="col-sm-6">
+						<div class="inside-row">
+							<label>End Time</label>
+						</div>
+						<div uib-timepicker ng-model="form.endTime" hour-step="1" minute-step="15"></div>
+					</div>
+				</div>
+				<div class="form-group row col-sm-12" ng-show="form.date && form.startTime && form.endTime">
+					<pre class="alert alert-info">You can drive on {{form.date | date: format: 'yyyy-mmmm-dd'}} from {{form.startTime | date:'shortTime'}} to {{form.endTime | date:'shortTime'}}</pre>
 				</div>
 				<div class="form-group row">
-					<div class="col-sm-6">
-							<label for="Destination City">Destination City</label>
-							<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-						</div>
-						<div class="col-sm-6">
-							<label for="Destination City">Destination City</label>
-							<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-						</div>
-						<div class="col-sm-6">
-							<label for="Destination City">Destination City</label>
-							<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-						</div>
-						<div class="col-sm-6">
-							<label for="Destination City">Destination City</label>
-							<input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
-						</div>
+					<div class="col-sm-12">
+						<label>Notes</label>
+					</div>
+					<div class="col-sm-12">
+						<textarea class="form-control" rows="4" placeholder="For example, how much do you want to charge for the ride?"></textarea>
+					</div>
 				</div>
-			<div class="form-group row col-sm-12">	                
-				<button type="submit" class="btn btn-primary btn-w-md">Submit</button>
-			</div>
+				<div class="form-group row col-sm-12">	                
+					<button type="submit" class="btn btn-primary btn-w-md">Submit</button>
+				</div>
 		</div>
 	</div>
 </section>
