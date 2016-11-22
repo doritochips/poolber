@@ -1,16 +1,21 @@
-dash.directive('poolHeader', ['UserService', '$location', '$window', function(UserService, $location, $window){
+dash.directive('poolHeader', ['UserService', '$location', '$window', '$rootScope', function(UserService, $location, $window, $rootScope){
 	return{
 		templateUrl:'views/layout/header.view.html',
 		restrict: 'A',
 		link: function(scope, element, attr){
 			// get _id
 			var url = $location.absUrl();
-			var session = url.substring(url.indexOf('?')+1, url.indexOf('#'));
-			UserService.getUserInfo(session).then(function(res){
-				scope.user = res.data[0];
-				if(!scope.user){
+			var session = url.substring(url.indexOf('?')+1, url.indexOf('#'));			
+			UserService.getUserInfo(session).then(function(res){				
+				if(!res.data[0]){
 					$window.location.href = '/#/login';	
+					return;
 				}
+				scope.user = res.data[0];
+
+				// broadcast userid so any scope can get it
+				$rootScope.$broadcast('getUserId', scope.user._id)
+			
 			}, function(err){
 				$window.location.href = '/#/login';
 			});

@@ -3,16 +3,17 @@ var Ride = require('../models/ride.model.server.js');
 var User = require('../models/user.model.server.js');
 var mongoose = require("mongoose");
 
-exports.post = function(req, res) {
-	var newRide = new Ride(req.body);
-    newRide.rider = req.user;
-
+exports.post = function(req, res) {    
+	var newRide = new Ride(req.body);       
+    newRide.userID = req.user_id;
     newRide.save(function(err) {
     	if (err){
-    		console.log(err);
+    		res.status(400).send({
+                message: 'Some error occured when saving the post!'
+            })
     	}
     	else {
-    		res.jsonp(newRide);
+    		res.send("Success");
     	}
 	});
 };
