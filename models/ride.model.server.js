@@ -11,17 +11,22 @@ var rideSchema = new Schema({
 		type: String, 
 		lowercase: true, 
 		trim: true 
-	},
-	scheduleDate: {
-		type: Date
-	},
-	rider: {
+	},	
+	userID: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	postDate: {
-		type: Date, 
-		default: Date.now
+	startTime:{
+		type: Date
+	},
+	endTime:{
+		type: Date
+	},
+	passenger: {
+		type: Number		
+	},
+	note:{
+		type: String
 	}
 });
 
