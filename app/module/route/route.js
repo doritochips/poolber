@@ -1,7 +1,8 @@
 front.config(function($routeProvider){
 	$routeProvider
 	.when("/",{
-		templateUrl:"views/home.view.html"
+		templateUrl:"views/home.view.html",
+		controller:"HomeCtrl"
 	})
 	.when("/login", {
 		templateUrl:"views/login.view.html",
