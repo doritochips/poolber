@@ -5,6 +5,10 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
+# PHOTOSHOP
+# ==============
+design/
+
 # Node and related ecosystem
 # ==========================
 .nodemonignore
