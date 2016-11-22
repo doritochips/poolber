@@ -1,3 +1,107 @@
-.features {
-	background:rgb(242,244,248);
+.container{
+	padding-bottom: 0;
+}
+
+.body-wrapper{
+	height: 100vh;
+	overflow-x: hidden; 
+    overflow-y: auto;
+}
+.row-no-padding .col-sm-6{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+
+.blue_left {
+    width: 100%;
+    height: 100vh;
+    background: url(../source/left-color.jpg) center center no-repeat;
+    background-size: cover !important;    
+    text-align: center;
+    background-position: center !important;
+    padding: 30% 5%;
+
+}
+
+.orange_right {
+    width: 100%;
+    height: 100vh;
+    background: url(../source/right-color.jpg) center center no-repeat;
+    background-size: cover !important;
+    text-align: center;
+    background-position: center !important;
+    padding: 30% 5%;
+}
+
+.blue_left:hover {
+	background: url(../source/left.jpg);
+    background-size: cover;
+    color: #000;
+    background-position: center ;
+    transition: all 590ms ease-in ;
+
+}
+
+.orange_right:hover {
+	background: url(../source/right.jpg);
+    background-size: cover;
+    background-position: center !important;
+    transition: all 590ms ease-in !important;
+}
+
+#white {
+    color: #fff;
+    font-family: "lft-etica-compressed",sans-serif;
+}
+
+h1 {
+    font-size: 44px;
+    line-height: 49px;
+    letter-spacing: -1px;
+    font-weight: 600;
+}
+
+#tall {
+    color: #fff;
+    font-size: 105px;
+    font-family: "lft-etica-compressed",sans-serif;
+    line-height: 95px;
+    font-weight: 400;
+    letter-spacing: -2px;
+    margin-bottom: 0px;
+}
+
+.row-no-padding .p{
+	color: #fff;
+    margin: 0 0 20px;
+    font-family: "proxima-nova-alt-condensed";
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.white_link {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #fff;
+    margin-right: 15px;
+    font-weight: 600;    
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding-right: 20px;
+    background-size: 15px 14px;
+    background-position: right center;
+
+    transition: all .1s ease-in;
+}
+
+#left_link:hover {
+	color: #fff;
+	letter-spacing: 3px;
+}
+
+#right_link:hover {
+	color: :#fff;
+	letter-spacing: 3px;
 }
