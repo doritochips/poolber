@@ -16,10 +16,9 @@
 
 .blue_left {
     width: 100%;
-    background: url(../source/left-color.jpg);
-    background-size: cover !important;
     height: 100vh;
-    transition: all 490ms ease-out;
+    background: url(../source/left-color.jpg) center center no-repeat;
+    background-size: cover !important;    
     text-align: center;
     background-position: center !important;
     padding: 30% 5%;
@@ -39,9 +38,9 @@
 .blue_left:hover {
 	background: url(../source/left.jpg);
     background-size: cover;
-    color: #000 !important;
-    background-position: center !important;
-    transition: all 590ms ease-in !important;
+    color: #000;
+    background-position: center ;
+    transition: all 590ms ease-in ;
 
 }
 
@@ -87,8 +86,7 @@ h1 {
     text-transform: uppercase;
     color: #fff;
     margin-right: 15px;
-    font-weight: 600;
-    background-image: url(images/white_arrow.svg);
+    font-weight: 600;    
     background-size: contain;
     background-repeat: no-repeat;
     padding-right: 20px;
