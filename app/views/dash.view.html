@@ -89,16 +89,16 @@
                                     <th>Departure</th>
                                     <th>Destination</th>
                                     <th>ScheduleDate</th>
-                                    <th>PostDate</th>
-                                    <th></th>
+                                    <th>ScheduleTime</th>
+                                    <th>                                    
                                 </tr>
                             </thead>
                             <tbody ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize">
                                 <tr>
                                     <td>{{ride.departure}}</td>
                                     <td>{{ride.destination}}</td>
-                                    <td>{{ride.scheduleDate}}</td>
-                                    <td>{{ride.postDate}}</td>
+                                    <td>{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
+                                    <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
                                     <td><a class="btn btn-primary" ng-click="getDetail(ride);"><span class="fa fa-chevron-right"></span></a></td>
                                 </tr>
                             </tbody>
