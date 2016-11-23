@@ -1,17 +1,29 @@
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
-		// DATE PICKER
-		$scope.form = {		
-		};	
-		$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
-		$scope.dateOptions = {
-		    formatYear: 'yy',
-		    minDate: new Date()
-		};	
-		$scope.popup = {
-			opened:false
-		}
-		$scope.filter = {};
+		
+		//initialize
+		init = function(){
+			$scope.filter = {};
+			$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
+			$scope.dateOptions = {
+			    formatYear: 'yy',
+			    minDate: new Date()
+			};	
+			$scope.popup = {
+				opened:false
+			}
+			$scope.form = {};	
+			$scope.form.passengers = 1;
+			$scope.form.date= new Date();
+
+			//pagination
+			$scope.rides = [];
+			$scope.currentPage = 0;
+			$scope.pageSize = 10;
+			$scope.options = [10,20,50];
+		}();
+		
+		
 		$scope.open = function(){
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
@@ -52,11 +64,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 		}
 
-		//List controller
-		$scope.rides = [];
-		$scope.currentPage = 0;
-		$scope.pageSize = 10;
-		$scope.options = [10,20,50];
+		//List rides
 
 		$http.get('/api/rides').then(function(res){
 			$scope.rides = res.data;
@@ -81,8 +89,5 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 		};
 
-		//initialize
-		init = function(){
 
-		}();
 }]);
