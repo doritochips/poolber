@@ -12,8 +12,9 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
 		};
-
-		$scope.invalidPassenger = false;
+		
+		$scope.minDate = new Date();//get today
+		$scope.invalidInput = false;
 		$scope.applyFilter = function(){
 			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date)){
 				$scope.invalidInput = true;
