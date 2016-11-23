@@ -7,10 +7,19 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 		$scope.popup = {
 			opened:false
 		}
+		$scope.filter = {};
 		$scope.open = function(){
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
 		};
+
+		$scope.applyFilter = function(){
+			$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
+			$scope.filter.destination = $scope.form.destination.trim();
+			$scope.filter.passengers = $scope.form.passengers;
+			$scope.filter.date = $scope.form.date;
+			console.log($scope.filter);
+		}
 
 		//List controller
 		$scope.rides = [];

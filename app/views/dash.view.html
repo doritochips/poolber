@@ -5,16 +5,16 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong><span class="fa fa-filter"></span> Filter Rides</strong>
+                        <strong><span class="fa fa-filter"></span> Find a Ride</strong>
                         <div class="pull-right">
-                            <button class="btn btn-dark btn-xs"><span class="fa fa-plus"></span> Add Filter</button>
+                            <button class="btn btn-danger btn-xs" ng-click="applyFilter()"><span class="fa fa-plus" ></span> Search</button>
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="form-group row">
-                                <div class="col-lg-3">
+                                <div class="col-md-3">
                                     <div class="inside-row">
-                                        <label for="departure">Departure City:</label>
+                                        <label for="departure">Departure</label>
                                     </div>
                                     <div class="inside-row">
                                         <span class="ui-select">
@@ -25,9 +25,9 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-md-3">
                                     <div class="inside-row">
-                                        <label for="departure">Destination City:</label>
+                                        <label for="departure">Destination</label>
                                     </div>
                                     <div class="inside-row">
                                         <span class="ui-select">
@@ -39,11 +39,11 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-md-3">
                                     <label for="Destination City">Passengers</label>
-                                    <input class="form-control col-sm-4" id="startingLocation" placeholder="Enter Location">
+                                    <input class="form-control col-sm-4" placeholder="Number of Passengers" ng-model="form.passengers">
                                 </div>   
-                                <div class="col-lg-3">
+                                <div class="col-md-3">
                                     <label for="date">Date</label>  
                                     <p class="input-group">
                                       <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
@@ -58,14 +58,16 @@
             </div>  
 
             <!-- current selections -->
-            <div class="col-md-4">
+<!--             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><strong><span class="fa fa-magic"></span> Current Selections</strong></div>
                     <div class="panel-body">
                         asdf
                     </div>                    
                 </div>
-            </div> 
+            </div>  -->
+
+
         </div>
     </div>
     <div class="page page-table">
