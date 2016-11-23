@@ -13,12 +13,31 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			$scope.popup.opened  = true;		
 		};
 
+		$scope.invalidPassenger = false;
 		$scope.applyFilter = function(){
-			$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
-			$scope.filter.destination = $scope.form.destination.trim();
-			$scope.filter.passengers = $scope.form.passengers;
-			$scope.filter.date = $scope.form.date;
-			console.log($scope.filter);
+			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date)){
+				$scope.invalidInput = true;
+				if (!$scope.form.departure){
+					$scope.invalidDeparture = true;
+				}
+				if (!$scope.form.destination){
+					$scope.invalidDestination = true;
+				}
+				if (!$scope.form.passengers){
+					$scope.invalidPassenger = true;
+				}
+				if (!$scope.form.date){
+					$scope.invalidDate = true;
+				}		
+			}
+			else{
+				$scope.invalidInput = false;
+				$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
+				$scope.filter.destination = $scope.form.destination.trim();
+				$scope.filter.passengers = $scope.form.passengers;
+				$scope.filter.date = $scope.form.date;
+					
+			}
 		}
 
 		//List controller

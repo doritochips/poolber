@@ -17,7 +17,7 @@
                                         <label for="departure">Departure</label>
                                     </div>
                                     <div class="inside-row">
-                                        <span class="ui-select">
+                                        <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
                                             <select class="col-sm-6" ng-model="form.departure" id="departure">              
                                             <option ng-repeat="city in cities">
                                             {{city}}</option>       
@@ -30,7 +30,7 @@
                                         <label for="departure">Destination</label>
                                     </div>
                                     <div class="inside-row">
-                                        <span class="ui-select">
+                                        <span class="ui-select" ng-class="{invalid: invalidDestination}">
                                             <select class="col-sm-6" ng-model="form.destination" id="destination">
                                             <option ng-repeat="city in cities">
                                             {{city}}</option>       
@@ -41,17 +41,24 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="Destination City">Passengers</label>
-                                    <input class="form-control col-sm-4" placeholder="Number of Passengers" ng-model="form.passengers">
+                                    <input class="form-control col-sm-4" ng-class="{invalid: invalidPassenger}" placeholder="Number of Passengers" type="number" ng-model="form.passengers">
                                 </div>   
                                 <div class="col-md-3">
                                     <label for="date">Date</label>  
                                     <p class="input-group">
-                                      <input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
+                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
                                       <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
                                       </span>
                                     </p>                
                                 </div> 
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                      <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
+                                    </div>
+                                   
+                                </div>
+                                
                         </div>
                     </div>                    
                 </div>
@@ -86,7 +93,7 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody ng-repeat="ride in rides | startFrom:currentPage*pageSize | limitTo:pageSize">
+                            <tbody ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize">
                                 <tr>
                                     <td>{{ride.departure}}</td>
                                     <td>{{ride.destination}}</td>
