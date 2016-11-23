@@ -69,7 +69,14 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', function($http, $
 			$scope.errorMsg = "Please select a date.";
 			$scope.noError = false;
 			return false;
+		}else{
+			var today = new Date();
+			if($scope.form.date < today)
+			$scope.errorMsg = "Please select a valid date.";
+			$scope.noError = false;
+			return false;
 		}
+		
 		if(!$scope.form.startTime){
 			$scope.errorMsg = "Please select a valid time.";
 			$scope.noError = false;
