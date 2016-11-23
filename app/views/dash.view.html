@@ -1,3 +1,5 @@
+<style href="styles/ride-list.css"></style>
+
 <section>
     <div class="page page-form">
         <div class="row">
@@ -41,18 +43,18 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="Destination City">Passengers</label>
-                                    <input class="form-control col-sm-4" ng-class="{invalid: invalidPassenger}" placeholder="Number of Passengers" type="number" ng-model="form.passengers">
+                                    <input min="1" max="6" class="form-control col-sm-4" ng-class="{invalid: invalidPassenger}" placeholder="Number of Passengers" type="number" ng-model="form.passengers">
                                 </div>   
                                 <div class="col-md-3">
                                     <label for="date">Date</label>  
                                     <p class="input-group">
-                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened"/>
+                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" datepicker-options="dateOptions" ng-model="form.date" is-open="popup.opened"/>
                                       <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
                                       </span>
                                     </p>                
                                 </div> 
-                                <div class="row">
+                                <div class="row" ng-show="invalidInput">
                                     <div class="col-sm-6">
                                       <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
                                     </div>

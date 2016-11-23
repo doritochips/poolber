@@ -2,8 +2,7 @@ dash.config(function($routeProvider){
 	$routeProvider
 	.when("/",{
 		templateUrl:"views/dash.view.html",
-		controller: "rideListCtrl",
-		css: ["styles/ride-st.css"]
+		controller: "rideListCtrl"
 	})
 	.when("/requestRide", {
 		templateUrl:"views/request_ride.view.html"

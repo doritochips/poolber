@@ -1,36 +1,8 @@
-html, body {
-  height: 100%;
-}
-* {
-  margin: 0;
-}
-.page{
-	margin-top:40px;
-	min-height: 100%;
-	margin-bottom: -142px;
-}
-.page:after {
-  content: "";
-  display: block;
-}
-
-.footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 100px;
-    width: 100%;
-    background-color:rgba(0, 0, 0, 0)
-}
-
-.body-auth #content {
-    background: white;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover
-}
-
 .invalid
 {
-  border:1px solid #ff0000 !important;
+  border:1px solid #FD545B !important;
+}
+
+.text-danger{
+  color: #FD545B;
 }

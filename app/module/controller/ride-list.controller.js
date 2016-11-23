@@ -1,19 +1,37 @@
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
-		$scope.form = {		
-		};	
-		$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
 		
-		$scope.popup = {
-			opened:false
-		}
-		$scope.filter = {};
+		//initialize
+		init = function(){
+			$scope.filter = {};
+			$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
+			$scope.dateOptions = {
+			    formatYear: 'yy',
+			    minDate: new Date()
+			};	
+			$scope.popup = {
+				opened:false
+			}
+			$scope.form = {};	
+			$scope.form.passengers = 1;
+			$scope.form.date= new Date();
+
+			//pagination
+			$scope.rides = [];
+			$scope.currentPage = 0;
+			$scope.pageSize = 10;
+			$scope.options = [10,20,50];
+		}();
+		
+		
 		$scope.open = function(){
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
 		};
 
-		$scope.invalidPassenger = false;
+
+		//Form validation
+		$scope.invalidInput = false;
 		$scope.applyFilter = function(){
 			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date)){
 				$scope.invalidInput = true;
@@ -32,6 +50,12 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 			else{
 				$scope.invalidInput = false;
+				$scope.invalidDeparture = false;
+				$scope.invalidDestination = false;
+				$scope.invalidPassenger = false;
+				$scope.invalidDate = false;
+
+
 				$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
 				$scope.filter.destination = $scope.form.destination.trim();
 				$scope.filter.passengers = $scope.form.passengers;
@@ -40,11 +64,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 		}
 
-		//List controller
-		$scope.rides = [];
-		$scope.currentPage = 0;
-		$scope.pageSize = 10;
-		$scope.options = [10,20,50];
+		//List rides
 
 		$http.get('/api/rides').then(function(res){
 			$scope.rides = res.data;
@@ -69,8 +89,5 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 		};
 
-		//initialize
-		init = function(){
 
-		}();
 }]);
