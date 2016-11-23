@@ -1,9 +1,13 @@
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
+		// DATE PICKER
 		$scope.form = {		
 		};	
 		$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
-		
+		$scope.dateOptions = {
+		    formatYear: 'yy',
+		    minDate: new Date()
+		};	
 		$scope.popup = {
 			opened:false
 		}
@@ -12,8 +16,9 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
 		};
-		
-		$scope.minDate = new Date();//get today
+
+
+		//Form validation
 		$scope.invalidInput = false;
 		$scope.applyFilter = function(){
 			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date)){
@@ -33,6 +38,12 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			}
 			else{
 				$scope.invalidInput = false;
+				$scope.invalidDeparture = false;
+				$scope.invalidDestination = false;
+				$scope.invalidPassenger = false;
+				$scope.invalidDate = false;
+
+
 				$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
 				$scope.filter.destination = $scope.form.destination.trim();
 				$scope.filter.passengers = $scope.form.passengers;

@@ -13,7 +13,10 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', function($http, $
 	$scope.popup = {
 		opened:false
 	};
-
+	$scope.dateOptions = {
+	    formatYear: 'yy',
+	    minDate: new Date()
+	};	
 	// get user id
 	$scope.$on('getUserId', function(event, obj){
 		$scope.form.user_id = obj;

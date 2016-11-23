@@ -48,7 +48,7 @@
                                 <div class="col-md-3">
                                     <label for="date">Date</label>  
                                     <p class="input-group">
-                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" minDate="minDate" ng-model="form.date" is-open="popup.opened"/>
+                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" datepicker-options="dateOptions" ng-model="form.date" is-open="popup.opened"/>
                                       <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
                                       </span>

@@ -36,7 +36,7 @@
 					<div class="col-sm-6">
 						<label for="date">Date</label>	
 						<p class="input-group">
-							<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" is-open="popup.opened" placeholder="Pick a date" />
+							<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" datepicker-options="dateOptions" is-open="popup.opened" placeholder="Pick a date" />
 							<span class="input-group-btn">
 								<button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
 							</span>
