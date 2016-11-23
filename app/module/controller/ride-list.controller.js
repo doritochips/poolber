@@ -1,10 +1,10 @@
-dash.controller("rideListCtrl", ['$window','$scope', '$http', 
-	function($window, $scope, $http){
+dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
+	function($window, $scope, $http, CityList){
 		
 		//initialize
 		init = function(){
 			$scope.filter = {};
-			$scope.cities = ["London", "Waterloo", "Kitchener", "Toronto"];
+			$scope.cities = CityList.commonCities;
 			$scope.dateOptions = {
 			    formatYear: 'yy',
 			    minDate: new Date()

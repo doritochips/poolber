@@ -1,6 +1,7 @@
-dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', function($http, $scope, toaster){
+dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',function($http, $scope, toaster, CityList){
 	// hardcode data
-	$scope.cities = ["Select a city", "London", "Waterloo", "Kitchener", "Toronto"];
+	console.log(CityList);
+	$scope.cities = CityList.commonCities;
 	$scope.passengers = [1,2,3,4];	
 	
 	// init
