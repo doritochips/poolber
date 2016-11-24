@@ -1,4 +1,5 @@
 // Dependencies
+var path = require('path');
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
@@ -6,9 +7,16 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var swig = require('swig');
 var app = express();
 // files
 
+
+
+//set render engine to swig
+app.engine('html',swig.renderFile);
+app.set('view engine', 'html');
+app.set('views','./');
 
 
 // middleware
