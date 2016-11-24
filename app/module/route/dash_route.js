@@ -19,6 +19,10 @@ dash.config(function($routeProvider){
 		templateUrl:"views/ride-list.view.html",
 		controller: "rideListCtrl"
 	})
+	.when("/profile",{
+		templateUrl:"views/profile.view.html",
+		controller: "profileCtrl"
+	})
 	.otherwise({
 		redirectTo:'/404'
 	})
