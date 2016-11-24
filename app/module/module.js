@@ -1,2 +1,2 @@
-var dash = angular.module('dash', ['ngRoute', 'ui.bootstrap','ngAnimate','toaster','routeStyles']);
+var dash = angular.module('dash', ['ngRoute','ngAnimate', 'ui.bootstrap','toaster','routeStyles']);
 var front = angular.module('front', ['ngRoute','routeStyles']);
