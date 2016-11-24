@@ -74,11 +74,12 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',functi
 			$scope.noError = false;
 			return false;
 		}else{
-			var today = new Date();
-			if($scope.form.date < today)
-			$scope.errorMsg = "Please select a valid date.";
-			$scope.noError = false;
-			return false;
+			var yesterday = new Date(new Date().getTime()  - 24 * 60 * 60 * 1000);
+			if($scope.form.date < yesterday){
+				$scope.errorMsg = "Please select a valid date.";
+				$scope.noError = false;
+				return false;	
+			}			
 		}
 		
 		if(!$scope.form.startTime){

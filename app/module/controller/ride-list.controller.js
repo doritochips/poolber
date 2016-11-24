@@ -12,6 +12,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 			$scope.popup = {
 				opened:false
 			}
+			$scope.isCollapsed = true;
 			$scope.form = {};	
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
@@ -74,13 +75,8 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 			console.log(res);
 		});
 
-		$scope.getDetail = function(ride){
-			console.log(ride._id);
-			$http.get('/api/ride/' + ride._id).then(function(res){
-				console.log(res);
-			},function(res){
-				console.log(res);
-			});
+		$scope.getDetail = function(ride){			
+			return;
 		};
 		var processData = function(){
 			var l = $scope.rides.length;

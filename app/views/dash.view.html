@@ -1,5 +1,3 @@
-<style href="styles/ride-list.css"></style>
-
 <section>
     <div class="page page-form">
         <div class="row">
@@ -14,15 +12,15 @@
                     </div>
                     <div class="panel-body">
                         <div class="form-group row">
-                                <div class="col-md-3">
-                                    <div class="inside-row">
-                                        <label for="departure">Departure</label>
-                                    </div>
-                                    <div class="inside-row">
-                                        <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
-                                            <select class="col-sm-6" ng-model="form.departure" id="departure">              
+                            <div class="col-md-3">
+                                <div class="inside-row">
+                                    <label for="departure">Departure</label>
+                                </div>
+                                <div class="inside-row">
+                                    <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
+                                        <select class="col-sm-6" ng-model="form.departure" id="departure">              
                                             <option ng-repeat="city in cities">
-                                            {{city}}</option>       
+                                                {{city}}</option>       
                                             </select>
                                         </span>
                                     </div>
@@ -34,9 +32,9 @@
                                     <div class="inside-row">
                                         <span class="ui-select" ng-class="{invalid: invalidDestination}">
                                             <select class="col-sm-6" ng-model="form.destination" id="destination">
-                                            <option ng-repeat="city in cities">
-                                            {{city}}</option>       
-                                            </select>
+                                                <option ng-repeat="city in cities">
+                                                    {{city}}</option>       
+                                                </select>
                                             </select>
                                         </span>
                                     </div>
@@ -51,22 +49,22 @@
                                       <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" datepicker-options="dateOptions" ng-model="form.date" is-open="popup.opened"/>
                                       <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
-                                      </span>
-                                    </p>                
-                                </div> 
-                                <div class="row" ng-show="invalidInput">
-                                    <div class="col-sm-6">
-                                      <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
-                                    </div>
-                                   
-                                </div>
-                                
-                        </div>
-                    </div>                    
-                </div>
-            </div>  
+                                    </span>
+                                </p>                
+                            </div> 
+                            <div class="row" ng-show="invalidInput">
+                                <div class="col-sm-6">
+                                  <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
+                              </div>
 
-            <!-- current selections -->
+                          </div>
+
+                      </div>
+                  </div>                    
+              </div>
+          </div>  
+
+          <!-- current selections -->
 <!--             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><strong><span class="fa fa-magic"></span> Current Selections</strong></div>
@@ -91,34 +89,61 @@
                                     <th>Departure</th>
                                     <th>Destination</th>
                                     <th>ScheduleDate</th>
-                                    <th>PostDate</th>
-                                    <th></th>
+                                    <th>ScheduleTime</th>
+                                    <th> </th>                                   
                                 </tr>
                             </thead>
                             <tbody ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize">
                                 <tr>
                                     <td>{{ride.departure}}</td>
                                     <td>{{ride.destination}}</td>
-                                    <td>{{ride.scheduleDate}}</td>
-                                    <td>{{ride.postDate}}</td>
-                                    <td><a class="btn btn-primary" ng-click="getDetail(ride);"><span class="fa fa-chevron-right"></span></a></td>
+                                    <td>{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
+                                    <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
+
+                                    <td>                                        
+                                    <a class="btn btn-primary" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
+                                    </td>
+                                </tr>
+                                <tr uib-collapse="isCollapsed">                                    
+                                    <td class="collapse-td" colspan="5">
+                                        <div class="callout callout-info">
+                                            <h4>Details</h4>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <b>Number of Passengers:</b>    
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <b>{{ride.passenger}}</b>    
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <b>Note:</b>    
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <b>{{ride.note}}</b>    
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="pull-right">
-                        <p>
-                        Show
-                        <select class="btn btn-xs btn-default dropdown-toggle" ng-model="pageSize" ng-options="x for x in options">
-                        </select>
-                        per page &nbsp &nbsp
-                        <button class="btn btn-direction btn-left btn-danger" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous </button>
-                        {{currentPage+1}}/{{numberOfPages()}}
-                        <button class="btn btn-direction btn-right btn-primary" ng-disabled="currentPage >= rides.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
+                            <p>
+                                Show
+                                <select class="btn btn-xs btn-default dropdown-toggle" ng-model="pageSize" ng-options="x for x in options">
+                                </select>
+                                per page &nbsp &nbsp
+                                <button class="btn btn-direction btn-left btn-danger" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous </button>
+                                {{currentPage+1}}/{{numberOfPages()}}
+                                <button class="btn btn-direction btn-right btn-primary" ng-disabled="currentPage >= rides.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-           
             </div>
         </div>
-    </div>
-</section>
+    </section>

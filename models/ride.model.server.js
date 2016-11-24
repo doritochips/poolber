@@ -12,7 +12,7 @@ var rideSchema = new Schema({
 		lowercase: true, 
 		trim: true 
 	},	
-	userID: {
+	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
