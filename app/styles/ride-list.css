@@ -10,3 +10,10 @@
 .table tbody tr td{
   text-transform: capitalize;
 }
+
+.collapse-td{
+	padding:0px !important;
+}
+.callout{
+	margin:0px;
+}

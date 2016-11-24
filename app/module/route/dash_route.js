@@ -23,4 +23,3 @@ dash.config(function($routeProvider){
 		redirectTo:'/404'
 	})
 })
-

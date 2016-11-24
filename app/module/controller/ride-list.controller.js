@@ -12,6 +12,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 			$scope.popup = {
 				opened:false
 			}
+			$scope.isCollapsed = true;
 			$scope.form = {};	
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
