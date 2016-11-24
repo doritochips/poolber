@@ -74,13 +74,8 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http',
 			console.log(res);
 		});
 
-		$scope.getDetail = function(ride){
-			console.log(ride._id);
-			$http.get('/api/ride/' + ride._id).then(function(res){
-				console.log(res);
-			},function(res){
-				console.log(res);
-			});
+		$scope.getDetail = function(ride){			
+			return;
 		};
 		var processData = function(){
 			var l = $scope.rides.length;

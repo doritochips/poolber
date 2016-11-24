@@ -1,5 +1,3 @@
-<style href="styles/ride-list.css"></style>
-
 <section>
     <div class="page page-form">
         <div class="row">
@@ -101,7 +99,16 @@
                                     <td>{{ride.destination}}</td>
                                     <td>{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
                                     <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
-                                    <td><a class="btn btn-primary" ng-click="getDetail(ride);"><span class="fa fa-chevron-right"></span></a></td>
+                                    
+                                    <td>
+                                        <div uib-accordion-group class="panel-default" is-open="ride.detailOpened">
+                                            <uib-accordion-heading>
+                                                <a class="btn btn-primary" ng-click="getDetail(ride);"><span class="fa" ng-class="{'fa-chevron-right': !ride.detailOpened, 'fa-chevron-down': ride.detailOpened}"></span></a>                                                
+                                            </uib-accordion-heading>
+                                            
+                                        </div>
+                                        
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
