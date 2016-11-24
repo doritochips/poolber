@@ -1,7 +1,6 @@
 dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',function($http, $scope, toaster, CityList){
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
-	$scope.cities.unshift("Select a city");
 	$scope.passengers = [1,2,3,4];	
 	
 	// init

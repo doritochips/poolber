@@ -3,6 +3,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 		
 		//initialize
 		init = function(){
+			$scope.form = {};
 			$scope.filter = {};
 			$scope.cities = CityList.commonCities;
 			$scope.dateOptions = {
@@ -13,10 +14,10 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 				opened:false
 			}
 			$scope.isCollapsed = true;
-			$scope.form = {};	
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
-
+			console.log($scope.cities);
+			$scope.form.destination = $scope.cities[0];
 			//pagination
 			$scope.rides = [];
 			$scope.currentPage = 0;

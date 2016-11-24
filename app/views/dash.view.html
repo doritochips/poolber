@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="inside-row">
                                     <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
-                                        <select class="col-sm-6" ng-model="form.departure" id="departure">              
+                                        <select class="col-sm-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]">              
                                             <option ng-repeat="city in cities">
                                                 {{city}}</option>       
                                             </select>
@@ -31,7 +31,7 @@
                                     </div>
                                     <div class="inside-row">
                                         <span class="ui-select" ng-class="{invalid: invalidDestination}">
-                                            <select class="col-sm-6" ng-model="form.destination" id="destination">
+                                            <select ng-init="form.destination = cities[0]" class="col-sm-6" ng-model="form.destination" id="destination">
                                                 <option ng-repeat="city in cities">
                                                     {{city}}</option>       
                                                 </select>
