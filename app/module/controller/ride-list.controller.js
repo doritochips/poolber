@@ -16,8 +16,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 			$scope.isCollapsed = true;
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
-			console.log($scope.cities);
-			$scope.form.destination = $scope.cities[0];
 			//pagination
 			$scope.rides = [];
 			$scope.currentPage = 0;
@@ -35,12 +33,12 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 		//Form validation
 		$scope.invalidInput = false;
 		$scope.applyFilter = function(){
-			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date)){
+			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date&&$scope.form.departure !== $scope.cities[0]&&$scope.form.destination !== $scope.cities[0])){
 				$scope.invalidInput = true;
-				if (!$scope.form.departure){
+				if (!$scope.form.departure || $scope.form.departure === $scope.cities[0]){
 					$scope.invalidDeparture = true;
 				}
-				if (!$scope.form.destination){
+				if (!$scope.form.destination  || $scope.form.destination === $scope.cities[0]){
 					$scope.invalidDestination = true;
 				}
 				if (!$scope.form.passengers){
