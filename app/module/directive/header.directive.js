@@ -11,8 +11,8 @@ dash.directive('poolHeader', ['UserService', '$location', '$window', '$rootScope
 					$window.location.href = '/#/login';	
 					return;
 				}
-				scope.user = res.data[0];
-
+				scope.user = res.data[0];				
+				scope.user.name = scope.user.firstName == ""? scope.username:scope.user.firstName + " " + scope.user.lastName;
 				// broadcast userid so any scope can get it
 				$rootScope.$broadcast('getUserId', scope.user._id)
 			
