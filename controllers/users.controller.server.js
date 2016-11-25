@@ -224,6 +224,8 @@ exports.validateResetToken = function (req, res) {
 
 exports.reset = function (req, res, next) {
 	// Init Variables
+	console.log(req.body);
+	console.log(req.params.token);
 	var passwordDetails = req.body;
 	var message = null;
 
@@ -238,15 +240,15 @@ exports.reset = function (req, res, next) {
 			}, function (err, user) {
 				if (!err && user) {
 					if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
+
 						user.password = passwordDetails.newPassword;
+						console.log(user);
 						user.resetPasswordToken = undefined;
 						user.resetPasswordExpires = undefined;
 
 						user.save(function (err) {
 							if (err) {
-								return res.status(400).send({
-									message: errorHandler.getErrorMessage(err)
-								});
+								return res.status(400).send(err);
 							} else {
 								req.login(user, function (err) {
 									if (err) {
@@ -270,7 +272,7 @@ exports.reset = function (req, res, next) {
 					}
 				} else {
 					return res.status(400).send({
-						message: 'Password reset token is invalid or has expired.'
+						message: 'This link is invalid or has expired.'
 					});
 				}
 			});

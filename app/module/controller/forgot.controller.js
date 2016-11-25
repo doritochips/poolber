@@ -1,4 +1,4 @@
-front.controller("forgotCtrl", ['$window','$scope', '$http', 
+front.controller("ForgotCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
 		// user
 		$scope.user = {

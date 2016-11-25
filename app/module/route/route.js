@@ -16,11 +16,11 @@ front.config(function($routeProvider){
 	})
 	.when("/forgot-password",{
 		templateUrl:"views/password/forgot-password.view.html",
-		controller: "forgotCtrl"
+		controller: "ForgotCtrl"
 	})
 	.when("/password/reset/:id",{
 		templateUrl:"views/password/reset-password.view.html",
-		controller: "resetCtrl"
+		controller: "ResetCtrl"
 	})
 	.when("/password/resetinvalid",{
 		templateUrl:"views/password/reset-password-invalid.view.html"
