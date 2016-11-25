@@ -10,10 +10,8 @@ front.controller("forgotCtrl", ['$window','$scope', '$http',
 			$scope.user.email = $scope.email;
 			$http.post("/api/auth/forgot", $scope.user).then(function(res){				
 				$scope.message = res.data.message;
-				console.log("data sent");
-				console.log(res);
 			}, function(err){
-				$scope.message = res.data.message;
+				$scope.message = err.data.message;
 				console.log(err);
 			});
 		};

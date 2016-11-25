@@ -15,7 +15,7 @@ var nodemailer = require('nodemailer');
 
 
 
-var smtpTransport = nodemailer.createTransport('smtps://elvissundev%40gmail.com:JNHXDWH123@smtp.gmail.com');
+var smtpTransport = nodemailer.createTransport('smtps://poolbercanada%40gmail.com:devpassword@smtp.gmail.com');
 
 // sha1 encryption
 var shasum = crypto.createHash('sha1');
@@ -157,6 +157,11 @@ exports.forgot = function(req,res,next) {
 		            });
 				}
 				else{
+					if(user.resetPasswordExpires - Date.now() > (3600000 - 1*60*1000)){	//wait 1 minute
+						return res.status(400).send({
+							message: 'An email has been sent, please check your inbox and spam'
+						})
+					}
 					user.resetPasswordToken = token;
 					user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 					user.save(function(err) {
@@ -183,7 +188,7 @@ exports.forgot = function(req,res,next) {
 				subject: 'Password Reset',
 				html: emailHTML
 			};
-			console.log(mailOptions);
+			//console.log(mailOptions);
 			smtpTransport.sendMail(mailOptions, function (err) {
 				if (!err) {
 					res.send({
@@ -202,3 +207,76 @@ exports.forgot = function(req,res,next) {
 		if (err) return next(err);
 	});
 }
+
+exports.validateResetToken = function (req, res) {
+	User.findOne({
+		resetPasswordToken: req.params.token,
+		resetPasswordExpires: {
+			$gt: Date.now()
+		}
+	}, function (err, user) {
+		if (!user) {
+			return res.redirect('/#/password/resetinvalid');
+		}
+		return res.redirect('/#/password/reset/' + req.params.token);
+	});
+};
+
+exports.reset = function (req, res, next) {
+	// Init Variables
+	var passwordDetails = req.body;
+	var message = null;
+
+	async.waterfall([
+
+		function (done) {
+			User.findOne({
+				resetPasswordToken: req.params.token,
+				resetPasswordExpires: {
+					$gt: Date.now()
+				}
+			}, function (err, user) {
+				if (!err && user) {
+					if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
+						user.password = passwordDetails.newPassword;
+						user.resetPasswordToken = undefined;
+						user.resetPasswordExpires = undefined;
+
+						user.save(function (err) {
+							if (err) {
+								return res.status(400).send({
+									message: errorHandler.getErrorMessage(err)
+								});
+							} else {
+								req.login(user, function (err) {
+									if (err) {
+										res.status(400).send(err);
+									} else {
+										// Remove sensitive data before return authenticated user
+										user.password = undefined;
+										user.salt = undefined;
+
+										res.json(user);
+
+										done(err, user);
+									}
+								});
+							}
+						});
+					} else {
+						return res.status(400).send({
+							message: 'Passwords do not match'
+						});
+					}
+				} else {
+					return res.status(400).send({
+						message: 'Password reset token is invalid or has expired.'
+					});
+				}
+			});
+		}], function (err) {
+		if (err) {
+			return next(err);
+		}
+	});
+};

@@ -10,4 +10,6 @@ module.exports = function(app) {
 	app.route('/api/auth/signout').post(users.signout);
 	app.route('/api/data/userinfo').post(users.userinfo);
 	app.route('/api/auth/forgot').post(users.forgot);
+	app.route('/api/auth/reset/:token').get(users.validateResetToken);
+	app.route('/api/auth/reset/:token').post(users.reset);
 };

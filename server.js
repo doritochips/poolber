@@ -20,6 +20,7 @@ app.set('views','./');
 
 
 // middleware
+app.use(express.static('app'));
 
 //should put one in the callback of the other for them to run in parallel
 app.use(express.static("app"));
