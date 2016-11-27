@@ -4,6 +4,7 @@ var User = require('../models/user.model.server.js');
 var mongoose = require("mongoose");
 
 exports.post = function(req, res) {    
+    console.log(req.body);
 	var newRide = new Ride(req.body);          
     newRide.user = {_id: req.body.user_id};
     newRide.save(function(err) {

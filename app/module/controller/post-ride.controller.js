@@ -44,6 +44,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',functi
 		$scope.form.startTime = new Date(year, month, day, startingH, startingM);
 		$scope.form.endTime = new Date(year, month, day, endingH, endingM);
 
+		console.log($scope.form);
 		$http.post('/api/ride', $scope.form).then(function(res){
 			if(res){				
 				toaster.pop('success', "Success", "Your ride has been posted!");
