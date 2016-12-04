@@ -9,7 +9,7 @@ var client = require('twilio')(accountSid, authToken);
  
 exports.send = function (req, res) {
 	var recipient = req.body.recipient;
-	var cusMessage = ""; 
+	var cusMessage = req.body.message; 
 	client.messages.create({ 
 	    to: recipient, //"+12267004160" 
 	    from: "+12262705666", 
