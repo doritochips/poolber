@@ -1,0 +1,8 @@
+#body{
+  background:url(../../source/background/4.jpg) center center no-repeat fixed;
+  background-size:cover;
+}
+
+#inner{
+	background: rgba(255,255,255,0.35);
+}

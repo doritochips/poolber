@@ -28,6 +28,12 @@ front.config(function($routeProvider){
 	.when("/404",{
 		templateUrl:"views/error/404.view.html"
 	})
+	.when("/terms-and-condition",{
+		templateUrl:"views/terms/term.view.html"
+	})
+	.when("/privacy-policy",{
+		templateUrl:"views/terms/privacy.view.html"
+	})
 	.otherwise({
 		redirectTo:'/404'
 	})
