@@ -24,14 +24,14 @@ module.exports = function (app, db) {
   },
   function (username, password, done) {
     User.findOne({
-      username: username.toLowerCase()
+      email: username.toLowerCase()
     }, function (err, user) {
       if (err) {
         return done(err);
       }
       if (!user || !user.authenticate(password)) {
         return done(null, false, {
-          message: 'Invalid username or password'
+          message: 'Invalid email or password'
         });
       }
 
