@@ -50,7 +50,7 @@
                                     	<span>{{user.email}}</span>
                                     </div>
                                     <div ng-show="editing" class="col-md-8">
-	                                    <input class="form-control" ng-show="editing" ng-model="user.email">
+	                                    <input class="form-control" ng-show="editing" ng-model="user.email" maxlength="20">
                                    </div>
                                     
                                 </li>                                
@@ -63,7 +63,7 @@
 	                                	<span>{{user.phone}}</span>
 	                                </div>
                                     <div ng-show="editing" class="col-md-8">
-                                    	<input class="form-control" ng-show="editing" ng-model="user.phone">
+                                    	<input class="form-control" phone-input ng-show="editing" ng-model="user.phone">
                                     </div>
                                 </li>
                                 <li class="col-md-12">
@@ -75,14 +75,27 @@
 	                                	<span>{{user.wechat}}</span>
 	                                </div>
                                     <div ng-show="editing" class="col-md-8">
-                                    	<input class="form-control" ng-show="editing" ng-model="user.wechat">
+                                    	<input class="form-control" ng-show="editing" ng-model="user.wechat" maxlength="20">
                                     </div>
                                 </li>                                                               	
-                                <div ng-show="showCar" class="car"></div> 
-                                <div class="col-md-12 submit-set">                            
-		                        	<button ng-show="!editing" class="btn btn-md btn-info pull-right" ng-click="editInfo()">Edit</button> 
-		                    		<button ng-show="editing" class="btn btn-md btn-success pull-right" ng-click="saveInfo()">Submit</button> 
-                    			</div>
+                                <li class="col-md-12">                               
+	                                <div class="submit-set">                            
+			                        	<button ng-show="!editing" class="btn btn-md btn-info pull-right" ng-click="editInfo()">Edit</button> 
+                                        <div class="pull-right">
+                                        
+			                    		<button ng-show="editing" class="btn btn-md btn-success" ng-click="saveInfo()">Submit</button> &nbsp
+
+                                        <button ng-show="editing" class="btn bnt-md btn-danger"
+                                        ng-click="cancelEdit()">Cancel</button>
+
+	                    			</div>
+                    			</li>
+                    			<li class="col-md-12">
+                    				Note: If you are a driver, passengers' contact information will be emailed to you if they select your posted ride.
+                    				If you are a passenger, your information can be send to the driver by one click which means you do not have to fill your information all the time.
+                    			</li>
+                    			<div ng-show="showCar" class="car"></div> 
+
                             </ul>
 							
                         </div>

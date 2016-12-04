@@ -68,6 +68,14 @@ var UserSchema = new Schema({
     trim: true,
     default: '-1'
   },
+  phone:{
+    type:String,
+    trim: true
+  },
+  wechat:{
+    type: String,
+    trim: true
+  },
   /* For reset password */
   resetPasswordToken: {
     type: String

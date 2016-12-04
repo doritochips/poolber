@@ -1,4 +1,4 @@
-dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',function($http, $scope, toaster, CityList){
+dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
 	$scope.passengers = [1,2,3,4];	
@@ -18,16 +18,19 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',functi
 	    minDate: new Date()
 	};	
 	// get user id
-	$scope.$on('getUserId', function(event, obj){
-		$scope.form.user_id = obj;
-	});
+	
+	$scope.form.user_id = UserService.getUserId();
+	if($scope.form.user_id == ""){
+		UserService.getUserInfo().then(function(res){
+			$scope.form.user_id = res.data[0]._id;
+		});
+	}
 
 	$scope.open = function(){
 		$scope.popup.opened  = true;		
 	};
 	
 	$scope.submit = function(){
-
 		if(!validation()){
 			return;
 		}
@@ -44,7 +47,6 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList',functi
 		$scope.form.startTime = new Date(year, month, day, startingH, startingM);
 		$scope.form.endTime = new Date(year, month, day, endingH, endingM);
 
-		console.log($scope.form);
 		$http.post('/api/ride', $scope.form).then(function(res){
 			if(res){				
 				toaster.pop('success', "Success", "Your ride has been posted!");
