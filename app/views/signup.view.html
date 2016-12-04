@@ -16,18 +16,9 @@
 						<div class="form-group">
 							<div class="input-group input-group-first">
 								<span class="input-group-addon">
-									<span class="fa fa-user-circle"></span>
-								</span>
-								<input  type="text" name="username" class="form-control input-lg" placeholder="Username" ng-model="user.username" ng-class="
-								{'input-error': user.validate(0) && !signupForm.username.$pristine}" autocomplete="off" required>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="input-group">
-								<span class="input-group-addon">
 									<span class="fa fa-envelope-o"></span>
 								</span>
-								<input type="email" name="email" class="form-control input-lg" ng-class="{'input-error': signupForm.email.$invalid && !signupForm.email.$pristine}" placeholder="Email" ng-model="user.email" autocomplete="off" required>
+								<input readonly onfocus="this.removeAttribute('readonly');" type="email" name="email" class="form-control input-lg" ng-class="{'input-error': signupForm.email.$invalid && !signupForm.email.$pristine}" placeholder="Email" ng-model="user.email" autocomplete="off" required>
 							</div>
 						</div>
 						<div class="form-group">
@@ -35,7 +26,16 @@
 								<span class="input-group-addon">
 									<span class="fa fa-key"></span>
 								</span>
-								<input type="password" name="password" class="form-control input-lg" placeholder="Password" ng-model="user.password" ng-class="{'input-error': user.validate(1) && !signupForm.password.$pristine}" autocomplete="off" required>
+								<input readonly onfocus="this.removeAttribute('readonly');" type="password" name="password" class="form-control input-lg" placeholder="Password" ng-model="user.password" ng-class="{'input-error': user.validate(1) && !signupForm.password.$pristine}" autocomplete="off" required>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group ">
+								<span class="input-group-addon">
+									<span class="fa fa-phone"></span>
+								</span>
+								<input readonly onfocus="this.removeAttribute('readonly');" phone-input type="text" name="phone" class="form-control input-lg" placeholder="Phone (Optional)" ng-model="user.phone" ng-class="
+								{'input-error': user.validate(3) && !signupForm.username.$pristine}" autocomplete="off">
 							</div>
 						</div>
 
