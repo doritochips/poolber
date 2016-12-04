@@ -224,8 +224,8 @@ exports.validateResetToken = function (req, res) {
 
 exports.reset = function (req, res, next) {
 	// Init Variables
-	console.log(req.body);
-	console.log(req.params.token);
+	// console.log(req.body);
+	// console.log(req.params.token);
 	var passwordDetails = req.body;
 	var message = null;
 
@@ -282,3 +282,18 @@ exports.reset = function (req, res, next) {
 		}
 	});
 };
+
+exports.saveProfile = function(req, res){
+	var user = req.body;
+	console.log(user);
+	User.update({session: user.session}, 
+		{$set:{firstName: user.firstName, lastName: user.lastName, email: user.email, phone:user.phone, wechat: user.wechat}},
+		function(error){
+		if(error){
+			console.log(error);
+			res.status(500).send(error);
+		}else{
+			res.send("success");
+		}
+	});
+}

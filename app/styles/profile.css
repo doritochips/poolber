@@ -2,10 +2,6 @@
 	height: 100%;
 }
 
-.submit-set{
-	padding-top: 10px;
-}
-
 .car{
     width: 80px;
     height: 200px;
@@ -14,8 +10,9 @@
     background:url(/source/car.png) no-repeat;
     background-size: 100% 100%;
     animation-duration: 10s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 1;    
     animation-direction: reverse;
+    animation-fill-mode: forwards;
 }
 
 @keyframes drive{
@@ -32,5 +29,5 @@
     75%  {transform: rotate(270deg); left:-80px; top:calc(100% - 60px);}
     78%  {transform: rotate(360deg); left:-80px; top:calc(100% - 60px);}
 
-    100% {transform: rotate(360deg);left:-80px; top:-200px;}
+    100% {transform: rotate(360deg);left:-80px; top:-200px; display:none;}
 }
