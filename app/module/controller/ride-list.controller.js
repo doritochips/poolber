@@ -1,5 +1,5 @@
-dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
-	function($window, $scope, $http, CityList){
+dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', 
+	function($window, $scope, $http, CityList, UserService){
 		
 		//initialize
 		init = function(){
@@ -69,7 +69,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 		$http.get('/api/rides').then(function(res){
 			$scope.rides = res.data;
 			processData();
-			console.log($scope.rides);
 		},function(res){
 			console.log(res);
 		});
@@ -82,6 +81,24 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList',
 			$scope.numberOfPages = function(){
 				return Math.ceil($scope.rides.length/$scope.pageSize);
 			}
+			var userId = UserService.getUserId();
+			if(userId == ""){
+				UserService.getUserInfo().then(function(res){
+					userId = res.data[0]._id;
+					$scope.rides.forEach(function(iterator){
+						if(iterator.user == userId){
+							iterator.isMine = true;
+						}
+					});	
+				});
+			}else{
+				$scope.rides.forEach(function(iterator){
+					if(iterator.user == userId){
+						iterator.isMine = true;
+					}
+				});	
+			}
+			
 		};
 
 
