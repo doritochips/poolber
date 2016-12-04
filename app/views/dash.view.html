@@ -86,7 +86,8 @@
                                     <th>Destination</th>
                                     <th>ScheduleDate</th>
                                     <th>ScheduleTime</th>
-                                    <th> </th>                                   
+                                    <th></th>
+                                    <th></th>                                   
                                 </tr>
                             </thead>
                             <tbody ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize">
@@ -95,13 +96,14 @@
                                     <td>{{ride.destination}}</td>
                                     <td>{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
                                     <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
-
-                                    <td>                                        
-                                    <a class="btn btn-primary" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
+                                    <td>
+                                    <div ng-show="ride.isMine" class="mine-stamp"></div>
+                                    <td>                              
+                                        <a class="btn btn-primary" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
                                     </td>
                                 </tr>
                                 <tr>                                    
-                                    <td class="collapse-td" colspan="5">
+                                    <td class="collapse-td" colspan="6">
                                         <div uib-collapse="isCollapsed">
                                         <div class="callout callout-info">
                                             <h4>Details</h4>

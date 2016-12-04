@@ -17,3 +17,16 @@
 .callout{
 	margin:0px;
 }
+
+.background-orange{
+	background-color: orange;
+}
+
+.mine-stamp{
+	display: block;
+	height:50px;
+	width:50px;
+	background-image:url(../source/mine-stamp.png);
+	background-repeat:no-repeat;
+    background-size: 100% 100%;
+}

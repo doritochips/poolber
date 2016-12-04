@@ -7527,7 +7527,6 @@ input.input-danger:focus {
     display: block;
     position: relative;
     padding: 10px 15px 10px 10px;
-    min-width: 200px;
     width: 100%;
     border: none;
     outline: 0;
