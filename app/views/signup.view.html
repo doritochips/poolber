@@ -43,10 +43,11 @@
 						<div class="form-group">
 							<p ng-show="duplicateKeyError" class="error-msg">{{keyErrorMsg}}</p>
 							<p ng-show="!signupForm.username.$pristine" class="error-msg">{{errorMsg}}</p>
+							<p ng-show="!signupForm.password.$pristine" class="error-msg">{{errorMsg}}</p>
 							<p ng-show="!signupForm.password.$pristine" class="error-msg">{{errorMsg2}}</p>
 							<p class="additional-info text-small">By clicking on sign up, you agree to <a target="_blank" href="#/terms-and-condition">terms & conditions</a> and <a href="#/privacy-policy">privacy policy</a></p>
 							<div class="divider"></div>
-							<button ng-disabled="signupForm.$invalid || formValidated" class="btn btn-warning btn-block btn-lg" target="_blank" ng-click="submitUserinfo()">Sign up</button>
+							<button ng-disabled="signupForm.$invalid || formValidated" class="btn btn-warning btn-block btn-lg" target="_blank" ng-click="validateAndSubmit()">Sign up</button>
 						</div>
 
 					</form>

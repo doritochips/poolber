@@ -9,6 +9,23 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 		$scope.duplicateKeyError = false;
 		$scope.keyErrorMsg = "";
 
+		$scope.validateAndSubmit = function(){
+			var validated = false;
+			//validate before submit
+			for (var i = 1; i <= 3; i++) { 
+			    if ($scope.user.validate(i)) {
+			    	validated = false;
+			    	break;
+			    }
+			    else {
+			    	validated = true;
+			    }
+			}
+			if (validated){
+				$scope.submitUserinfo();
+			}
+		};
+
 		// submit form
 		$scope.submitUserinfo = function(){
 			$http.post("/api/auth/signup", $scope.user).then(function(res){
@@ -40,6 +57,23 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 				}else if(password.indexOf(" ") > 0){
 					$scope.formValidated = true;
 					$scope.errorMsg2 = "password should not contain any space";
+					return true;
+				}
+				$scope.formValidated = false;
+				$scope.errorMsg2 = "";
+				return false;
+			}
+			else if (index == 2){
+				var email = $scope.user.email;
+				var re = /\S+@\S+\.\S+/;
+    			if (re.test(email)){
+    				$scope.errorMsg2 = "invalid email";
+    				$scope.formValidated = true;
+    				return true;
+    			}
+				if (email === "" || !email){
+					$scope.errorMsg2 = "email should not be empty";
+					$scope.formValidated = true;
 					return true;
 				}
 				$scope.formValidated = false;

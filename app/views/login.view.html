@@ -18,7 +18,7 @@
 								<span class="input-group-addon">
 									<span class="fa fa-envelope"></span>
 								</span>
-								<input ng-model="user.email" type="text"
+								<input ng-keypress="($event.charCode==13)? submitUserinfo() : return" ng-model="user.email" type="text"
 								class="form-control input-lg"
 								placeholder="Email"
 								>
@@ -29,7 +29,7 @@
 								<span class="input-group-addon">
 									<span class="fa fa-key"></span>
 								</span>
-								<input ng-model="user.password" type="password"
+								<input ng-keypress="($event.charCode==13)? submitUserinfo() : return" ng-model="user.password" type="password"
 								class="form-control input-lg"
 								placeholder="Password"
 								>
@@ -39,7 +39,7 @@
 						<div class="divider divider-xl"></div>
 						<p ng-show="duplicateKey" class="error-msg text-center">{{errorMsg}}</p>
 						<div class="form-group" ng-click="submitUserinfo()">
-							<a class="btn btn-primary btn-lg btn-block text-center">Log in</a>
+							<span class="btn btn-primary btn-lg btn-block text-center"> Log in</span>
 						</div>
 					</fieldset>
 				</form>
