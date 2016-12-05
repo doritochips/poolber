@@ -66,7 +66,7 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 			else if (index == 2){
 				var email = $scope.user.email;
 				var re = /\S+@\S+\.\S+/;
-    			if (re.test(email)){
+    			if (!re.test(email)){
     				$scope.errorMsg2 = "invalid email";
     				$scope.formValidated = true;
     				return true;
