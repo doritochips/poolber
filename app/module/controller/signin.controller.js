@@ -10,6 +10,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		$scope.errorMsg = "";
 		// submit form
 		$scope.submitUserinfo = function(){
+			$scope.user.email = $scope.user.email.toLowerCase();
 			$http.post("/api/auth/signin", $scope.user).then(function(res){				
 				$window.location.href = '/dash.html?' + res.data;
 			}, function(err){

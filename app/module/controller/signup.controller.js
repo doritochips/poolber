@@ -28,6 +28,7 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 
 		// submit form
 		$scope.submitUserinfo = function(){
+			$scope.user.email = $scope.user.email.toLowerCase();
 			$http.post("/api/auth/signup", $scope.user).then(function(res){
 				$window.location.href = '/dash.html?'+ res.data;
 			}, function(err){
