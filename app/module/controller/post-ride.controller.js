@@ -1,4 +1,16 @@
 dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
+	var roundTime = function(time){
+		var mins = time.getMinutes();
+		var quarterHours = Math.round(mins/15);
+		if (quarterHours == 4)
+		{
+		    time.setHours(time.getHours()+1);
+		}
+		var rounded = (quarterHours*15)%60;
+		time.setMinutes(rounded);
+		return time;
+	};
+
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
 	$scope.passengers = [1,2,3,4];	
@@ -7,8 +19,8 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 	$scope.errorMsg = "";
 	$scope.noError = true;
 	$scope.form = {				
-		startTime: new Date(),
-		endTime: new Date()
+		startTime: roundTime(new Date()),
+		endTime: roundTime(new Date())
 	};
 	$scope.popup = {
 		opened:false
