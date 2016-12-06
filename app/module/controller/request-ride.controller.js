@@ -1,4 +1,4 @@
-dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
+dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
 	var roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
@@ -59,9 +59,9 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		$scope.form.startTime = new Date(year, month, day, startingH, startingM);
 		$scope.form.endTime = new Date(year, month, day, endingH, endingM);
 
-		$http.post('/api/ride', $scope.form).then(function(res){
+		$http.post('/api/request', $scope.form).then(function(res){
 			if(res){				
-				toaster.pop('success', "Success", "Your ride has been posted!");
+				toaster.pop('success', "Success", "Your request has been posted!");
 				$scope.form = {};				
 			}else{
 				toaster.pop('error', "Failure", "Some unexpected error occurs!");
@@ -71,6 +71,9 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		});
 
 	}
+
+
+
 
 	function validation(){
 		if($scope.form.departure == "Select a city"){
