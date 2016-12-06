@@ -1,7 +1,10 @@
 var _ = require('lodash');
 var Ride = require('../models/ride.model.server.js');
 var User = require('../models/user.model.server.js');
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
+var nodemail = require('nodemail');
+
+var smtpTransport = nodemailer.createTransport('smtps://poolbercanada%40gmail.com:devpassword@smtp.gmail.com');
 
 exports.post = function(req, res) {    
     console.log(req.body);

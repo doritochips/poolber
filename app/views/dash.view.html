@@ -60,17 +60,6 @@
               </div>
           </div>  
 
-          <!-- current selections -->
-<!--             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong><span class="fa fa-magic"></span> Current Selections</strong></div>
-                    <div class="panel-body">
-                        asdf
-                    </div>                    
-                </div>
-            </div>  -->
-
-
         </div>
     </div>
     <div class="page page-table">
@@ -122,6 +111,9 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <b>{{ride.note}}</b>    
+                                                </div>
+                                                <div class="col-sm-4" ng-hide="ride.isMine">
+                                                    <button class="btn btn-success pull-right" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
                                             </div>                                            
                                         </div>
