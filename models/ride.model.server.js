@@ -29,9 +29,31 @@ var rideSchema = new Schema({
 		type: String
 	},
 	created: {
-    type: Date,
-    default: Date.now
-  	}
+	    type: Date,
+	    default: Date.now
+  	}，
+	passengerList:[{
+		userid:{
+			type: String
+		},
+		createdDate: {
+			type: Date,
+			default: Date.now
+		},
+		emailProvided:{
+			type: Boolean,
+			default: false
+		},
+		phoneProvided:{
+			type: Boolean,
+			default: false
+		},
+		wechatProvided:{
+			type: Boolean,
+			default: false
+		}
+	}]
+	
 });
 
 module.exports = mongoose.model('Ride', rideSchema);

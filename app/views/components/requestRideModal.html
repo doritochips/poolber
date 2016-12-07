@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Send your info</h3>
+</div>
+<div class="modal-body" id="modal-body">    
+    <ul class="modal-list">        
+        <li>        
+            <button class="btn btn-small btn-default" ng-click="selectAll()">Select All</button>        
+            <button class="btn btn-small btn-default pull-right" ng-click="unSelectAll()">Unselect All</button>        
+        </li>
+        <hr>
+        <li>
+            <label class="btn btn-info form-control" ng-model="selected.email" uib-btn-checkbox> Send your email: </label>
+            <div class="alert alert-info">{{user.email}}<span ng-show="selected.email" class="fa fa-check pull-right"></span></div>
+        </li>
+        <li>            
+            <label class="btn btn-warning form-control" ng-model="selected.phone" uib-btn-checkbox> Send your phone number: </label>
+            <div class="alert alert-warning" ng-model="selected.phone">{{user.phone}}<span ng-show="selected.phone"  class="fa fa-check pull-right"></span></div>
+        </li>
+        <li>
+            <label class="btn btn-success form-control" ng-model="selected.wechat" uib-btn-checkbox> Send your wechat number: </label>            
+            <div class="alert alert-success">{{user.wechat}}<span ng-show="selected.wechat"  class="fa fa-check pull-right"></span></div>
+        </li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="submit()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+</div>
