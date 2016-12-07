@@ -20,9 +20,9 @@ exports.list = function(req, res) {
     //find all rides posted by this user
     //writen in horrible way, improve with indexed later
 
-    var findRequests = function (callback)  {
+    var findRequests = function (next, callback)  {
         //find all posted requests
-        Request.find({user: userid}).then(function(err, requests){
+        Request.find({user: userid}).exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -32,14 +32,19 @@ exports.list = function(req, res) {
                 });
             }else{
                 _.assign(ret.listAsPassenger, requests);  //extend listAsPassenger with rides
-                callback && callback();
+                //check if there's next, then continue executing next, or execute callback
+                if (next.length) {
+                    next[0](next.slice(1, next.length), callback);
+                } else {
+                    callback();
+                }
             }
         });     
     };
 
-    var findRequestedRides = function (callback) {
+    var findRequestedRides = function (next, callback) {
         //find all requested rides
-        Ride.where('passengers').elemMatch({_id: userid}).then(function(err, rides){
+        Ride.where('passengers').elemMatch({_id: userid}).exec(function(err, rides){
             if (err){
                 return res.status(400).send(err);
             }
@@ -49,15 +54,19 @@ exports.list = function(req, res) {
                 });
             }else{
                 _.assign(ret.listAsPassenger, rides);  //extend listAsPassenger with ride
-                callback && callback();
+                if (next.length) {
+                    next[0](next.slice(1, next.length), callback);
+                } else {
+                    callback();
+                }
             }
         });   
     };
 
 
-    var findRides = function (callback) {
+    var findRides = function (next, callback) {
         //find posted rides
-        Ride.find({user: userid}).then(function(err, rides){
+        Ride.find({user: userid}).exec(function(err, rides){
             if (err){
                 return res.status(400).send(err);
             }
@@ -67,14 +76,18 @@ exports.list = function(req, res) {
                 });
             }else{
                 _.assign(ret.listAsDriver, rides);  //extend listAsDriver with ride
-                callback && callback();
+                if (next.length) {
+                    next[0](next.slice(1, next.length), callback);
+                } else {
+                    callback();
+                }
             }
         });   
     };
 
-    var findAnsweredRequests = function (callback) {
+    var findAnsweredRequests = function (next, callback) {
         //find all answered requests
-        Ride.where('drivers').elemMatch({_id: userid}).then(function(err, requests){
+        Ride.where('drivers').elemMatch({_id: userid}).exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -84,7 +97,11 @@ exports.list = function(req, res) {
                 });
             }else{
                 _.assign(ret.listAsDriver, requests);  //extend listAsDriver with ride
-                callback && callback();
+                if (next.length) {
+                    next[0](next.slice(1, next.length), callback);
+                } else {
+                    callback();
+                }
             }
         });   
     };
@@ -93,10 +110,7 @@ exports.list = function(req, res) {
         res.json(ret);
     };
 
-    //final version
-    //findRequests(findRides(findAnsweredRequests(findRequestedRides(finalCallback()))));
-
-    //version for now
-    findRequests(findRides(finalCallback()));
+    //call each function
+    findRequests([findRides, findRequestedRides, findAnsweredRequests], finalCallback);
 
 }
