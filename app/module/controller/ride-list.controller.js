@@ -1,5 +1,5 @@
-dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 
-	function($window, $scope, $http, CityList, UserService, $uibModal){
+dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
+	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
 		
 		//initialize
 		init = function(){
@@ -26,7 +26,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		
 		// apply for ride
 		$scope.requestRide = function(ride){
-			
+			console.log(ride);
 			$uibModal.open({
 				animation: true,
 				arialLabelledBy:'modal-title',
@@ -61,7 +61,20 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				},
 				size: 'sm'
 			}).result.then(function(selected){
-				
+				$http.post("/api/requestRide",{
+					selected: selected,
+					ride_id: ride._id,
+					passenger_id: $scope.user._id
+				}).then(function(res){
+					//console.log(res);
+					//toast message
+					if(res.data == "success"){
+						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
+					}else{
+						toaster.pop('error', "Failure", "Some unexpected error occurs!");
+					}
+					ride.isApplied = true;
+				});
 			});
 		}
 
@@ -107,7 +120,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		//List rides
 
 		$http.get('/api/rides').then(function(res){
-			$scope.rides = res.data;
+			$scope.rides = res.data;			
 			processData();
 		},function(res){
 			console.log(res);
@@ -129,13 +142,19 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 
 		var addRelations = function(userId){
 
-			// add mine
+			// add mine and applied
 			$scope.rides.forEach(function(iterator){
 				if(iterator.user == userId){
 					iterator.isMine = true;
 				}
-			});	
-			// add applied
+				iterator.passengerList.forEach(function(it){
+					if(it.userid == userId){
+						iterator.isApplied = true;
+						return;						
+					}
+				});
+			});				
+
 		}
 
 

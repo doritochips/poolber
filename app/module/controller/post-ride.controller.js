@@ -64,7 +64,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 				toaster.pop('success', "Success", "Your ride has been posted!");
 				$scope.form = {
 					user_id: user_id
-				};				
+				};
 			}else{
 				toaster.pop('error', "Failure", "Some unexpected error occurs!");
 			}

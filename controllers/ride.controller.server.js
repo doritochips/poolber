@@ -7,7 +7,7 @@ var nodemailer = require('nodemailer');
 var smtpTransport = nodemailer.createTransport('smtps://poolbercanada%40gmail.com:devpassword@smtp.gmail.com');
 
 exports.post = function(req, res) {    
-    console.log(req.body);
+    //console.log(req.body);
 	var newRide = new Ride(req.body);          
     newRide.user = {_id: req.body.user_id};
     newRide.save(function(err) {
@@ -60,7 +60,7 @@ exports.update = function(req,res) {
 };
 
 exports.list = function(req, res) {
-    Ride.find().exec(function(err, rides) {
+    Ride.find().sort({startTime: -1}).exec(function(err, rides) {
         if (err){
             return res.status(400).send({
                 message:err
@@ -105,3 +105,26 @@ exports.delete = function(req, res){
         }
     });
 };
+
+exports.requestRide = function(req, res){
+    //console.log(req.body);
+    var requestObject = req.body;
+    Ride.update({_id: requestObject.ride_id},
+        {$push: {'passengerList':
+            {
+                userid: requestObject.passenger_id,
+                emailProvided: requestObject.selected.email,
+                phoneProvided: requestObject.selected.phone,
+                wechatProvided: requestObject.selected.wechat
+        }}}, function(err){
+            if(err){
+                res.send("failure");
+                res.send(500).send(err)
+            }else{
+                res.send("success");
+                //construct the email                
+            }
+        });
+
+
+}
