@@ -1,111 +1,143 @@
-<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}"></toaster-container>
+<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}">
+</toaster-container>
 
-<div class="page page-dashboard">
+<div class="page page-dashboard">    
 	<div class="col-md-8 col-md-offset-2">
 
 		<div class="panel panel-profile">
 			<div class="panel-heading text-center bg-info">
-				<h2>Driver's Lisence</h2>
-			</div>
-			<div class="list-justified-container">
+				<h2>Driver's Lisence
+                </h2>
+
+            </div>
+            <div class="list-justified-container">
                 <ul class="list-justified text-center">
                     <li>
-                        <p class="size-h3">356</p>
-                        <p class="text-muted">Given Rides</p>
+                        <p class="size-h3">356
+                        </p>
+                        <p class="text-muted">Given Rides
+                        </p>
+
                     </li>
                     <li>
-                        <p class="size-h3">365</p>
-                        <p class="text-muted">Ride Requests</p>
+                        <p class="size-h3">365
+                        </p>
+                        <p class="text-muted">Ride Requests
+                        </p>
+
                     </li>                    
+
                 </ul>
+
             </div>
-		</div>		
-		<div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="media">
-                        <div class="media-body">
-                            <ul class="list-unstyled list-info">
-                                <li class="col-md-12">
-                                	<div class="col-md-4">
-	                                    <span class="icon glyphicon glyphicon-user"></span>
-	                                    <label>Name/名前</label>
-                                    </div>
-                                    <div ng-hide="editing" class="col-md-4">
-	                                    <span>{{user.firstName}} {{user.lastName}}</span>
-                                   	</div>
-                                   	<div ng-show="editing" class="col-md-4">
-	                                    <input class="form-control" ng-show="editing" ng-model="user.firstName">
-	                                </div>
-	                                <div ng-show="editing" class="col-md-4">
-	                                    <input class="form-control" ng-show="editing" ng-model="user.lastName">
-                                   </div>
-                                </li>
-                                <li class="col-md-12">
-                                    
-                                    <div class="col-md-4">
-                                    	<span class="icon glyphicon glyphicon-envelope"></span>
-                                    	<label>Email/メル</label>
-                                    </div>
-                                    <div ng-hide="editing" class="col-md-4">
-                                    	<span>{{user.email}}</span>
-                                    </div>
-                                    <div ng-show="editing" class="col-md-8">
-	                                    <input class="form-control" ng-show="editing" ng-model="user.email" maxlength="20">
-                                   </div>
-                                    
-                                </li>                                
-                                <li class="col-md-12">
-                                	<div class="col-md-4">
-	                                    <span class="icon glyphicon glyphicon-earphone"></span>
-	                                    <label>Contact/番号</label>
-	                                </div>
-	                                <div ng-hide="editing" class="col-md-4">
-	                                	<span>{{user.phone}}</span>
-	                                </div>
-                                    <div ng-show="editing" class="col-md-8">
-                                    	<input class="form-control" phone-input ng-show="editing" ng-model="user.phone">
-                                    </div>
-                                </li>
-                                <li class="col-md-12">
-                                	<div class="col-md-4">
-	                                    <span class="icon fa fa-weixin"></span>
-	                                    <label>Wechat</label>
-                                    </div>
-                                    <div ng-hide="editing" class="col-md-4">
-	                                	<span>{{user.wechat}}</span>
-	                                </div>
-                                    <div ng-show="editing" class="col-md-8">
-                                    	<input class="form-control" ng-show="editing" ng-model="user.wechat" maxlength="20">
-                                    </div>
-                                </li>                                                               	
-                                <li class="col-md-12">                               
-	                                <div class="submit-set">                            
-			                        	<button ng-show="!editing" class="btn btn-md btn-info pull-right" ng-click="editInfo()">Edit</button> 
-                                        <div class="pull-right">
-                                        
-			                    		<button ng-show="editing" class="btn btn-md btn-success" ng-click="saveInfo()">Submit</button> &nbsp
 
-                                        <button ng-show="editing" class="btn bnt-md btn-danger"
-                                        ng-click="cancelEdit()">Cancel</button>
+        </div>		
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="media media-body">
+                    <ul class="list-unstyled list-info">
+                        <li class="col-md-12">
+                         <div class="col-md-4">
+                             <span class="icon glyphicon glyphicon-user">
+                             </span>
+                             <label>Name/名前
+                             </label>
 
-	                    			</div>
-                    			</li>
-                    			<li class="col-md-12">
-                    				Note: If you are a driver, passengers' contact information will be emailed to you if they select your posted ride.
-                    				If you are a passenger, your information can be send to the driver by one click which means you do not have to fill your information all the time.
-                    			</li>
-                    			<div ng-show="showCar" class="car"></div> 
+                         </div>
+                         <div ng-hide="editing" class="col-md-4">
+                             <span>{{user.firstName}} {{user.lastName}}
+                             </span>
 
-                            </ul>
-							
-                        </div>
+                         </div>
+                         <div ng-show="editing" class="col-md-4">
+                             <input class="form-control" ng-show="editing" ng-model="user.firstName">
 
-                    </div>
+                         </div>
+                         <div ng-show="editing" class="col-md-4">
+                             <input class="form-control" ng-show="editing" ng-model="user.lastName">
 
-                </div>                
+                         </div>
 
-            </div>                                  
+                     </li>
+                     <li class="col-md-12">
 
-	</div>	
+                        <div class="col-md-4">
+                         <span class="icon glyphicon glyphicon-envelope">
+                         </span>
+                         <label>Email/メル
+                         </label>
 
+                     </div>
+                     <div ng-hide="editing" class="col-md-4">
+                         <span>{{user.email}}
+                         </span>
+
+                     </div>
+                     <div ng-show="editing" class="col-md-8">
+                         <input class="form-control" ng-show="editing" ng-model="user.email" maxlength="20">
+
+                     </div>
+
+
+                 </li>                                
+                 <li class="col-md-12">
+                     <div class="col-md-4">
+                         <span class="icon glyphicon glyphicon-earphone">
+                         </span>
+                         <label>Contact/番号
+                         </label>
+
+                     </div>
+                     <div ng-hide="editing" class="col-md-4">
+                      <span>{{user.phone}}
+                      </span>
+
+                  </div>
+                  <div ng-show="editing" class="col-md-8">
+                     <input class="form-control" phone-input ng-show="editing" ng-model="user.phone">
+
+                 </div>
+
+             </li>
+             <li class="col-md-12">
+                <div class="col-md-4">
+                    <span class="icon fa fa-weixin">
+                    </span>
+                    <label>Wechat
+                    </label> 
+                </div>  
+                <div ng-hide="editing" class="col-md-4">
+                    <span>{{user.wechat}}
+                    </span>
+                </div>
+                <div ng-show="editing" class="col-md-8">
+                    <input class="form-control" ng-show="editing" ng-model="user.wechat" maxlength="20">
+                </div>
+            </li>                                                               	
+        <li class="col-md-12">
+            <div class="row">                               
+                <div class="submit-set pull-right"> 
+                    <button ng-show="!editing" class="btn btn-md btn-info" ng-click="editInfo()">Edit
+                    </button>                     
+                    <button ng-show="editing" class="btn btn-md btn-success" ng-click="saveInfo()">Submit
+                    </button> &nbsp
+                    <button ng-show="editing" class="btn bnt-md btn-danger"
+                    ng-click="cancelEdit()">Cancel</button>
+                </div>
+            </div>
+        </li>
+    <li class="col-md-12">
+        Note: If you are a driver, passengers' contact information will be emailed to you if they select your posted ride.
+        If you are a passenger, your information can be send to the driver by one click which means you do not have to fill your information all the time.
+
+    </li>
+    <div ng-show="showCar" class="car">
+    </div> 
+
+
+</ul>
+</div>
+</div>                
+</div>                                  
+</div>	
 </div>

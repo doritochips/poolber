@@ -48,6 +48,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 		}
 
 		// manipulate date
+		var user_id = $scope.form.user_id;
 		var year = $scope.form.date.getFullYear();
 		var month = $scope.form.date.getMonth();
 		var day = $scope.form.date.getDate();
@@ -62,7 +63,9 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 		$http.post('/api/request', $scope.form).then(function(res){
 			if(res){				
 				toaster.pop('success', "Success", "Your request has been posted!");
-				$scope.form = {};				
+				$scope.form = {
+					user_id: user_id
+				};				
 			}else{
 				toaster.pop('error', "Failure", "Some unexpected error occurs!");
 			}
