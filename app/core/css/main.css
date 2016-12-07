@@ -11731,7 +11731,7 @@ html {
 }
 .app>.main-container>.nav-container {
     display: none;
-    z-index: 11;
+    z-index: 999;
     position: static;
     float: left;
     width: 220px

@@ -60,17 +60,6 @@
               </div>
           </div>  
 
-          <!-- current selections -->
-<!--             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><strong><span class="fa fa-magic"></span> Current Selections</strong></div>
-                    <div class="panel-body">
-                        asdf
-                    </div>                    
-                </div>
-            </div>  -->
-
-
         </div>
     </div>
     <div class="page page-table">
@@ -98,6 +87,7 @@
                                     <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
                                     <td>
                                     <div ng-show="ride.isMine" class="mine-stamp"></div>
+                                    <div ng-show="ride.isApplied" class="applied-stamp"></div>
                                     <td>                              
                                         <a class="btn btn-primary" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
                                     </td>
@@ -122,6 +112,12 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <b>{{ride.note}}</b>    
+                                                </div>
+                                                <div class="col-sm-4" ng-hide="ride.isMine || ride.isApplied">
+                                                    <button class="btn btn-success pull-right" ng-click="requestRide(ride)">Request this ride</button>
+                                                </div>
+                                                <div class="col-sm-4" ng-show="ride.isApplied">
+                                                    <div class="alert alert-danger col-sm-2 pull-right" style="text-transform: none;">You have applied this ride</div>
                                                 </div>
                                             </div>                                            
                                         </div>
