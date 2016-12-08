@@ -57,8 +57,8 @@ exports.list = function(req, res) {
                     message: 'No rides has been found'
                 });
             }else{
-                console.log("find requested rides");
-                console.log(rides);
+                //console.log("find requested rides");
+                //console.log(rides);
                 _.assign(ret.appliedRides, rides);  //extend listAsPassenger with ride
                 if (next.length) {
                     next[0](next.slice(1, next.length), callback);
