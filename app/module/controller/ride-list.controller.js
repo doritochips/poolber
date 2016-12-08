@@ -66,7 +66,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 					ride_id: ride._id,
 					passenger_id: $scope.user._id
 				}).then(function(res){
-					console.log(res);
 					//toast message
 					if(res.data == "success"){
 						console.log(toaster);

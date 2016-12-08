@@ -1,5 +1,5 @@
 dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
-	var roundTime = function(time){
+	$scope.roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
 		if (quarterHours == 4)
@@ -13,15 +13,15 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
-	$scope.passengers = [1,2,3,4];	
-	
+	$scope.passengers = [1,2,3,4];		
 	// init
 	$scope.errorMsg = "";
 	$scope.noError = true;
-	$scope.form = {				
-		startTime: roundTime(new Date()),
-		endTime: roundTime(new Date())
+	$scope.form = {		
+		startTime: $scope.roundTime(new Date()),
+		endTime: $scope.roundTime(new Date())
 	};
+	console.log($scope.form);
 	$scope.popup = {
 		opened:false
 	};
@@ -63,8 +63,13 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 			if(res){				
 				toaster.pop('success', "Success", "Your ride has been posted!");
 				$scope.form = {
-					user_id: user_id
+					user_id: user_id,
+					startTime: $scope.roundTime(new Date()),
+					endTime: $scope.roundTime(new Date()),
+					departure: "Select a city",
+					destination: "Select a city"
 				};
+
 			}else{
 				toaster.pop('error', "Failure", "Some unexpected error occurs!");
 			}
