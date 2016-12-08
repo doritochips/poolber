@@ -1,8 +1,8 @@
 <div class="page">
     
     <div class="ui-timline-container">
-        <section class="ui-timeline">
-            <article class="tl-item">
+        <section class="ui-timeline" ng-repeat="ride in mergedList">
+<!--             <article class="tl-item">
                 <div class="tl-body">
                     <div class="tl-entry">
                         <div class="tl-caption">
@@ -10,30 +10,22 @@
                         </div>
                     </div>
                 </div>
-            </article>
+            </article> -->
 
             <article class="tl-item">
                 <div class="tl-body">
                     <div class="tl-entry">
-                        <div class="tl-time">3 min ago</div>
+                        <div class="tl-time">{{ride.startTime | date:'MM-dd h:mma'}}</div>
                         <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info"><i class="ti-shine"></i></div>
                         <div class="tl-content">
-                            <h4 class="tl-tile text-primary">Go hiking</h4>
-                            <p>Consectetur adipisicing elit. Error, accusantium debitis voluptatem dolore excepturi ducimus fugiat nulla perspiciatis quo ipsum non eligendi nisi veniam maxime in quas atque omnis cumque!</p>
+                            <h4 class="tl-tile text-primary">{{ride.departure}} - {{ride.destination}}</h4>
+                            <p>{{$index}}</p>
                         </div>
                     </div>
                 </div>
             </article>
 
-            <article class="tl-item">
-                <div class="tl-body">
-                    <div class="tl-entry">
-                        <div class="tl-caption">
-                            <a href="javascript:;" class="btn btn-danger btn-block">Yesterday</a>
-                        </div>
-                    </div>
-                </div>
-            </article>
+
 
 
         </section>

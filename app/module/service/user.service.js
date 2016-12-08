@@ -28,14 +28,14 @@ dash.factory('UserService', ["$location", "$http", function($location, $http){
 	};
 
 	userService.getRideHistory = function(){
-		return $http.get('api/history/' + userInfo._id);
+		return $http.get('api/history/' + userService.userInfo._id);
 	};
 
 	//save user info in service
 	userService.saveUserInfo = function(){
 		return $http.post('api/data/userinfo', {"session": userService.session}).then(function(res){
 			userService.userInfo = res.data[0];
-		});
+		});	
 	}
 	return userService;
 

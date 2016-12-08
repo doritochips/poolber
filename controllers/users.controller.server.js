@@ -113,15 +113,17 @@ exports.signin = function (req, res, next) {
 // get user information called by 'userService' factory
 exports.userinfo = function(req, res) {
 	
-	User.find({session:req.body.session}, function(error, user){
+	User.find({session:req.body.session}).exec(function(error, user){
 		if(error){
 			console.log(error);
 			res.status(400).send(error);
 		}else{
+			user[0].password = undefined;
+			user[0].salt = undefined;
+			console.log(user);
 			res.json(user);
 		}
-		
-	})
+	});
 };
 
 /**
