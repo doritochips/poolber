@@ -176,7 +176,7 @@ exports.forgot = function(req,res,next) {
 		function (token, user, done) {
 			var httpTransport = 'http://';
 			res.render(path.resolve('templates/reset-password-email'), {
-				name: user.displayName,
+				name: user.firstName,
 				url: httpTransport + req.headers.host + '/api/auth/reset/' + token
 			}, function (err, emailHTML) {
 				done(err, emailHTML, user);
