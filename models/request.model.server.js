@@ -34,7 +34,8 @@ var requestSchema = new Schema({
   	},
   	driverList:[{
 		userid:{
-			type: String
+			type: Schema.ObjectId,
+			ref: 'User'
 		},
 		createdDate: {
 			type: Date,

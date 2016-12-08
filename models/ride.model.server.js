@@ -34,7 +34,8 @@ var rideSchema = new Schema({
   	},
 	passengerList:[{
 		userid:{
-			type: String
+			type: Schema.ObjectId,
+			ref: 'User'
 		},
 		createdDate: {
 			type: Date,
