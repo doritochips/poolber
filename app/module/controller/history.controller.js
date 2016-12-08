@@ -4,12 +4,32 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 	$scope.listAsPassenger = [];
 	$scope.mergedList = [];
 	
-	$scope.defineClass = function(type){
+
+
+	$scope.defineMainClass = function(type){
 		if (type == "driver"){
 			return "alt";
 		}
 		else {
 			return "";
+		}
+	}
+
+	$scope.defineIconClass = function(type){
+		if (type == "driver"){
+			return "fa fa-car";
+		}
+		else {
+			return "fa fa-user";
+		}
+	}
+
+	$scope.defineIconColorClass = function(type){
+		if (type == "driver"){
+			return "btn-warning";
+		}
+		else {
+			return "btn-dark";
 		}
 	}
 

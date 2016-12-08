@@ -12,14 +12,14 @@
                 </div>
             </article> -->
 
-            <article class="tl-item">
+            <article class="tl-item" ng-class="defineMainClass(ride.role)">
                 <div class="tl-body">
                     <div class="tl-entry">
-                        <div class="tl-time">{{ride.startTime | date:'MM-dd h:mma'}}</div>
-                        <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info"><i class="ti-shine"></i></div>
+                        <div class="tl-time"><i>{{ride.startTime | date:'h:mm a, MMM d '}}</i></div>
+                        <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.role)"><i ng-class="defineIconClass(ride.role)"></i></div>
                         <div class="tl-content">
                             <h4 class="tl-tile text-primary">{{ride.departure}} - {{ride.destination}}</h4>
-                            <p>{{$index}}</p>
+                            <p>Passengers: {{ride.passenger}}</p>
                         </div>
                     </div>
                 </div>
