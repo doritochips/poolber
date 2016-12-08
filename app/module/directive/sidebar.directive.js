@@ -13,9 +13,9 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 			$scope.activeClass = "open active";
 			$scope.nonActiveClass = "";
 			//assign default
-			$scope.classList = ["","",""];
+			$scope.classList = ["","","",""];
 			//list ride, assign the index as active class
-			var routeList = ["/","/requestRide","/postRide"];
+			var routeList = ["/history","/requestRide","/postRide","/"];
 			$scope.classList[routeList.indexOf($location.path())] = $scope.activeClass;
 			//console.log($scope.classList);
 		}();
