@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var path = require('path');
 var Ride = require('../models/ride.model.server.js');
 var User = require('../models/user.model.server.js');
 var mongoose = require('mongoose');
@@ -116,13 +117,64 @@ exports.requestRide = function(req, res){
                 emailProvided: requestObject.selected.email,
                 phoneProvided: requestObject.selected.phone,
                 wechatProvided: requestObject.selected.wechat
+
         }}}, function(err){
             if(err){
                 res.send("failure");
                 res.send(500).send(err)
-            }else{
-                res.send("success");
-                //construct the email                
+            }else{                           
+                //construct the email 
+                Ride.find({_id: requestObject.ride_id}, function(err, response){
+                    var date = response[0].startTime.getMonth() + 1;
+                    date = date + "." + response[0].startTime.getDate();
+                    var startTime = response[0].startTime.getHours() + ":" + response[0].startTime.getMinutes();
+                    var endTime = response[0].endTime.getHours() + ":" + response[0].endTime.getMinutes();
+
+                    User.find({_id: requestObject.passenger_id}, function(err, passengerRes){
+                        
+                        email = requestObject.selected.email? "Email: " + passengerRes[0].email:"";
+                        phone = requestObject.selected.phone? "Phone: " + passengerRes[0].phone:"";
+                        wechat = requestObject.selected.wechat? "Wechat: " + passengerRes[0].wechat: "";
+                        res.render(path.resolve('templates/notification.html'),{
+                            departure: response[0].departure,
+                            destination: response[0].destination,
+                            date: date,
+                            startTime: startTime,
+                            endTime: endTime,
+                            email: email,
+                            phone:phone,
+                            wechat: wechat
+                        }, function(err, emailHTML){
+
+                            User.find({_id: response[0].user}, function(err, driverRes){
+
+                                // send email
+                                var mailOption = {
+                                    to: driverRes[0].email,
+                                    from: '"Poolber Support" <support@poolber.ca>',
+                                    subject: 'Poolber | Ride Request',
+                                    html: emailHTML
+                                }
+
+                                smtpTransport.sendMail(mailOption, function(err){
+                                    if(!err){
+                                        res.send("success");  
+                                    }else {
+                                        console.log(err);
+                                        return res.status(400).send({
+                                            message: 'Failure sending email'
+                                        });
+                                    }
+                                })
+
+                                //send text message
+
+                            });
+                        });
+                    })
+                  
+                                        
+                });                
             }
         });
 
