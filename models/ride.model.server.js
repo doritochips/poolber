@@ -28,6 +28,10 @@ var rideSchema = new Schema({
 	note:{
 		type: String
 	},
+	created: {
+	    type: Date,
+	    default: Date.now
+  	},
 	passengerList:[{
 		userid:{
 			type: String
@@ -49,6 +53,7 @@ var rideSchema = new Schema({
 			default: false
 		}
 	}]
+
 });
 
 module.exports = mongoose.model('Ride', rideSchema);

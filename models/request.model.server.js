@@ -27,7 +27,11 @@ var requestSchema = new Schema({
 	},
 	note:{
 		type: String
-	}
+	},
+	created: {
+    type: Date,
+    default: Date.now
+  	}
 });
 
 module.exports = mongoose.model('Request', requestSchema);

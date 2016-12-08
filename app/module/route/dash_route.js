@@ -25,6 +25,10 @@ dash.config(function($routeProvider){
 		controller: "profileCtrl",
 		css:"/styles/profile.css"
 	})
+	.when("/history",{
+		templateUrl:"views/history.view.html",
+		controller: "historyCtrl"
+	})
 	.otherwise({
 		redirectTo:'/404'
 	})

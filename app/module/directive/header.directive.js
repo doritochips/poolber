@@ -44,6 +44,10 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 					$window.location.href = '/#/';	
 				});				
 			}
+
+			var init = function(){
+				UserService.saveUserInfo();
+			}();
 			
 		}	
 	}
