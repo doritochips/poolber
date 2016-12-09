@@ -1,4 +1,4 @@
-dash.config(function($routeProvider){
+dash.config(function($routeProvider, $locationProvider){
 	$routeProvider
 	.when("/",{
 		templateUrl:"views/dash.view.html",
@@ -31,5 +31,6 @@ dash.config(function($routeProvider){
 	})
 	.otherwise({
 		redirectTo:'/404'
-	})
+	});
+	$locationProvider.html5Mode(true);
 })
