@@ -54,7 +54,7 @@ exports.list = function(req, res) {
             }else{
                 for (request of requests){
                     request.driverList = removeUnprovidedFields(request.driverList);
-                    console.log(request.driverList);
+                    //console.log(request.driverList);
                 }
                 _.assign(ret.postedRequest, requests);  //extend listAsPassenger with rides
                 //check if there's next, then continue executing next, or execute callback
@@ -91,7 +91,6 @@ exports.list = function(req, res) {
         });   
     };
 
-
     var findRides = function (next, callback) {
         //find posted rides
         Ride.find({user: user_id}).populate('passengerList.userid', removeSensitiveData).exec(function(err, rides){
@@ -105,7 +104,7 @@ exports.list = function(req, res) {
             }else{
                 for (ride of rides){
                     ride.passengerList = removeUnprovidedFields(ride.passengerList);
-                    console.log(ride.passengerList);
+                    //console.log(ride.passengerList);
                 }
                 _.assign(ret.postedRides, rides);  //extend listAsDriver with ride
                 if (next.length) {
