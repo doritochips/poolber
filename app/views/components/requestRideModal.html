@@ -20,6 +20,9 @@
             <label class="btn btn-success form-control" ng-model="selected.wechat" uib-btn-checkbox> Send your wechat number: </label>            
             <div class="alert alert-success">{{user.wechat}}<span ng-show="selected.wechat"  class="fa fa-check pull-right"></span></div>
         </li>
+        <li class="error" ng-show="showError">
+            <p>Please select at least one contact method</p>
+        </li>
     </ul>
 </div>
 <div class="modal-footer">

@@ -56,7 +56,16 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 						$uibModalInstance.dismiss('cancel');
 					}
 					$scope.submit = function(){
+						if($scope.validate()){
+							$scope.showError = true;
+							return;
+						}else{	
+							$scope.showError = false;
+						}
 						$uibModalInstance.close($scope.selected);
+					}
+					$scope.validate = function(){
+						return !($scope.selected.email || $scope.selected.phone || $scope.selected.wechat)
 					}
 				},
 				size: 'sm'
