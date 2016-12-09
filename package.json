@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "grunt",
     "test": "run-server",
     "postinstall": "cd app && bower install"
   },
@@ -30,6 +31,12 @@
     "validator": "^6.1.0"
   },
   "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-csslint": "^2.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "jasmine": "^2.5.2",
     "nodemon": "^1.11.0"
   }
 }
