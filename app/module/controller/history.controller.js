@@ -8,7 +8,7 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 	$scope.mergedList = [];
 	var driverList = ['postedRides', 'appliedRequest'];
 	var postedList = ['postedRides', 'postedRequest'];
-
+	$scope.viewAsDriver = 'passenger';
 	$scope.showElement = function(type){
 		if ($scope.viewAsDriver === 'driver'){
 			return driverList.indexOf(type) > -1;
