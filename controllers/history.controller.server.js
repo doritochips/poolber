@@ -3,7 +3,7 @@ var Request = require('../models/request.model.server.js');
 var Ride = require('../models/ride.model.server.js');
 var User = require('../models/user.model.server.js');
 var mongoose = require("mongoose");
-var ObjectId = require('mongodb').ObjectId;
+var ObjectId = require('mongoose').Types.ObjectId;
 
 exports.list = function(req, res) {
     var user_id = req.params.id;
