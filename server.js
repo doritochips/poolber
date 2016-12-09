@@ -46,6 +46,19 @@ require('./config/passport.config.server.js')(passport);
 
 //require all routes
 require('./routes')(app);
+
+
+//HTML5 support
+app.use('/js', express.static(__dirname + '/js'));
+app.use('/dist', express.static(__dirname + '/../dist'));
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/partials', express.static(__dirname + '/partials'));
+app.all('/*', function(req, res, next) {
+    // Just send the index.html for other files to support HTML5Mode
+    res.sendFile('app/index.html', { root: __dirname });
+});
+
+
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log("server on 3000");
