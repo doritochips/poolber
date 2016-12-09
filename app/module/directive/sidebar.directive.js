@@ -1,6 +1,11 @@
 dash.directive("poolSidebar", ['$location', '$routeParams', function($location, $routeParams ){
     var controller = ['$scope', function($scope){
-	
+		
+		$scope.driverMode = true;
+		$scope.switchMode = function(){
+			$scope.driverMode = !$scope.driverMode;
+		}
+
 		//when lick, clear all class and reassign the one clicked
 		$scope.activate = function(s){
 			for (var i in $scope.classList){
@@ -15,7 +20,7 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 			//assign default
 			$scope.classList = ["","","",""];
 			//list ride, assign the index as active class
-			var routeList = ["/history","/requestRide","/postRide","/"];
+			var routeList = ["/history","/requestRide","/postRide","/","/requestList"];
 			$scope.classList[routeList.indexOf($location.path())] = $scope.activeClass;
 			//console.log($scope.classList);
 		}();
