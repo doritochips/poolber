@@ -5,6 +5,24 @@ var User = require('../models/user.model.server.js');
 var mongoose = require("mongoose");
 var ObjectId = require('mongoose').Types.ObjectId;
 
+
+var removeSensitiveData = '-password -salt -resetPasswordToken -resetPasswordExpires -session';
+
+var removeUnprovidedFields = function(listOfPeople) {
+    for (p of listOfPeople){
+        if(!p.wechatProvided){
+            p.userid.wechat = undefined;
+        }
+        if(!p.phoneProvided){
+            p.userid.phone = undefined;
+        }
+        if(!p.emailProvided){
+            p.userid.email = undefined;
+        }  
+    }
+    return listOfPeople;
+};
+
 exports.list = function(req, res) {
     var user_id = req.params.id;
     //check valid user id
@@ -25,7 +43,7 @@ exports.list = function(req, res) {
 
     var findRequests = function (next, callback)  {
         //find all posted requests
-        Request.find({user: user_id}).exec(function(err, requests){
+        Request.find({user: user_id}).populate('driverList.userid', removeSensitiveData).exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -34,6 +52,10 @@ exports.list = function(req, res) {
                     message: 'No requests has been found'
                 });
             }else{
+                for (request of requests){
+                    request.driverList = removeUnprovidedFields(request.driverList);
+                    console.log(request.driverList);
+                }
                 _.assign(ret.postedRequest, requests);  //extend listAsPassenger with rides
                 //check if there's next, then continue executing next, or execute callback
                 if (next.length) {
@@ -47,9 +69,9 @@ exports.list = function(req, res) {
 
     var findRequestedRides = function (next, callback) {
         //find all requested rides
-        Ride.find({'passengerList.userid': ObjectId(user_id)}).exec(function(err, rides){
+        Ride.find({'passengerList.userid': ObjectId(user_id)}).populate('user', 'displayName').exec(function(err, rides){
             if (err){
-                console.log(err);
+                //console.log(err);
                 return res.status(400).send(err);
             }
             else if (!rides){
@@ -72,7 +94,7 @@ exports.list = function(req, res) {
 
     var findRides = function (next, callback) {
         //find posted rides
-        Ride.find({user: user_id}).exec(function(err, rides){
+        Ride.find({user: user_id}).populate('passengerList.userid', removeSensitiveData).exec(function(err, rides){
             if (err){
                 return res.status(400).send(err);
             }
@@ -81,6 +103,10 @@ exports.list = function(req, res) {
                     message: 'No rides has been found'
                 });
             }else{
+                for (ride of rides){
+                    ride.passengerList = removeUnprovidedFields(ride.passengerList);
+                    console.log(ride.passengerList);
+                }
                 _.assign(ret.postedRides, rides);  //extend listAsDriver with ride
                 if (next.length) {
                     next[0](next.slice(1, next.length), callback);
@@ -93,7 +119,7 @@ exports.list = function(req, res) {
 
     var findAnsweredRequests = function (next, callback) {
         //find all answered requests
-        Ride.find({'driverList.userid': ObjectId(user_id)}).exec(function(err, requests){
+        Ride.find({'driverList.userid': ObjectId(user_id)}).populate('user','displayName').exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -121,4 +147,4 @@ exports.list = function(req, res) {
     //call each function
     findRequests([findRides, findRequestedRides, findAnsweredRequests], finalCallback);
 
-}
+};

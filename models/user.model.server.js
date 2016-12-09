@@ -20,16 +20,6 @@ var validateLocalStrategyEmail = function (email) {
  * User Schema
  */
 var UserSchema = new Schema({
-  firstName: {
-    type: String,
-    trim: true,
-    default: ''
-},
-  lastName: {
-    type: String,
-    trim: true,
-    default: ''
-    },
   displayName: {
     type: String,
     trim: true
