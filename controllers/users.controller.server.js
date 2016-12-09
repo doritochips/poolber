@@ -289,7 +289,7 @@ exports.saveProfile = function(req, res){
 	var user = req.body;
 	console.log(user);
 	User.update({session: user.session}, 
-		{$set:{firstName: user.firstName, lastName: user.lastName, email: user.email, phone:user.phone, wechat: user.wechat}},
+		{$set:{displayName: user.displayName, email: user.email, phone:user.phone, wechat: user.wechat}},
 		function(error){
 		if(error){
 			console.log(error);

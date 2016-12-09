@@ -11,8 +11,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 			return;
 		}
 		$scope.user = res.data[0];				
-		backup.firstName = res.data[0].firstName;
-		backup.lastName = res.data[0].lastName;
+		backup.displayName = res.data[0].displayName;		
 		backup.email = res.data[0].email;
 		backup.phone = res.data[0].phone;
 		backup.wechat = res.data[0].wechat;
@@ -44,8 +43,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	$scope.saveInfo = function(){
 		$http.post("/api/data/saveProfile",
 			{
-				firstName: $scope.user.firstName,
-				lastName: $scope.user.lastName,
+				displayName: $scope.user.displayName,
 				email: $scope.user.email,
 				phone: $scope.user.phone,
 				wechat: $scope.user.wechat,
@@ -60,8 +58,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 		$scope.editing = false;
 	}
 	$scope.cancelEdit = function(){
-		$scope.user.firstName = backup.firstName;
-		$scope.user.lastName = backup.lastName;
+		$scope.user.displayName = backup.displayName;		
 		$scope.user.email = backup.email;
 		$scope.user.phone = backup.phone;
 		$scope.user.wechat = backup.wechat;
