@@ -30,7 +30,6 @@
                                     <div class="inside-row">
                                         <span class="ui-select" ng-class="{invalid: invalidDestination}">
                                             <select ng-init="form.destination = cities[0]" class="col-sm-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
-                                                </select>
                                             </select>
                                         </span>
                                     </div>
@@ -118,7 +117,7 @@
                                                     <button class="btn btn-success" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
                                                 <div ng-show="ride.isApplied">
-                                                    <div class="alert alert-danger" style="text-transform: none;">You have applied for this ride</div>
+                                                    <div class="alert alert-danger" style="text-transform: none;">You have applied to this ride</div>
                                                 </div>
                                             </div>
                                         </div>
