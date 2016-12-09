@@ -37,5 +37,5 @@ front.config(['$routeProvider','$locationProvider', function($routeProvider, $lo
 	.otherwise({
 		redirectTo:'/404'
 	});
-	$locationProvider.html5Mode(true);
+	$locationProvider.html5Mode(false);
 }]);
