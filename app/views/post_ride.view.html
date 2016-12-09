@@ -3,7 +3,7 @@
 	<div class="row">
 	<div class="col-md-8 col-md-offset-2">
 	<section class="panel panel-default post-ride">
-		<div class="panel-heading"><strong><i class="fa fa-send-o"></i>&nbsp</span>Post a Ride</strong></div>
+		<div class="panel-heading"><strong><i class="fa fa-map-signs"></i>&nbsp</span>Post a Ride</strong></div>
 		<div class="panel-body">            
 			<div class="col-lg-10 col-lg-offset-1">
 				<div class="form-group row">
@@ -32,32 +32,41 @@
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-6">
-						<label for="date">Date</label>	
-						<p class="input-group">
-							<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" datepicker-options="dateOptions" is-open="popup.opened" placeholder="Pick a date" />
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
-							</span>
-						</p>				
-					</div>	
-					<div class="col-sm-6">
 						<div class="inside-row">
 							<label for="passengers">Passenger</label>
 						</div>
 						<div class="inside-row">
 							<span class="ui-select">
 								<select class="col-sm-6" ng-model="form.passenger" id="passengers" ng-init="form.passenger = passengers[0]" ng-options="passenger for passenger in passengers" uib-tooltip="Select number of passengers you can take." tooltip-placement="top" tooltip-trigger="'mouseenter'">
-
 								</select>
 							</span>
 						</div>
-					</div>				
+					</div>	
+					<div class="col-sm-6">
+						<div class="inside-row">
+							<label for="passengers">Price</label>
+						</div>
+						<div class="inside-row">
+							<input class="form-control" type="number" ng-model="form.price">
+						</div>
+					</div>			
 				</div>
 				<div class="form-group row ">										
 					<div class="col-sm-12">
 					<div class="panel panel-info ">
 						<div class="panel-heading">
 							<h3 class="panel-title">When are you going to leave</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-6">
+								<label for="date">Date</label>	
+								<p class="input-group">
+									<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" datepicker-options="dateOptions" is-open="popup.opened" placeholder="Pick a date" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
+									</span>
+								</p>				
+							</div>						
 						</div>
 						<div class="panel-body">
 							<div class="col-sm-6">

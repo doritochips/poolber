@@ -33,15 +33,7 @@
 					</div>
 				</div>
 				<div class="form-group row">
-					<div class="col-sm-6">
-						<label for="date">Date</label>	
-						<p class="input-group">
-							<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" datepicker-options="dateOptions" is-open="popup.opened" placeholder="Pick a date" />
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
-							</span>
-						</p>				
-					</div>	
+	
 					<div class="col-sm-6">
 						<div class="inside-row">
 							<label for="passengers">Passenger</label>
@@ -57,10 +49,20 @@
 				</div>
 				<div class="form-group row ">										
 					<div class="col-sm-12">
-					<div class="panel panel-info ">
+					<div class="panel panel-dark ">
 						<div class="panel-heading">
 							<h3 class="panel-title">When are you going to leave</h3>
 						</div>
+						<div class="panel-body">
+							<div class="col-sm-6">
+								<label for="date">Date</label>	
+								<p class="input-group">
+									<input id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" ng-model="form.date" datepicker-options="dateOptions" is-open="popup.opened" placeholder="Pick a date" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
+									</span>
+								</p>				
+							</div>						</div>
 						<div class="panel-body">
 							<div class="col-sm-6">
 								<div class="inside-row">
@@ -94,7 +96,7 @@
 				</div>
 				<div class="form-group row col-sm-12">	
 					<p class="error-msg" ng-hide="noError">{{errorMsg}}</p>                
-					<button type="submit" class="btn btn-primary btn-w-md" ng-click="submit()">Submit</button>
+					<button type="submit" class="btn btn-dark btn-w-md" ng-click="submit()">Submit</button>
 				</div>
 			</div>
 		</div>

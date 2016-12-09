@@ -32,6 +32,9 @@ var rideSchema = new Schema({
 	    type: Date,
 	    default: Date.now
   	},
+  	price: {
+  		type: Number
+  	},
 	passengerList:[{
 		userid:{
 			type: Schema.ObjectId,

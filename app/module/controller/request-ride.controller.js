@@ -113,7 +113,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 			return false;
 		}
 
-		if($scope.form.endTime <= $scope.form.startTime){
+		if($scope.form.endTime < $scope.form.startTime){
 			$scope.errorMsg = "Time period is invalid.";
 			$scope.noError = false;
 			return false;

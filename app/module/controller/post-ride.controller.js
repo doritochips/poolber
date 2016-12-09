@@ -19,7 +19,8 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 	$scope.noError = true;
 	$scope.form = {		
 		startTime: $scope.roundTime(new Date()),
-		endTime: $scope.roundTime(new Date())
+		endTime: $scope.roundTime(new Date()),
+		price: 0
 	};
 	console.log($scope.form);
 	$scope.popup = {
@@ -67,7 +68,9 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 					startTime: $scope.roundTime(new Date()),
 					endTime: $scope.roundTime(new Date()),
 					departure: "Select a city",
-					destination: "Select a city"
+					destination: "Select a city",
+					passenger: 1,
+					price: 0
 				};
 
 			}else{
@@ -80,6 +83,11 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 	}
 
 	function validation(){
+		if($scope.form.price < 0){
+			$scope.errorMsg = "Please enter a valid price.";
+			$scope.noError = false;
+			return false;
+		}
 		if($scope.form.departure == "Select a city"){
 			$scope.errorMsg = "Please select a departure location.";
 			$scope.noError = false;
@@ -114,7 +122,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 			return false;
 		}
 
-		if($scope.form.endTime <= $scope.form.startTime){
+		if($scope.form.endTime < $scope.form.startTime){
 			$scope.errorMsg = "Time period is invalid.";
 			$scope.noError = false;
 			return false;
