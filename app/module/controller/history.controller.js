@@ -7,14 +7,15 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 
 	$scope.mergedList = [];
 	var driverList = ['postedRides', 'appliedRequest'];
+	var postedList = ['postedRides', 'postedRequest'];
 
 	$scope.showElement = function(type){
-		if ($scope.viewAsDriver){
+		if ($scope.viewAsDriver === 'driver'){
 			return driverList.indexOf(type) > -1;
 		}else{
 			return driverList.indexOf(type) <= -1;
 		}
-	}
+	};
 
 	$scope.GenerateNote = function(type){
 		if (type === "postedRequest") {
@@ -26,7 +27,7 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		}else if (type === "appliedRides"){
 			return "you applied to this ride"
 		}
-	}
+	};
 	//on left or right
 	$scope.defineMainClass = function(type){
 		if (type === "appliedRequest" || type === "appliedRides"){
@@ -35,31 +36,43 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		else {
 			return "";
 		}
-	}
+	};
 
 	//define icon
 	$scope.defineIconClass = function(type){
-		if (driverList.indexOf(type) > -1){
+		if (type === 'postedRides'){
 			return "fa fa-car";
 		}
-		else {
+		else if (type === 'appliedRides'){
 			return "fa fa-user";
 		}
-	}
+		else if (type === 'postedRequest'){
+			return "fa fa-map-signs";
+		}
+		else if (type === 'appliedRequest'){
+			return "fa fa-comment";
+		}
+	};
 
 	//define color
 	$scope.defineIconColorClass = function(type){
-		if (driverList.indexOf(type) > -1){
-			return "btn-danger";
+		if (type === 'postedRides'){
+			return "btn-info";
 		}
-		else {
+		else if (type === 'appliedRides'){
 			return "btn-dark";
 		}
-	}
+		else if (type === 'postedRequest'){
+			return "btn-danger";
+		}
+		else if (type === 'appliedRequest'){
+			return "btn-warning";
+		}
+	};
 
 	var compare = function(a,b) {
 		return new Date(b.endTime) - new Date(a.endTime);
-	}
+	};
 
 	var importData = function(data){
 		$scope.postedRequest = data.postedRequest;
@@ -85,7 +98,7 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
 		console.log($scope.mergedList);
-	}
+	};
 
 	var init = function(){
 		//if userinfo is cached
