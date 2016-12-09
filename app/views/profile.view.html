@@ -45,18 +45,14 @@
 
                          </div>
                          <div ng-hide="editing" class="col-md-4">
-                             <span>{{user.firstName}} {{user.lastName}}
+                             <span>{{user.displayName}}
                              </span>
 
                          </div>
-                         <div ng-show="editing" class="col-md-4">
-                             <input class="form-control" ng-show="editing" ng-model="user.firstName">
+                         <div ng-show="editing" class="col-md-8">
+                             <input class="form-control" ng-show="editing" ng-model="user.displayName">
 
-                         </div>
-                         <div ng-show="editing" class="col-md-4">
-                             <input class="form-control" ng-show="editing" ng-model="user.lastName">
-
-                         </div>
+                         </div>                         
 
                      </li>
                      <li class="col-md-12">

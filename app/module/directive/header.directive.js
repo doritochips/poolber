@@ -31,7 +31,7 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 					return;
 				}
 				scope.user = res.data[0];
-				scope.user.name = scope.user.firstName == ""? scope.username:scope.user.firstName + " " + scope.user.lastName;				
+				scope.user.name = scope.user.displayName;
 				UserService.saveUserId(scope.user._id);
 				//console.log(UserService.getUserId());
 			
