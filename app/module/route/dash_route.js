@@ -32,5 +32,5 @@ dash.config(function($routeProvider, $locationProvider){
 	.otherwise({
 		redirectTo:'/404'
 	});
-	$locationProvider.html5Mode(false);
+	$locationProvider.html5Mode(true);
 })
