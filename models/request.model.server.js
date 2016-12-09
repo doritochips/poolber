@@ -31,7 +31,29 @@ var requestSchema = new Schema({
 	created: {
     type: Date,
     default: Date.now
-  	}
+  	},
+  	driverList:[{
+		userid:{
+			type: Schema.ObjectId,
+			ref: 'User'
+		},
+		createdDate: {
+			type: Date,
+			default: Date.now
+		},
+		emailProvided:{
+			type: Boolean,
+			default: false
+		},
+		phoneProvided:{
+			type: Boolean,
+			default: false
+		},
+		wechatProvided:{
+			type: Boolean,
+			default: false
+		}
+	}]
 });
 
 module.exports = mongoose.model('Request', requestSchema);

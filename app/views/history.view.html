@@ -1,6 +1,20 @@
+<link href="../styles/history.css" rel="stylesheet"> 
 <div class="page">
     
     <div class="ui-timline-container">
+        <!-- Rounded switch -->
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-1">
+                <h4> View As Passenger
+                <label class="switch">
+                  <input type="checkbox" ng-model="viewAsDriver">
+                  <div class="slider round"></div>
+                </label>
+                View As Driver
+                </h4> 
+            </div>
+        </div>
+
         <section class="ui-timeline" ng-repeat="ride in mergedList">
 <!--             <article class="tl-item">
                 <div class="tl-body">
@@ -12,14 +26,14 @@
                 </div>
             </article> -->
 
-            <article class="tl-item" ng-class="defineMainClass(ride.role)">
+            <article class="tl-item" ng-class="defineMainClass(ride.source)" ng-if="showElement(ride.source)">
                 <div class="tl-body">
                     <div class="tl-entry">
                         <div class="tl-time"><i>{{ride.startTime | date:'h:mm a, MMM d '}}</i></div>
-                        <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.role)"><i ng-class="defineIconClass(ride.role)"></i></div>
+                        <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.source)"><i ng-class="defineIconClass(ride.source)"></i></div>
                         <div class="tl-content">
                             <h4 class="tl-tile text-primary">{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</h4>
-                            <p>Passengers: {{ride.passenger}}</p>
+                            <p>{{GenerateNote(ride.source)}}</p>
                         </div>
                     </div>
                 </div>
