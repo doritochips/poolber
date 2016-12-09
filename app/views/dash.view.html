@@ -1,6 +1,6 @@
 <section>
     <div class="page page-form">
-        <div class="row">
+        <div>
             <!-- add new filter -->
             <div class="col-md-8">
                 <div class="panel panel-default">
@@ -48,7 +48,7 @@
                                     </span>
                                 </p>                
                             </div> 
-                            <div class="row" ng-show="invalidInput">
+                            <div ng-show="invalidInput">
                                 <div class="col-sm-6">
                                   <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
                               </div>
@@ -63,69 +63,84 @@
         </div>
     </div>
     <div class="page page-table">
-        <div class="row">
+        <div>
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading"><strong><span class="fa fa-list"></span> {{rides.length}} Rides Found</strong></div>
                     <div class="panel-body" style="overflow-x:scroll;">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Departure</th>
-                                    <th>Destination</th>
-                                    <th>ScheduleDate</th>
-                                    <th>ScheduleTime</th>
-                                    <th></th>
-                                    <th></th>                                   
-                                </tr>
-                            </thead>
-                            <tbody ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize">
-                                <tr>
-                                    <td>{{ride.departure}}</td>
-                                    <td>{{ride.destination}}</td>
-                                    <td>{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
-                                    <td>{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
-                                    <td>
-                                    <div ng-show="ride.isMine" class="mine-stamp"></div>
-                                    <div ng-show="ride.isApplied" class="applied-stamp"></div>
-                                    <td>                              
-                                        <a class="btn btn-primary" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
-                                    </td>
-                                </tr>
-                                <tr>                                    
-                                    <td class="collapse-td" colspan="6">
-                                        <div uib-collapse="isCollapsed">
-                                        <div class="callout callout-info">
+
+                        <section ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize" class="panel panel-box panel-border">
+                            <div class="panel-top" ng-class="{'bg-success': ride.isApplied, 'bg-warning': ride.isMine, 'bg-info': !ride.isMine && !ride.isApplied}">
+                                <h3 class="capitalize">
+                                <div class="stamp">
+                                <div ng-show="ride.isMine" class="mine-stamp"></div>
+                                <div ng-show="ride.isApplied" class="applied-stamp"></div>
+                                </div>
+                                {{ride.departure}} - {{ride.destination}}                               
+                                <a class="btn btn-dark pull-right" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
+
+                                </h3>                                
+                            </div>
+                            <div class="list-justified-container">
+                                <div uib-collapse="isCollapsed">
+                                        <div class="callout callout-info col-md-12">
                                             <h4>Details</h4>
-                                            <div class="row">
-                                                <div class="col-sm-4">
+                                            <div class="border-bot">
+                                                <div class="col-sm-6">
                                                     <b>Number of Passengers:</b>    
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-6">
                                                     <b>{{ride.passenger}}</b>    
-                                                </div>
+                                                </div>                                                
                                             </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-4">
+                                            
+                                            <div class="border-bot">
+                                                <div class="col-sm-6">
+                                                    <b>Fee per Passenger:</b>    
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <b>${{ride.price}}</b>    
+                                                </div>                                                
+                                            </div>
+
+                                            <div ng-show="ride.node" class="border-bot">
+                                                <hr>
+                                                <div class="col-sm-6">
                                                     <b>Note:</b>    
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-6">
                                                     <b>{{ride.note}}</b>    
+                                                </div>  
+                                                
+                                            </div>    
+                                            
+                                            <div ng-hide="ride.isMine" class="border-bot btn-set">                                                
+                                                <div ng-hide="ride.isApplied">
+                                                    <button class="btn btn-success" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
-                                                <div class="col-sm-4" ng-hide="ride.isMine || ride.isApplied">
-                                                    <button class="btn btn-success pull-right" ng-click="requestRide(ride)">Request this ride</button>
+                                                <div ng-show="ride.isApplied">
+                                                    <div class="alert alert-danger" style="text-transform: none;">You have applied for this ride</div>
                                                 </div>
-                                                <div class="col-sm-4" ng-show="ride.isApplied">
-                                                    <div class="alert alert-danger pull-right" style="text-transform: none;">You have applied for this ride</div>
-                                                </div>
-                                            </div>                                            
+                                            </div>
                                         </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    </div>
+                                <ul class="list-justified text-center">                                    
+                                    <li>
+                                        <h4>Schedule Date</h4>
+                                        <p class="text-muted">
+                                            {{ride.startTime | date: format: 'yyyy-mmmm-dd'}}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Schedule Time</h4>
+                                        <p class="text-muted">
+                                            {{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+
                         <div class="pull-right">
                             <p>
                                 Show
