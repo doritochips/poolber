@@ -1,3 +1,5 @@
+'use strict'
+
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
 	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
 		
@@ -82,7 +84,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				}).then(function(res){
 					//toast message
 					if(res.data == "success"){
-						console.log(toaster);
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
 					}else{
 						toaster.pop('error', "Failure", "Some unexpected error occurs!");
@@ -90,7 +91,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 					ride.isApplied = true;
 				});
 			});
-		}
+		};
 
 		$scope.open = function(){
 			document.getElementById("datepicker").focus();
@@ -115,8 +116,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				if (!$scope.form.date){
 					$scope.invalidDate = true;
 				}		
-			}
-			else{
+			}else{
 				$scope.invalidInput = false;
 				$scope.invalidDeparture = false;
 				$scope.invalidDestination = false;
@@ -128,8 +128,8 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				$scope.filter.passengers = $scope.form.passengers;
 				$scope.filter.date = $scope.form.date;
 					
-			}			
-		}
+			}
+		};
 
 		//List rides
 
@@ -169,7 +169,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				});
 			});				
 
-		}
+		};
 
 
 }]);

@@ -110,15 +110,30 @@ exports.delete = function(req, res){
 exports.requestRide = function(req, res){
     //console.log(req.body);
     var requestObject = req.body;
-    Ride.update({_id: requestObject.ride_id},
+    Ride.findOne({_id: requestObject.ride_id}, function(err, response){
+        var exist = false;
+        response.passengerList.forEach(function(it){
+            if(it.userid == requestObject.passenger_id){
+                exist = true;
+                return;
+            }
+        });
+        if(!exist){
+            callback();
+        }else{
+            res.send("failure");
+        }
+    });
+    function callback(){
+        Ride.update({_id: requestObject.ride_id},
         {$push: {'passengerList':
             {
                 userid: requestObject.passenger_id,
                 emailProvided: requestObject.selected.email,
                 phoneProvided: requestObject.selected.phone,
                 wechatProvided: requestObject.selected.wechat
-
-        }}}, function(err){
+            }
+        }}, function(err){
             if(err){
                 res.send("failure");
                 res.send(500).send(err)
@@ -177,6 +192,5 @@ exports.requestRide = function(req, res){
                 });                
             }
         });
-
-
+    }
 }
