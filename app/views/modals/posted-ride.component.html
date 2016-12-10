@@ -30,6 +30,12 @@
     </td>
     <hr>
     <h5>Passengers:</h5>
+    
+    <!-- if none, link to list rides -->
+    <div ng-if="ride.passengerList.length < 1">
+        <p><i>No one has responded to your ride yet, why don't you go to <a class="clicky" ng-click="goToRideList('#/requestList')">Request List</a></i></p>
+    </div>
+    <!-- ng-repeat -->
     <div ng-repeat="p in ride.passengerList">
     <p>{{p.userid.displayName}}</p>
     <ul>

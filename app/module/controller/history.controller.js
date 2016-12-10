@@ -134,25 +134,28 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			controller: function($scope, $uibModalInstance, $timeout){	
 				$scope.ride = ride;
 
+				$scope.goToRideList = function(newURL){
+					$uibModalInstance.close(newURL);
+				};
+
 				$scope.cancel = function(){
 					$uibModalInstance.dismiss('cancel');
-				}
+				};
+
 				$scope.submit = function(){
-					if($scope.validate()){
-						$scope.showError = true;
-						return;
-					}else{	
-						$scope.showError = false;
-					}
-					$uibModalInstance.close($scope.selected);
-				}
+					$uibModalInstance.close();
+				};
+
 				$scope.validate = function(){
 					return true;
-				}
+				};
 			},
 			size: 'sm'
-		}).result.then(function(selected){
-			console.log('closed');
+		}).result.then(function(newLocation){
+			if (newLocation){
+				$window.location.href = newLocation;
+			}
+			
 		});
 	}
 
