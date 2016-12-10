@@ -29,21 +29,8 @@
     </table>
     </td>
     <hr>
-    <h5>Passengers:</h5>
-    <div ng-repeat="p in ride.passengerList">
-    <p>{{p.userid.displayName}}</p>
-    <ul>
-        <li ng-if="p.userid.email">
-            Email: {{p.userid.email}}
-        </li>
-        <li ng-if="p.userid.phone">
-            Phone: {{p.userid.phone}}
-        </li>
-        <li ng-if="p.userid.wechat">
-            Wechat: {{p.userid.wechat}}
-        </li>
-    </ul>
-    </div>
+    <h5>Driver:</h5>
+    <p>{{user.displayName}}</p>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="submit()">OK</button>

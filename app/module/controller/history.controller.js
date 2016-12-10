@@ -108,18 +108,31 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			return true;
 		}
 	};
+
+	var getModalName = function(type){
+		if (type === 'postedRides'){
+			return 'views/modals/posted-ride.component.html';
+		}
+		else if (type === 'appliedRides'){
+			return 'views/modals/applied-ride.component.html';
+		}
+		else if (type === 'postedRequest'){
+			return 'views/modals/posted-request.component.html';
+		}
+		else if (type === 'appliedRequest'){
+			return 'views/modals/applied-request.component.html';
+		}
+	}
 	//Modal Control
 	$scope.viewDetail = function(ride){
-		console.log(ride);
+		var templateUrl = getModalName(ride.source);
 		$uibModal.open({
 			animation: true,
 			arialLabelledBy:'modal-title',
 			arialDescribedBy:'modal-body',
-			templateUrl: 'views/components/ride-detail-modal.html',
+			templateUrl: templateUrl,
 			controller: function($scope, $uibModalInstance, $timeout){	
 				$scope.ride = ride;
-
-
 
 				$scope.cancel = function(){
 					$uibModalInstance.dismiss('cancel');
