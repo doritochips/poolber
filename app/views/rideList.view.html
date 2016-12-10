@@ -1,3 +1,5 @@
+<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}">
+</toaster-container>
 <section>
     <div class="page page-form">
         <div>
@@ -75,10 +77,9 @@
                                 <div ng-show="ride.isMine" class="mine-stamp"></div>
                                 <div ng-show="ride.isApplied" class="applied-stamp"></div>
                                 </div>
-                                {{ride.departure}} - {{ride.destination}}                               
-                                <a class="btn btn-dark pull-right" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
-
-                                </h3>                                
+                                {{ride.departure}} - {{ride.destination}}                                   
+                                </h3>
+                                <a class="btn btn-dark collapse-btn" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
                             </div>
                             <div class="list-justified-container">
                                 <div uib-collapse="isCollapsed">
@@ -139,7 +140,7 @@
                             </div>
                         </section>
 
-                        <div class="pull-right">
+                        <div>
                             <p>
                                 Show
                                 <select class="btn btn-xs btn-default dropdown-toggle" ng-model="pageSize" ng-options="x for x in options">

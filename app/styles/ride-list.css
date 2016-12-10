@@ -87,3 +87,8 @@
 .btn-set{
 	text-align:right;
 }
+.collapse-btn{
+	position: absolute;
+    margin-top: -35px;
+    right: 40px;
+}
