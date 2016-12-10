@@ -33,7 +33,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		}
 		// apply for ride
 		$scope.requestRide = function(ride){
-			console.log(ride);
 			$uibModal.open({
 				animation: true,
 				arialLabelledBy:'modal-title',
