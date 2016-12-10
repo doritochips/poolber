@@ -2,7 +2,33 @@
     <h4 class="modal-title" id="modal-title">{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</h4>
 </div>
 <div class="modal-body" id="modal-body">    
-    <h4>Destination</h4>
+    <td style="text-align: right">
+    <table>
+        <tr>
+            <td><b>From</b></td>
+            <td>{{ride.startTime | date:'h:mm a, MMM d '}}</td>
+        </tr>
+        <tr>
+            <td><b>To</b></td>
+            <td>{{ride.startTime | date:'h:mm a, MMM d '}}</td>
+        </tr>
+        <tr>
+            <td><b>Passengers&nbsp&nbsp</b></td>
+            <td>{{ride.passenger}} Person</td>
+        </tr>
+        
+        <tr>
+            <td><b>Posted on</b></td>
+            <td>{{ride.created | date:'MMM d, yyyy'}}</td>
+        </tr>
+        
+        <tr ng-if="ride.price || ride.price == 0">
+            <td><b>Price</b></td>
+            <td>${{ride.price}}</td>
+        </tr>
+        
+    </table>
+    </td>
 </div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="submit()">OK</button>

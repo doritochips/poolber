@@ -100,6 +100,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		console.log($scope.mergedList);
 	};
 
+	$scope.isDefined = function(v) {
+		console.log(v);
+		if (typeof v === 'undefined'){
+			return false;
+		}else {
+			return true;
+		}
+	};
 	//Modal Control
 	$scope.viewDetail = function(ride){
 		console.log(ride);
