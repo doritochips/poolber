@@ -2,17 +2,16 @@
 </toaster-container>
 <section>
     <div class="page page-form">
-        <div>
             <!-- add new filter -->
             <div class="col-md-8">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading" ng-click="toggleFilter()">
                         <strong><span class="fa fa-filter"></span> Find a Ride</strong>
                         <div class="pull-right">
-                            <button class="btn btn-danger btn-xs" ng-click="applyFilter()"><span class="fa fa-plus" ></span> Search</button>
+                            <button ng-show="showFilter" class="btn btn-pink btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span>Search</button>
                         </div>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" uib-collapse="!showFilter">
                         <div class="form-group row">
                             <div class="col-md-3">
                                 <div class="inside-row">
@@ -60,8 +59,6 @@
                   </div>                    
               </div>
           </div>  
-
-        </div>
     </div>
     <div class="page page-table">
         <div>
@@ -71,7 +68,7 @@
                     <div class="panel-body" style="overflow-x:scroll;">
 
                         <section ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize" class="panel panel-box panel-border">
-                            <div class="panel-top" ng-class="{'bg-success': ride.isApplied, 'bg-warning': ride.isMine, 'bg-info': !ride.isMine && !ride.isApplied}">
+                            <div class="panel-top bg-dark">
                                 <h3 class="capitalize">
                                 <div class="stamp">
                                 <div ng-show="ride.isMine" class="mine-stamp"></div>
@@ -79,11 +76,11 @@
                                 </div>
                                 {{ride.departure}} - {{ride.destination}}                                   
                                 </h3>
-                                <a class="btn btn-dark collapse-btn" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-right': isCollapsed, 'fa-chevron-down': !isCollapsed}"></span></a>
+                                <a class="btn btn-pink collapse-btn" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-down': isCollapsed, 'fa-chevron-up': !isCollapsed}"></span></a>
                             </div>
                             <div class="list-justified-container">
                                 <div uib-collapse="isCollapsed">
-                                        <div class="callout callout-info col-md-12">
+                                        <div class="callout callout-dark col-md-12">
                                             <h4>Details</h4>
                                             <div class="border-bot">
                                                 <div class="col-sm-6">
@@ -115,10 +112,10 @@
                                             
                                             <div ng-hide="ride.isMine" class="border-bot btn-set">                                                
                                                 <div ng-hide="ride.isApplied">
-                                                    <button class="btn btn-success" ng-click="requestRide(ride)">Request this ride</button>
+                                                    <button class="btn btn-dark" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
                                                 <div ng-show="ride.isApplied">
-                                                    <div class="alert alert-danger" style="text-transform: none;">You have applied to this ride</div>
+                                                    <div class="alert alert-success" style="text-transform: none;">You have applied to this ride</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,7 +143,7 @@
                                 <select class="btn btn-xs btn-default dropdown-toggle" ng-model="pageSize" ng-options="x for x in options">
                                 </select>
                                 per page &nbsp &nbsp
-                                <button class="btn btn-direction btn-left btn-danger" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Previous </button>
+                                <button class="btn btn-direction btn-left btn-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Prev</button>
                                 {{currentPage+1}}/{{numberOfPages()}}
                                 <button class="btn btn-direction btn-right btn-primary" ng-disabled="currentPage >= rides.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
                             </div>

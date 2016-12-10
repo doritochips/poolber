@@ -14,6 +14,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			$scope.popup = {
 				opened:false
 			}
+			$scope.showFilter = false;
 			$scope.isCollapsed = true;
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
@@ -24,6 +25,10 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			$scope.options = [10,20,50];
 		}();
 		
+		//toggle filter
+		$scope.toggleFilter = function(){
+			$scope.showFilter = !$scope.showFilter;
+		}
 		// apply for ride
 		$scope.requestRide = function(ride){
 			console.log(ride);
@@ -123,7 +128,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				$scope.filter.passengers = $scope.form.passengers;
 				$scope.filter.date = $scope.form.date;
 					
-			}
+			}			
 		}
 
 		//List rides
