@@ -1,4 +1,4 @@
-dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
+dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
 	
 	$scope.postedRequest = [];
 	$scope.appliedRequest = [];
@@ -99,6 +99,52 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		$scope.mergedList = $scope.mergedList.sort(compare);
 		console.log($scope.mergedList);
 	};
+
+	//Modal Control
+	$scope.viewDetail = function(ride){
+		console.log(ride);
+		$uibModal.open({
+			animation: true,
+			arialLabelledBy:'modal-title',
+			arialDescribedBy:'modal-body',
+			templateUrl: 'views/components/ride-detail-modal.html',
+			controller: function($scope, $uibModalInstance, $timeout){	
+				$scope.ride = ride;
+
+
+
+				$scope.cancel = function(){
+					$uibModalInstance.dismiss('cancel');
+				}
+				$scope.submit = function(){
+					if($scope.validate()){
+						$scope.showError = true;
+						return;
+					}else{	
+						$scope.showError = false;
+					}
+					$uibModalInstance.close($scope.selected);
+				}
+				$scope.validate = function(){
+					return true;
+				}
+			},
+			size: 'sm'
+		}).result.then(function(selected){
+			console.log('closed');
+		});
+	}
+
+
+
+
+
+
+
+
+
+
+
 
 	var init = function(){
 		//if userinfo is cached
