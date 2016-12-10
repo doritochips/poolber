@@ -109,37 +109,30 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		}
 	};
 
-	var getModalName = function(type){
-		if (type === 'postedRides'){
-			return 'views/modals/posted-ride.component.html';
-		}
-		else if (type === 'appliedRides'){
-			return 'views/modals/applied-ride.component.html';
-		}
-		else if (type === 'postedRequest'){
-			return 'views/modals/posted-request.component.html';
-		}
-		else if (type === 'appliedRequest'){
-			return 'views/modals/applied-request.component.html';
-		}
-	}
+
 	//Modal Control
 	$scope.viewDetail = function(ride){
-		var templateUrl = getModalName(ride.source);
 		$uibModal.open({
 			animation: true,
 			arialLabelledBy:'modal-title',
 			arialDescribedBy:'modal-body',
-			templateUrl: templateUrl,
+			templateUrl: 'views/modals/history-detail.component.html',
 			controller: function($scope, $uibModalInstance, $timeout){	
 				$scope.ride = ride;
 
 				$scope.goToRideList = function(newURL){
-					$uibModalInstance.close(newURL);
+					$uibModalInstance.close(function(){	//callback after close
+						$window.location.href = newURL;
+					});
 				};
 
-				$scope.cancel = function(){
-					$uibModalInstance.dismiss('cancel');
+				$scope.delete = function(){
+					var result = confirm("Are you sure you want to delete this?");
+					if(result){
+						$uibModalInstance.close(function(){	//callback after close
+							//delete callback goes here!!!!!!!!!!
+						});
+					}
 				};
 
 				$scope.submit = function(){
@@ -151,11 +144,9 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 				};
 			},
 			size: 'sm'
-		}).result.then(function(newLocation){
-			if (newLocation){
-				$window.location.href = newLocation;
-			}
-			
+		}).result.then(function(callback){
+			callback && callback();
+
 		});
 	}
 
