@@ -1,3 +1,5 @@
+'use strict'
+
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
 	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
 		
@@ -14,6 +16,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			$scope.popup = {
 				opened:false
 			}
+			$scope.showFilter = false;
 			$scope.isCollapsed = true;
 			$scope.form.passengers = 1;
 			$scope.form.date= new Date();
@@ -24,6 +27,10 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			$scope.options = [10,20,50];
 		}();
 		
+		//toggle filter
+		$scope.toggleFilter = function(){
+			$scope.showFilter = !$scope.showFilter;
+		}
 		// apply for ride
 		$scope.requestRide = function(ride){
 			console.log(ride);
@@ -77,7 +84,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				}).then(function(res){
 					//toast message
 					if(res.data == "success"){
-						console.log(toaster);
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
 					}else{
 						toaster.pop('error', "Failure", "Some unexpected error occurs!");
@@ -85,7 +91,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 					ride.isApplied = true;
 				});
 			});
-		}
+		};
 
 		$scope.open = function(){
 			document.getElementById("datepicker").focus();
@@ -110,8 +116,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				if (!$scope.form.date){
 					$scope.invalidDate = true;
 				}		
-			}
-			else{
+			}else{
 				$scope.invalidInput = false;
 				$scope.invalidDeparture = false;
 				$scope.invalidDestination = false;
@@ -124,7 +129,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				$scope.filter.date = $scope.form.date;
 					
 			}
-		}
+		};
 
 		//List rides
 
@@ -164,7 +169,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 				});
 			});				
 
-		}
+		};
 
 
 }]);
