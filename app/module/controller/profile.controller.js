@@ -6,7 +6,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	var backup = {};
 
 	UserService.getUserInfo().then(function(res){				
-		if(!res.data[0]){
+		if(res == "failure"){
 			$window.location.href = '/#/login';	
 			return;
 		}
