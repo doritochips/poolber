@@ -12,7 +12,6 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		time.setMinutes(rounded);
 		return time;
 	};
-
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
 	$scope.passengers = [1,2,3,4];		

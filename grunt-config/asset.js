@@ -10,7 +10,8 @@ module.exports = {
 			'app/module/**/*.js'
 		],
 		views: [
-			'modules/*/client/views/**/*.html'
+			'app/views/**/*.html',
+			'app/views/*.html'
 		]
 	},
 	server: {

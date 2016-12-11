@@ -25,9 +25,45 @@ module.exports = function(grunt) {
 			serverJS: {
 				files: _.union(assets.server.gruntConfig, assets.server.allJS),
 				tasks: ['jshint'],
-				options:{
+				options: {
 					livereload: true
 				}
+			},
+			clientViews: {
+				files: assets.client.views,
+				options: {
+					livereload: true
+				}
+			},
+			clientJS: {
+				files: assets.client.js,
+				tasks: ['jshint'],
+				options: {
+					livereload: true
+				}
+			},
+			clientCSS: {
+				files: assets.client.css,
+				tasks: ['csslint'],
+				options: {
+					livereload: true
+				}
+			}
+		},
+		nodemon: {
+			dev: {
+				script: 'server.js',
+				options: {
+					nodeArgs: ['--debug'],
+					ext: 'js,html',
+					watch: _.union(assets.server.gruntConfig, assets.server.views, assets.server.allJS, assets.server.config)
+				}
+			}
+		},
+		concurrent: {
+			default: ['nodemon', 'watch'],
+			options: {
+				logConcurrentOutput: true
 			}
 		},
 		jshint: {
@@ -79,12 +115,14 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-ng-annotate');
+	grunt.loadNpmTasks('grunt-nodemon');
+	grunt.loadNpmTasks('grunt-concurrent');
 	// Lint CSS and JavaScript files.
 	grunt.registerTask('lint', ['jshint', 'csslint']);
 	
 	// Lint project files and minify them into two production files.
 	grunt.registerTask('build', ['lint', 'ngAnnotate','uglify', 'cssmin']);
 
-	grunt.registerTask('default', ['lint']);
+	grunt.registerTask('default', ['lint','concurrent']);
 
 };
