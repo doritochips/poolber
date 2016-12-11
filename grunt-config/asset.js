@@ -6,7 +6,8 @@ module.exports = {
 			'app/styles/*.css'
 		],
 		js: [
-			'app/module/**/*.js',
+			'app/module/*.js',
+			'app/module/**/*.js'
 		],
 		views: [
 			'modules/*/client/views/**/*.html'

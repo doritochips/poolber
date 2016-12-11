@@ -47,6 +47,13 @@ module.exports = function(grunt) {
 				src: assets.client.css
 			}
 		},
+		ngAnnotate: {
+			production: {
+				files: {
+					'public/dist/application.js': assets.client.js
+				}
+			}
+		},
 		uglify: {
 			production: {
 				options: {
@@ -71,12 +78,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
-	
+	grunt.loadNpmTasks('grunt-ng-annotate');
 	// Lint CSS and JavaScript files.
 	grunt.registerTask('lint', ['jshint', 'csslint']);
 	
 	// Lint project files and minify them into two production files.
-	grunt.registerTask('build', ['env:dev', 'lint', 'ngAnnotate', 'uglify', 'cssmin']);
+	grunt.registerTask('build', ['lint', 'ngAnnotate','uglify', 'cssmin']);
 
 	grunt.registerTask('default', ['lint']);
 

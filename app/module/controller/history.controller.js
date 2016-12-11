@@ -82,21 +82,21 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		$scope.postedRides = data.postedRides;
 		$scope.appliedRides = data.appliedRides;
 
-		for (let i = 0; i < data.postedRequest.length; i++) {
+		for (var i = 0; i < data.postedRequest.length; i++) {
 			data.postedRequest[i].source = "postedRequest";
 			$scope.mergedList.push(data.postedRequest[i]);
 		}
-		for (let i = 0; i < data.appliedRequest.length; i++) {
-			data.appliedRequest[i].source = "appliedRequest";
-			$scope.mergedList.push(data.appliedRequest[i]);
+		for (var j = 0; j < data.appliedRequest.length; j++) {
+			data.appliedRequest[j].source = "appliedRequest";
+			$scope.mergedList.push(data.appliedRequest[j]);
 		}		
-		for (let i = 0; i < data.postedRides.length; i++) {
-			data.postedRides[i].source = "postedRides";
-			$scope.mergedList.push(data.postedRides[i]);
+		for (var m = 0; m < data.postedRides.length; m++) {
+			data.postedRides[m].source = "postedRides";
+			$scope.mergedList.push(data.postedRides[m]);
 		}
-		for (let i = 0; i < data.appliedRides.length; i++) {
-			data.appliedRides[i].source = "appliedRides";
-			$scope.mergedList.push(data.appliedRides[i]);
+		for (var n = 0; n < data.appliedRides.length; n++) {
+			data.appliedRides[n].source = "appliedRides";
+			$scope.mergedList.push(data.appliedRides[n]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
 		console.log($scope.mergedList);
