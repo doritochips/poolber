@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require('lodash');
 var Request = require('../models/request.model.server.js');
 var User = require('../models/user.model.server.js');
@@ -12,7 +14,7 @@ exports.post = function(req, res) {
             console.log(err);
     		res.status(400).send({
                 message: 'Some error occured when saving the post!'
-            })
+            });
     	}
     	else {
     		res.send("Success");
@@ -25,7 +27,7 @@ exports.read = function(req,res) {
     if (!mongoose.Types.ObjectId.isValid(id)){
         return res.status(400).send({
             message: 'request id is invalid'
-        })
+        });
     }
     //populate with username
     Request.findById(id).exec(function(err, request){
@@ -41,7 +43,7 @@ exports.read = function(req,res) {
         }
         
     });
-}
+};
 
 exports.update = function(req,res) {
     var request = req.request;
@@ -53,7 +55,7 @@ exports.update = function(req,res) {
         } else {
             res.json(request);
         }
-    })
+    });
 };
 
 exports.list = function(req, res) {
@@ -73,10 +75,10 @@ exports.requestByID = function(req, res, next, id) {
     if (!mongoose.Types.ObjectId.isValid(id)){
         return res.status(400).send({
             message: 'article is invalid'
-        })
+        });
     }
 
-    Request.findById(id).populate('requestr', displayName).exec(function(err, request){
+    Request.findById(id).populate('requestr', 'displayName').exec(function(err, request){
         if (err){
             return next(err);
         }
@@ -86,7 +88,7 @@ exports.requestByID = function(req, res, next, id) {
             });
         }
         req.request = request;
-        next()
+        next();
     });
 };
 
