@@ -1,3 +1,5 @@
+"use strict";
+
 front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $scope, $http){
 		// user
 		$scope.user = {
@@ -35,15 +37,15 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 				$scope.duplicateKeyError = true;
 				$scope.keyErrorMsg = err.data.errorMsg;
 			});
-		}
+		};
 
 		// validation
 		$scope.formValidated = false;
 
 		$scope.user.validate = function(index){
-			if(index == 1){
+			if(index === 1){
 				var password = $scope.user.password;
-				if(password == "" || !password){
+				if(password === "" || !password){
 					$scope.errorMsg2 = "Password should not be empty";
 					$scope.formValidated = true;
 					return true;
@@ -64,7 +66,7 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 				$scope.errorMsg2 = "";
 				return false;
 			}
-			else if (index == 2){
+			else if (index === 2){
 				var email = $scope.user.email;
 				var re = /\S+@\S+\.\S+/;
     			if (!re.test(email)){
@@ -81,7 +83,7 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 				$scope.errorMsg2 = "";
 				return false;
 			}
-			else if(index == 3){
+			else if(index === 3){
 				var phone = $scope.user.phone;
 				if (phone.length > 0 && phone.length < 10){
 					$scope.errorMsg2 = "Password should not be empty";
@@ -95,5 +97,5 @@ front.controller("SignupCtrl", ['$window','$scope', '$http', function($window, $
 			else{
 				return true;
 			}
-		} 
+		};
 }]);

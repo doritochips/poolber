@@ -1,36 +1,14 @@
-'use strict'
+'use strict';
 
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
 	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
 		
-		//initialize
-		init = function(){
-			$scope.form = {};
-			$scope.user = {};
-			$scope.filter = {};
-			$scope.cities = CityList.commonCities;
-			$scope.dateOptions = {
-			    formatYear: 'yy',
-			    minDate: new Date()
-			};	
-			$scope.popup = {
-				opened:false
-			}
-			$scope.showFilter = false;
-			$scope.isCollapsed = true;
-			$scope.form.passengers = 1;
-			$scope.form.date= new Date();
-			//pagination
-			$scope.rides = [];
-			$scope.currentPage = 0;
-			$scope.pageSize = 10;
-			$scope.options = [10,20,50];
-		}();
+
 		
 		//toggle filter
 		$scope.toggleFilter = function(){
 			$scope.showFilter = !$scope.showFilter;
-		}
+		};
 		// apply for ride
 		$scope.requestRide = function(ride){
 			$uibModal.open({
@@ -44,23 +22,23 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 						email: false,
 						phone: false,
 						wechat: false
-					}
+					};
 
 					$scope.selectAll = function(){
 						$scope.selected.email = true;
 						$scope.selected.phone = true;
 						$scope.selected.wechat = true;
-					}
+					};
 
 					$scope.unSelectAll = function(){
 						$scope.selected.email = false;
 						$scope.selected.phone = false;
 						$scope.selected.wechat = false;
-					}
+					};
 
 					$scope.cancel = function(){
 						$uibModalInstance.dismiss('cancel');
-					}
+					};
 					$scope.submit = function(){
 						if($scope.validate()){
 							$scope.showError = true;
@@ -69,10 +47,10 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 							$scope.showError = false;
 						}
 						$uibModalInstance.close($scope.selected);
-					}
+					};
 					$scope.validate = function(){
-						return !($scope.selected.email || $scope.selected.phone || $scope.selected.wechat)
-					}
+						return !($scope.selected.email || $scope.selected.phone || $scope.selected.wechat);
+					};
 				},
 				size: 'sm'
 			}).result.then(function(selected){
@@ -82,7 +60,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 					passenger_id: $scope.user._id
 				}).then(function(res){
 					//toast message
-					if(res.data == "success"){
+					if(res.data === "success"){
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
 					}else{
 						toaster.pop('error', "Failure", "Some unexpected error occurs!");
@@ -96,6 +74,34 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			document.getElementById("datepicker").focus();
 			$scope.popup.opened  = true;		
 		};
+
+		var addRelations = function(userId){
+
+			// add mine and applied
+			$scope.rides.forEach(function(iterator){
+				if(iterator.user === userId){
+					iterator.isMine = true;
+				}
+				iterator.passengerList.forEach(function(it){
+					if(it.userid === userId){
+						iterator.isApplied = true;
+						return;						
+					}
+				});
+			});				
+		};
+
+		var processData = function(){
+			var l = $scope.rides.length;
+			$scope.numberOfPages = function(){
+				return Math.ceil($scope.rides.length/$scope.pageSize);
+			};
+			UserService.getUserInfo().then(function(res){				
+				$scope.user = res.data[0];
+				addRelations($scope.user._id);
+			});						
+		};
+
 
 
 		//Form validation
@@ -142,33 +148,31 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		$scope.getDetail = function(ride){			
 			return;
 		};
-		var processData = function(){
-			var l = $scope.rides.length;
-			$scope.numberOfPages = function(){
-				return Math.ceil($scope.rides.length/$scope.pageSize);
-			}
-			UserService.getUserInfo().then(function(res){				
-				$scope.user = res.data[0];
-				addRelations($scope.user._id);
-			});						
-		};
 
-		var addRelations = function(userId){
+		//initialize
+		var init = function(){
+			$scope.form = {};
+			$scope.user = {};
+			$scope.filter = {};
+			$scope.cities = CityList.commonCities;
+			$scope.dateOptions = {
+			    formatYear: 'yy',
+			    minDate: new Date()
+			};	
+			$scope.popup = {
+				opened:false
+			};
+			$scope.showFilter = false;
+			$scope.isCollapsed = true;
+			$scope.form.passengers = 1;
+			$scope.form.date= new Date();
+			//pagination
+			$scope.rides = [];
+			$scope.currentPage = 0;
+			$scope.pageSize = 10;
+			$scope.options = [10,20,50];
+		}();
 
-			// add mine and applied
-			$scope.rides.forEach(function(iterator){
-				if(iterator.user == userId){
-					iterator.isMine = true;
-				}
-				iterator.passengerList.forEach(function(it){
-					if(it.userid == userId){
-						iterator.isApplied = true;
-						return;						
-					}
-				});
-			});				
-
-		};
 
 
 }]);

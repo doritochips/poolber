@@ -13,6 +13,8 @@
   "unused": false, // Warn unused variables.
   "strict": true, // Require `use strict` pragma in every file.
   "globals": { // Globals variables.
+    "front": true,
+    "dash": true,
     "angular": true,
     "io": true,
     "ApplicationConfiguration": true
@@ -21,7 +23,10 @@
     "inject",
     "by",
     "browser",
-    "element"
+    "element",
+    "front",
+    "angular",
+    "dash"
   ],
   "devel": true // Allow development statements e.g. `console.log();`.
 }

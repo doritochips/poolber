@@ -1,3 +1,5 @@
+"use strict";
+
 dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
 	
 	$scope.postedRequest = [];
@@ -19,13 +21,13 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 
 	$scope.GenerateNote = function(type){
 		if (type === "postedRequest") {
-			return "you posted this request"
+			return "you posted this request";
 		}else if (type === "appliedRequest"){
-			return "you responsed to this request"
+			return "you responsed to this request";
 		}else if (type === "postedRides"){
-			return "you posted this ride"
+			return "you posted this ride";
 		}else if (type === "appliedRides"){
-			return "you applied to this ride"
+			return "you applied to this ride";
 		}
 	};
 	//on left or right
@@ -80,19 +82,19 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		$scope.postedRides = data.postedRides;
 		$scope.appliedRides = data.appliedRides;
 
-		for (var i = 0; i < data.postedRequest.length; i++) {
+		for (let i = 0; i < data.postedRequest.length; i++) {
 			data.postedRequest[i].source = "postedRequest";
 			$scope.mergedList.push(data.postedRequest[i]);
 		}
-		for (var i = 0; i < data.appliedRequest.length; i++) {
+		for (let i = 0; i < data.appliedRequest.length; i++) {
 			data.appliedRequest[i].source = "appliedRequest";
 			$scope.mergedList.push(data.appliedRequest[i]);
 		}		
-		for (var i = 0; i < data.postedRides.length; i++) {
+		for (let i = 0; i < data.postedRides.length; i++) {
 			data.postedRides[i].source = "postedRides";
 			$scope.mergedList.push(data.postedRides[i]);
 		}
-		for (var i = 0; i < data.appliedRides.length; i++) {
+		for (let i = 0; i < data.appliedRides.length; i++) {
 			data.appliedRides[i].source = "appliedRides";
 			$scope.mergedList.push(data.appliedRides[i]);
 		}
@@ -105,14 +107,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		if (UserService.userInfo === {}) {
 			UserService.getRideHistory().then(function(res){
 				importData(res.data);
-			})
+			});
 		}
 		//get user info then get history
 		else {
 			UserService.saveUserInfo().then(function(firstRes){
 				UserService.getRideHistory().then(function(res){
 					importData(res.data);
-				})
+				});
 			});
 		}
 	}();

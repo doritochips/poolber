@@ -1,8 +1,10 @@
+"use strict";
+
 dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
 	$scope.roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
-		if (quarterHours == 4)
+		if (quarterHours === 4)
 		{
 		    time.setHours(time.getHours()+1);
 		}
@@ -33,7 +35,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 	// get user id
 	
 	$scope.form.user_id = UserService.getUserId();
-	if($scope.form.user_id == ""){
+	if($scope.form.user_id === ""){
 		UserService.getUserInfo().then(function(res){
 			$scope.form.user_id = res.data[0]._id;
 		});
@@ -80,7 +82,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 			console.log(err);
 		});
 
-	}
+	};
 
 	function validation(){
 		if($scope.form.price < 0){
@@ -88,12 +90,12 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 			$scope.noError = false;
 			return false;
 		}
-		if($scope.form.departure == "Select a city"){
+		if($scope.form.departure === "Select a city"){
 			$scope.errorMsg = "Please select a departure location.";
 			$scope.noError = false;
 			return false;
 		}
-		if($scope.form.destination == "Select a city"){
+		if($scope.form.destination === "Select a city"){
 			$scope.errorMsg = "Please select a destination.";
 			$scope.noError = false;
 			return false;
@@ -131,4 +133,4 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		return true;
 	}
 		
-}])
+}]);

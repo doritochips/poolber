@@ -1,3 +1,5 @@
+"use strict";
+
 dash.factory('UserService', ["$location", "$http", function($location, $http){
 	var userService = {
 		userId: "",
@@ -12,7 +14,7 @@ dash.factory('UserService', ["$location", "$http", function($location, $http){
 	};
 
 	userService.getUserInfo = function(){	
-		if(userService.session == ""){
+		if(userService.session === ""){
 			userService.getSession();
 		}	
 		return $http.post('api/data/userinfo', {"session": userService.session});
@@ -36,7 +38,7 @@ dash.factory('UserService', ["$location", "$http", function($location, $http){
 		return $http.post('api/data/userinfo', {"session": userService.session}).then(function(res){
 			userService.userInfo = res.data[0];
 		});	
-	}
+	};
 	return userService;
 
 }]);

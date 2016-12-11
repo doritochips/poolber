@@ -1,3 +1,5 @@
+"use strict";
+
 dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
 
 	// init
@@ -6,7 +8,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	var backup = {};
 
 	UserService.getUserInfo().then(function(res){				
-		if(res == "failure"){
+		if(res === "failure"){
 			$window.location.href = '/#/login';	
 			return;
 		}
@@ -30,15 +32,15 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 			});
 			$scope.$digest();
 		}
-	})	
+	});	
 
 	$scope.disableCar = function(){
 		$scope.showCar = false;
-	}
+	};
 
 	$scope.editInfo = function(){
 		$scope.editing = true;
-	}
+	};
 
 	$scope.saveInfo = function(){
 		$http.post("/api/data/saveProfile",
@@ -54,14 +56,14 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 				}else{
 					toaster.pop('error', "Failure", "Some unexpected error occurs!");
 				}
-			})
+			});
 		$scope.editing = false;
-	}
+	};
 	$scope.cancelEdit = function(){
 		$scope.user.displayName = backup.displayName;		
 		$scope.user.email = backup.email;
 		$scope.user.phone = backup.phone;
 		$scope.user.wechat = backup.wechat;
 		$scope.editing = false;
-	}
+	};
 }]);
