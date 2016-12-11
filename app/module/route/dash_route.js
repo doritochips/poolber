@@ -1,3 +1,5 @@
+"use strict";
+
 dash.config(function($routeProvider, $locationProvider){
 	$locationProvider.hashPrefix('');
 	$locationProvider.html5Mode(false);
@@ -39,4 +41,4 @@ dash.config(function($routeProvider, $locationProvider){
 	.otherwise({
 		redirectTo:'/404'
 	});
-})
+});

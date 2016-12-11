@@ -1,3 +1,5 @@
+"use strict";
+
 dash.factory('CityList', ["$http", function($http){
 	var cityList = function() {
 		var a = {

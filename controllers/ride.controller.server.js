@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require('lodash');
 var path = require('path');
 var Ride = require('../models/ride.model.server.js');
@@ -16,7 +18,7 @@ exports.post = function(req, res) {
             console.log(err);
     		res.status(400).send({
                 message: 'Some error occured when saving the post!'
-            })
+            });
     	}
     	else {
     		res.send("Success");
@@ -29,7 +31,7 @@ exports.read = function(req,res) {
     if (!mongoose.Types.ObjectId.isValid(id)){
         return res.status(400).send({
             message: 'ride id is invalid'
-        })
+        });
     }
     //populate with username
     Ride.findById(id).exec(function(err, ride){
@@ -45,7 +47,7 @@ exports.read = function(req,res) {
         }
         
     });
-}
+};
 
 exports.update = function(req,res) {
     var ride = req.ride;
@@ -57,7 +59,7 @@ exports.update = function(req,res) {
         } else {
             res.json(ride);
         }
-    })
+    });
 };
 
 exports.list = function(req, res) {
@@ -77,10 +79,10 @@ exports.rideByID = function(req, res, next, id) {
     if (!mongoose.Types.ObjectId.isValid(id)){
         return res.status(400).send({
             message: 'article is invalid'
-        })
+        });
     }
 
-    Ride.findById(id).populate('rider', displayName).exec(function(err, ride){
+    Ride.findById(id).populate('rider', 'displayName').exec(function(err, ride){
         if (err){
             return next(err);
         }
@@ -90,7 +92,7 @@ exports.rideByID = function(req, res, next, id) {
             });
         }
         req.ride = ride;
-        next()
+        next();
     });
 };
 
@@ -113,7 +115,7 @@ exports.requestRide = function(req, res){
     Ride.findOne({_id: requestObject.ride_id}, function(err, response){
         var exist = false;
         response.passengerList.forEach(function(it){
-            if(it.userid == requestObject.passenger_id){
+            if(it.userid === requestObject.passenger_id){
                 exist = true;
                 return;
             }
@@ -136,7 +138,7 @@ exports.requestRide = function(req, res){
         }}, function(err){
             if(err){
                 res.send("failure");
-                res.send(500).send(err)
+                res.send(500).send(err);
             }else{                           
                 //construct the email 
                 Ride.find({_id: requestObject.ride_id}, function(err, response){
@@ -147,9 +149,9 @@ exports.requestRide = function(req, res){
 
                     User.find({_id: requestObject.passenger_id}, function(err, passengerRes){
                         
-                        email = requestObject.selected.email? "Email: " + passengerRes[0].email:"";
-                        phone = requestObject.selected.phone? "Phone: " + passengerRes[0].phone:"";
-                        wechat = requestObject.selected.wechat? "Wechat: " + passengerRes[0].wechat: "";
+                        var email = requestObject.selected.email? "Email: " + passengerRes[0].email:"";
+                        var phone = requestObject.selected.phone? "Phone: " + passengerRes[0].phone:"";
+                        var wechat = requestObject.selected.wechat? "Wechat: " + passengerRes[0].wechat: "";
                         res.render(path.resolve('templates/notification.html'),{
                             departure: response[0].departure,
                             destination: response[0].destination,
@@ -169,7 +171,7 @@ exports.requestRide = function(req, res){
                                     from: '"Poolber Support" <support@poolber.ca>',
                                     subject: 'Poolber | Ride Request',
                                     html: emailHTML
-                                }
+                                };
 
                                 smtpTransport.sendMail(mailOption, function(err){
                                     if(!err){
@@ -180,17 +182,17 @@ exports.requestRide = function(req, res){
                                             message: 'Failure sending email'
                                         });
                                     }
-                                })
+                                });
 
                                 //send text message
 
                             });
                         });
-                    })
+                    });
                   
                                         
                 });                
             }
         });
     }
-}
+};

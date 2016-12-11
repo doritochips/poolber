@@ -118,7 +118,7 @@ exports.userinfo = function(req, res) {
 			console.log(error);
 			res.status(400).send(error);
 		}else{
-			if(user.length == 0){
+			if(user.length === 0){
 				res.send("failure");
 				return;
 			}
@@ -141,7 +141,7 @@ exports.signout = function (req, res) {
 		}else{
 			res.send("logout success");
 		}
-	})	
+	});	
 };
 
 
@@ -166,7 +166,7 @@ exports.forgot = function(req,res,next) {
 					if(user.resetPasswordExpires - Date.now() > (3600000 - 1*60*1000)){	//wait 1 minute
 						return res.status(400).send({
 							message: 'An email has been sent, please check your inbox and spam'
-						})
+						});
 					}
 					user.resetPasswordToken = token;
 					user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
@@ -212,7 +212,7 @@ exports.forgot = function(req,res,next) {
 	], function(err) {
 		if (err) return next(err);
 	});
-}
+};
 
 exports.validateResetToken = function (req, res) {
 	User.findOne({
@@ -302,4 +302,4 @@ exports.saveProfile = function(req, res){
 			res.send("success");
 		}
 	});
-}
+};

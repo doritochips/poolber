@@ -1,3 +1,5 @@
+"use strict";
+
 dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
 	
 	$scope.postedRequest = [];
@@ -19,13 +21,13 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 
 	$scope.GenerateNote = function(type){
 		if (type === "postedRequest") {
-			return "you posted this request"
+			return "you posted this request";
 		}else if (type === "appliedRequest"){
-			return "you responsed to this request"
+			return "you responsed to this request";
 		}else if (type === "postedRides"){
-			return "you posted this ride"
+			return "you posted this ride";
 		}else if (type === "appliedRides"){
-			return "you applied to this ride"
+			return "you applied to this ride";
 		}
 	};
 	//on left or right
@@ -84,17 +86,17 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 			data.postedRequest[i].source = "postedRequest";
 			$scope.mergedList.push(data.postedRequest[i]);
 		}
-		for (var i = 0; i < data.appliedRequest.length; i++) {
-			data.appliedRequest[i].source = "appliedRequest";
-			$scope.mergedList.push(data.appliedRequest[i]);
+		for (var j = 0; j < data.appliedRequest.length; j++) {
+			data.appliedRequest[j].source = "appliedRequest";
+			$scope.mergedList.push(data.appliedRequest[j]);
 		}		
-		for (var i = 0; i < data.postedRides.length; i++) {
-			data.postedRides[i].source = "postedRides";
-			$scope.mergedList.push(data.postedRides[i]);
+		for (var m = 0; m < data.postedRides.length; m++) {
+			data.postedRides[m].source = "postedRides";
+			$scope.mergedList.push(data.postedRides[m]);
 		}
-		for (var i = 0; i < data.appliedRides.length; i++) {
-			data.appliedRides[i].source = "appliedRides";
-			$scope.mergedList.push(data.appliedRides[i]);
+		for (var n = 0; n < data.appliedRides.length; n++) {
+			data.appliedRides[n].source = "appliedRides";
+			$scope.mergedList.push(data.appliedRides[n]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
 		console.log($scope.mergedList);
@@ -105,14 +107,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 		if (UserService.userInfo === {}) {
 			UserService.getRideHistory().then(function(res){
 				importData(res.data);
-			})
+			});
 		}
 		//get user info then get history
 		else {
 			UserService.saveUserInfo().then(function(firstRes){
 				UserService.getRideHistory().then(function(res){
 					importData(res.data);
-				})
+				});
 			});
 		}
 	}();

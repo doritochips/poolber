@@ -1,10 +1,12 @@
+"use strict";
+
 dash.directive("poolSidebar", ['$location', '$routeParams', function($location, $routeParams ){
     var controller = ['$scope', function($scope){
 		
 		$scope.driverMode = true;
 		$scope.switchMode = function(){
 			$scope.driverMode = !$scope.driverMode;
-		}
+		};
 
 		//when lick, clear all class and reassign the one clicked
 		$scope.activate = function(s){
@@ -14,7 +16,7 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 			$scope.classList[s] = $scope.activeClass;
 		};
 
-		init = function(){
+		var init = function(){
 			$scope.activeClass = "open active";
 			$scope.nonActiveClass = "";
 			//assign default
@@ -24,7 +26,7 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 			$scope.classList[routeList.indexOf($location.path())] = $scope.activeClass;
 			//console.log($scope.classList);
 		}();
-    }]
+    }];
     return{
         templateUrl:'views/layout/sidebar.view.html',
         restrict:'A',

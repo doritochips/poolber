@@ -1,3 +1,5 @@
+"use strict";
+
 var _ = require('lodash');
 var Request = require('../models/request.model.server.js');
 var Ride = require('../models/ride.model.server.js');
@@ -9,7 +11,7 @@ var ObjectId = require('mongoose').Types.ObjectId;
 var removeSensitiveData = '-password -salt -resetPasswordToken -resetPasswordExpires -session';
 
 var removeUnprovidedFields = function(listOfPeople) {
-    for (p of listOfPeople){
+    for (var p of listOfPeople){
         if(!p.wechatProvided){
             p.userid.wechat = undefined;
         }
@@ -29,7 +31,7 @@ exports.list = function(req, res) {
     if (!mongoose.Types.ObjectId.isValid(user_id)){
         return res.status(400).send({
             message: 'request id is invalid'
-        })
+        });
     }
     var ret = {
         postedRequest: [],
@@ -52,7 +54,7 @@ exports.list = function(req, res) {
                     message: 'No requests has been found'
                 });
             }else{
-                for (request of requests){
+                for (var request of requests){
                     request.driverList = removeUnprovidedFields(request.driverList);
                     //console.log(request.driverList);
                 }
@@ -102,7 +104,7 @@ exports.list = function(req, res) {
                     message: 'No rides has been found'
                 });
             }else{
-                for (ride of rides){
+                for (var ride of rides){
                     ride.passengerList = removeUnprovidedFields(ride.passengerList);
                     //console.log(ride.passengerList);
                 }

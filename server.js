@@ -1,3 +1,4 @@
+"use strict";
 // Dependencies
 var path = require('path');
 var express = require('express');
@@ -49,5 +50,5 @@ require('./routes')(app);
 var port = process.env.PORT || 3000;
 app.listen(port, function(){
 	console.log("server on 3000");
-})
+});
 
