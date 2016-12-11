@@ -70,7 +70,7 @@ h1 {
     line-height: 95px;
     font-weight: 400;
     letter-spacing: -2px;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .row-no-padding .p{
@@ -87,7 +87,6 @@ h1 {
     color: #fff;
     margin-right: 15px;
     font-weight: 600;    
-    background-size: contain;
     background-repeat: no-repeat;
     padding-right: 20px;
     background-size: 15px 14px;
@@ -108,6 +107,6 @@ h1 {
 }
 
 #right_link:hover {
-	color: :#fff;
+	color: #fff;
 	letter-spacing: 3px;
 }
