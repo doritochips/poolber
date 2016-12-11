@@ -1,4 +1,7 @@
 front.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
+	$locationProvider.hashPrefix('');
+	$locationProvider.html5Mode(false);
+
 	$routeProvider
 	.when("/",{
 		templateUrl:"views/home.view.html",
@@ -37,5 +40,4 @@ front.config(['$routeProvider','$locationProvider', function($routeProvider, $lo
 	.otherwise({
 		redirectTo:'/404'
 	});
-	$locationProvider.html5Mode(true);
-}]);
+	}]);

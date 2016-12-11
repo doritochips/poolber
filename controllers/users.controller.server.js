@@ -118,6 +118,10 @@ exports.userinfo = function(req, res) {
 			console.log(error);
 			res.status(400).send(error);
 		}else{
+			if(user.length == 0){
+				res.send("failure");
+				return;
+			}
 			user[0].password = undefined;
 			user[0].salt = undefined;
 			//console.log(user);

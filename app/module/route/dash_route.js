@@ -1,7 +1,10 @@
-dash.config(function($routeProvider){
+dash.config(function($routeProvider, $locationProvider){
+	$locationProvider.hashPrefix('');
+	$locationProvider.html5Mode(false);
+
 	$routeProvider
 	.when("/",{
-		templateUrl:"views/dash.view.html",
+		templateUrl:"views/rideList.view.html",
 		controller: "rideListCtrl",
 		css: '/styles/ride-list.css'
 	})
@@ -29,7 +32,11 @@ dash.config(function($routeProvider){
 		templateUrl:"views/history.view.html",
 		controller: "historyCtrl"
 	})
+	.when("/requestList",{
+		templateUrl:"views/requestList.view.html",
+		controller: "requestListCtrl"
+	})
 	.otherwise({
 		redirectTo:'/404'
-	})
+	});
 })
