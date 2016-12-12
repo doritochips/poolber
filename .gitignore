@@ -20,6 +20,8 @@ app/bower_components
 .bower-*/
 .idea/
 coverage/
+public/
+
 
 # MEAN.js app and assets
 # ======================
