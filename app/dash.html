@@ -22,6 +22,7 @@
     </aside>
     <div id="content" class="content-container">
       <section class="view-container animate-fade-up">
+        <toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}"></toaster-container>
         <div ng-view></div>
       </section>
     </div>
