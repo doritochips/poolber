@@ -36,7 +36,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	});	
 	$scope.getNewFeature = function(){
 		$scope.newFeature = true;
-	}
+	};
 
 
 	$scope.disableCar = function(){

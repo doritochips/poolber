@@ -1,24 +1,13 @@
-"use strict";
+'use strict';
 
+/**
+ * Module dependencies.
+ */
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	User = require('mongoose').model('User');
 
-module.exports = function (app, db) {
-	// Serialize sessions
-	passport.serializeUser(function (user, done) {
-		done(null, user.id);
-	});
-
-	// Deserialize sessions
-	passport.deserializeUser(function (id, done) {
-		User.findOne({
-			_id: id
-		}, '-salt -password', function (err, user) {
-			done(err, user);
-		});
-	});
-
+module.exports = function () {
 	// Use local strategy
 	passport.use(new LocalStrategy({
 		usernameField: 'email',
@@ -40,7 +29,4 @@ module.exports = function (app, db) {
 			return done(null, user);
 		});
 	}));
-
-	// Add passport's middleware
-	app.use(passport.initialize());
 };
