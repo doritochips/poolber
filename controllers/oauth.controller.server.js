@@ -27,20 +27,17 @@ exports.oauthCall = function (strategy, scope) {
  */
 exports.oauthCallback = function (strategy) {
 	return function (req, res, next) {
-		// Pop redirect URL from session
-		var sessionRedirectURL = req.session.redirect_to;
-		delete req.session.redirect_to;
-
 		passport.authenticate(strategy, function (err, user, redirectURL) {
+			console.log(err);
 			if (err) {
-				return res.redirect('/authentication/signin?err=' + encodeURIComponent(err));
+				return res.redirect('/#/login?err=' + encodeURIComponent(err));
 			}
 			if (!user) {
-				return res.redirect('/authentication/signin');
+				return res.redirect('/#/login');
 			}
 			req.login(user, function (err) {
 				if (err) {
-					return res.redirect('/authentication/signin');
+					return res.redirect('/#/login');
 				}
 
 				return res.redirect(redirectURL || sessionRedirectURL || '/');
@@ -77,24 +74,20 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 				return done(err);
 			} else {
 				if (!user) {
-					var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
+					user = new User({
+						firstName: providerUserProfile.firstName,
+						lastName: providerUserProfile.lastName,
+						username: availableUsername,
+						displayName: providerUserProfile.displayName,
+						email: providerUserProfile.email,
+						profileImageURL: providerUserProfile.profileImageURL,
+						provider: providerUserProfile.provider,
+						providerData: providerUserProfile.providerData
+					});
 
-					User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
-						user = new User({
-							firstName: providerUserProfile.firstName,
-							lastName: providerUserProfile.lastName,
-							username: availableUsername,
-							displayName: providerUserProfile.displayName,
-							email: providerUserProfile.email,
-							profileImageURL: providerUserProfile.profileImageURL,
-							provider: providerUserProfile.provider,
-							providerData: providerUserProfile.providerData
-						});
-
-						// And save the user
-						user.save(function (err) {
-							return done(err, user);
-						});
+					// And save the user
+					user.save(function (err) {
+						return done(err, user);
 					});
 				} else {
 					return done(err, user);
@@ -126,7 +119,6 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 		}
 	}
 };
-
 /**
  * Remove OAuth provider
  */

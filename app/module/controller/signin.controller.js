@@ -22,5 +22,14 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 			});
 		};
 
+		$scope.facebookLogin = function(){
+			$scope.redirectTo = '/';
+			$http.post("api/auth/facebook",$scope.redirectTo).then(function(res){
+				//success
+			}, function(err){
+				//error
+			});
+		}
+
 
 }]);
