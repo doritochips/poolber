@@ -28,7 +28,8 @@ exports.oauthCall = function (strategy, scope) {
 exports.oauthCallback = function (strategy) {
 	return function (req, res, next) {
 		passport.authenticate(strategy, function (err, user, redirectURL) {
-			console.log(err);
+			//console.log(err);
+			//console.log(redirectURL);
 			if (err) {
 				return res.redirect('/#/login?err=' + encodeURIComponent(err));
 			}
@@ -50,7 +51,10 @@ exports.oauthCallback = function (strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
+	console.log("saving");
+	console.log(req.user);
 	if (!req.user) {
+		console.log("no user");
 		// Define a search query fields
 		var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
 		var searchAdditionalProviderIdentifierField = 'additionalProvidersData.' + providerUserProfile.provider + '.' + providerUserProfile.providerIdentifierField;
@@ -95,6 +99,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 			}
 		});
 	} else {
+		console.log("found user");
 		// User is already logged in, join the provider data to the existing user
 		var user = req.user;
 

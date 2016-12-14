@@ -4,6 +4,7 @@ var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	FacebookStrategy = require('passport-facebook').Strategy,
 	User = require('mongoose').model('User');
+var users = require('../controllers/users.controller.server.js')
 
 module.exports = function (app, db) {
 	// Serialize sessions

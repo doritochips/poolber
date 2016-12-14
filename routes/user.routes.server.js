@@ -14,4 +14,11 @@ module.exports = function(app) {
 
 	app.route('/api/data/saveProfile').post(users.saveProfile);
 	app.route('/api/data/userinfo').post(users.userinfo);
+
+	//OAUTH
+	// Setting the facebook oauth routes
+	app.route('/api/auth/facebook').get(users.oauthCall('facebook', {
+		scope: ['email']
+	}));
+	app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
 };
