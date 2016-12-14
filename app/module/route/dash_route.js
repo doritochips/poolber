@@ -10,6 +10,11 @@ dash.config(function($routeProvider, $locationProvider){
 		controller: "rideListCtrl",
 		css: '/styles/ride-list.css'
 	})
+	.when("/requestList",{
+		templateUrl:"views/requestList.view.html",
+		controller: "requestListCtrl",
+		css: '/styles/ride-list.css'
+	})
 	.when("/requestRide", {
 		templateUrl:"views/request_ride.view.html",
 		controller:"requestRideCtrl"
@@ -33,11 +38,7 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/history",{
 		templateUrl:"views/history.view.html",
 		controller: "historyCtrl"
-	})
-	.when("/requestList",{
-		templateUrl:"views/requestList.view.html",
-		controller: "requestListCtrl"
-	})
+	})	
 	.otherwise({
 		redirectTo:'/404'
 	});

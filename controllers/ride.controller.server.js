@@ -152,7 +152,7 @@ exports.requestRide = function(req, res){
                         var email = requestObject.selected.email? "Email: " + passengerRes[0].email:"";
                         var phone = requestObject.selected.phone? "Phone: " + passengerRes[0].phone:"";
                         var wechat = requestObject.selected.wechat? "Wechat: " + passengerRes[0].wechat: "";
-                        res.render(path.resolve('templates/notification.html'),{
+                        res.render(path.resolve('templates/notification_ride.html'),{
                             departure: response[0].departure,
                             destination: response[0].destination,
                             date: date,

@@ -143,11 +143,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			processData();
 		},function(res){
 			console.log(res);
-		});
-
-		$scope.getDetail = function(ride){			
-			return;
-		};
+		});		
 
 		//initialize
 		var init = function(){
