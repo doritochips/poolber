@@ -5,6 +5,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	// init
 	$scope.editing = false;
 	$scope.showCar = $window.innerWidth < 990? false:true;
+	$scope.newFeature = false;
 	var backup = {};
 
 	UserService.getUserInfo().then(function(res){				
@@ -33,6 +34,10 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 			$scope.$digest();
 		}
 	});	
+	$scope.getNewFeature = function(){
+		$scope.newFeature = true;
+	}
+
 
 	$scope.disableCar = function(){
 		$scope.showCar = false;

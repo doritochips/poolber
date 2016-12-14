@@ -1,9 +1,11 @@
 .main-container{
 	height: 100%;
 }
-/*.content-container{
-    background-color:#ffffbb;
+
+.clicky {
+    cursor: pointer;
 }
+
 .car{
     width: 80px;
     height: 200px;
@@ -32,4 +34,4 @@
     78%  {transform: rotate(360deg); left:-80px; top:calc(100% - 60px);}
 
     100% {transform: rotate(360deg);left:-80px; top:-200px; display:none;}
-}*/
+}
