@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="inside-row">
                                     <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
-                                        <select class="col-sm-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]" ng-options="city for city in cities">              
+                                        <select class="col-md-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]" ng-options="city for city in cities">              
                                             </select>
                                         </span>
                                     </div>
@@ -28,7 +28,7 @@
                                     </div>
                                     <div class="inside-row">
                                         <span class="ui-select" ng-class="{invalid: invalidDestination}">
-                                            <select ng-init="form.destination = cities[0]" class="col-sm-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
+                                            <select ng-init="form.destination = cities[0]" class="col-md-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
                                             </select>
                                         </span>
                                     </div>
@@ -47,7 +47,7 @@
                                 </p>                
                             </div> 
                             <div ng-show="invalidInput">
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                   <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
                               </div>
 
@@ -79,36 +79,38 @@
                             <div class="list-justified-container">
                                 <div uib-collapse="isCollapsed">
                                         <div class="callout callout-dark col-md-12">
-                                            <h4>Details</h4>
-                                            <div class="border-bot">
-                                                <div class="col-sm-6">
+                                            <form class="form-horizontal">
+                                            <h3>Details</h3>
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
                                                     <b>Number of Passengers:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>{{ride.passenger}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>{{ride.passenger}}</p>    
                                                 </div>                                                
                                             </div>
-                                            
-                                            <div class="border-bot">
-                                                <div class="col-sm-6">
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
                                                     <b>Fee per Passenger:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>${{ride.price}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>${{ride.price}}</p>    
                                                 </div>                                                
                                             </div>
-
-                                            <div ng-show="ride.note" class="border-bot">                                                
-                                                <div class="col-sm-6">
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-show="ride.note" class="form-group">                                                
+                                                <div class="col-md-6">
                                                     <b>Note:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>{{ride.note}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>{{ride.note}}</p>    
                                                 </div>  
                                                 
                                             </div>    
-                                            
-                                            <div ng-hide="ride.isMine" class="border-bot btn-set">                                                
+                                            <div ng-show="ride.note" class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-hide="ride.isMine" class="form-group btn-set">                                                
                                                 <div ng-hide="ride.isApplied">
                                                     <button class="btn btn-dark" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
@@ -116,6 +118,7 @@
                                                     <div class="alert alert-success" style="text-transform: none;">You have applied to this ride</div>
                                                 </div>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 <ul class="list-justified text-center">                                    

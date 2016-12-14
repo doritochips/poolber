@@ -90,12 +90,9 @@
 .callout .alert{
 	text-align: center;
 }
-.border-bot{
-	padding:20px 30px;
-	border-bottom: 1px solid;
-}
+
 .btn-set{
-	text-align:right;
+	text-align:center;
 }
 .btn-pink{
 	background-color:#ff4e8e;
@@ -106,5 +103,7 @@
 	position: absolute;
     margin-top: -30px;
     right: 40px;
-
+}
+.callout{
+	padding-bottom: 0px;
 }
