@@ -86,6 +86,7 @@
 }
 .callout{
 	text-align: left;
+	padding-bottom: 0px;
 }
 .callout .alert{
 	text-align: center;
@@ -103,7 +104,4 @@
 	position: absolute;
     margin-top: -30px;
     right: 40px;
-}
-.callout{
-	padding-bottom: 0px;
 }
