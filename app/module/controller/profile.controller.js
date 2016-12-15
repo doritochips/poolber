@@ -13,6 +13,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 			$window.location.href = '/#/login';	
 			return;
 		}
+		console.log(res.data[0]);
 		$scope.user = res.data[0];				
 		backup.displayName = res.data[0].displayName;		
 		backup.email = res.data[0].email;

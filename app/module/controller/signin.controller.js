@@ -22,5 +22,17 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 			});
 		};
 
+		$scope.facebookLogin = function(){
+			$scope.redirectTo = '/';
+			$http.post("api/auth/facebook",$scope.redirectTo).then(function(res){
+				console.log(res.data);
+				$window.location.href = '/dash.html?' + res.data;
+			}, function(err){
+				$scope.duplicateKey = true;
+				console.log(err.data);
+				$scope.errorMsg = err.data.message;
+			});
+		};
+
 
 }]);
