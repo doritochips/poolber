@@ -2,9 +2,7 @@
 
 dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
 	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
-		
 
-		
 		//toggle filter
 		$scope.toggleFilter = function(){
 			$scope.showFilter = !$scope.showFilter;
@@ -103,36 +101,65 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		};
 
 
+		$scope.clearFilter = function(){
+			$scope.form.passengers = 1;
+			$scope.form.departure = $scope.cities[0];
+			$scope.form.destination = $scope.cities[0];
+			$scope.form.date = undefined;
+		};
 
-		//Form validation
-		$scope.invalidInput = false;
+
+		$scope.greaterThan = function(val, index, array){
+			console.log(val);
+			console.log(array);
+			return val;
+		};
+
 		$scope.applyFilter = function(){
-			if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date&&$scope.form.departure !== $scope.cities[0]&&$scope.form.destination !== $scope.cities[0])){
-				$scope.invalidInput = true;
-				if (!$scope.form.departure || $scope.form.departure === $scope.cities[0]){
-					$scope.invalidDeparture = true;
-				}
-				if (!$scope.form.destination  || $scope.form.destination === $scope.cities[0]){
-					$scope.invalidDestination = true;
-				}
-				if (!$scope.form.passengers){
-					$scope.invalidPassenger = true;
-				}
-				if (!$scope.form.date){
-					$scope.invalidDate = true;
-				}		
-			}else{
-				$scope.invalidInput = false;
-				$scope.invalidDeparture = false;
-				$scope.invalidDestination = false;
-				$scope.invalidPassenger = false;
-				$scope.invalidDate = false;
-
+			// if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date&&$scope.form.departure !== $scope.cities[0]&&$scope.form.destination !== $scope.cities[0])){
+			// 	$scope.invalidInput = true;
+			// 	if (!$scope.form.departure || $scope.form.departure === $scope.cities[0]){
+			// 		$scope.invalidDeparture = true;
+			// 	}
+			// 	if (!$scope.form.destination  || $scope.form.destination === $scope.cities[0]){
+			// 		$scope.invalidDestination = true;
+			// 	}
+			// 	if (!$scope.form.passengers){
+			// 		$scope.invalidPassenger = true;
+			// 	}
+			// 	if (!$scope.form.date){
+			// 		$scope.invalidDate = true;
+			// 	}		
+			// }else{
+			// 	$scope.invalidInput = false;
+			// 	$scope.invalidDeparture = false;
+			// 	$scope.invalidDestination = false;
+			// 	$scope.invalidPassenger = false;
+			// 	$scope.invalidDate = false;
+			// }
+			if ($scope.form.departure !== $scope.cities[0]) {
 				$scope.filter.departure = $scope.form.departure.trim();	//remove line break and shit
+			}
+			else {
+				$scope.filter.departure = undefined;
+			}
+			if ($scope.form.destination !== $scope.cities[0]) {
 				$scope.filter.destination = $scope.form.destination.trim();
+			}
+			else {
+				$scope.filter.destination = undefined;
+			}
+			if ($scope.form.passengers) {
 				$scope.filter.passengers = $scope.form.passengers;
+			}
+			else {
+				$scope.filter.passengers = undefined;
+			}
+			if ($scope.form.date) {
 				$scope.filter.date = $scope.form.date;
-					
+			}
+			else {
+				$scope.filter.date = undefined;
 			}
 		};
 
