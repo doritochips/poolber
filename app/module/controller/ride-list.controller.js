@@ -109,12 +109,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 		};
 
 
-		$scope.greaterThan = function(val, index, array){
-			console.log(val);
-			console.log(array);
-			return val;
-		};
-
 		$scope.applyFilter = function(){
 			// if (!($scope.form.departure&&$scope.form.destination&&$scope.form.passengers&&$scope.form.date&&$scope.form.departure !== $scope.cities[0]&&$scope.form.destination !== $scope.cities[0])){
 			// 	$scope.invalidInput = true;
