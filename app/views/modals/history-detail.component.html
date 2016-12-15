@@ -76,12 +76,12 @@
     <!-- applied request template -->
     <div ng-if="ride.source === 'appliedRequest'">
         <h5>Passenger:</h5>
-        <p>{{user.displayName}}</p>
+        <p>{{ride.user.displayName}}</p>
     </div>
     <!-- applied ride template -->
     <div ng-if="ride.source === 'appliedRides'">
         <h5>Driver:</h5>
-        <p>{{user.displayName}}</p>
+        <p>{{ride.user.displayName}}</p>
     </div>
 </div>
 <div class="modal-footer">

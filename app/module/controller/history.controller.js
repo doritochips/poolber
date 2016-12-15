@@ -1,3 +1,5 @@
+'use strict';
+
 dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
 	
 	$scope.postedRequest = [];
@@ -19,13 +21,13 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 
 	$scope.GenerateNote = function(type){
 		if (type === "postedRequest") {
-			return "you posted this request"
+			return "you posted this request";
 		}else if (type === "appliedRequest"){
-			return "you responsed to this request"
+			return "you responsed to this request";
 		}else if (type === "postedRides"){
-			return "you posted this ride"
+			return "you posted this ride";
 		}else if (type === "appliedRides"){
-			return "you applied to this ride"
+			return "you applied to this ride";
 		}
 	};
 	//on left or right
@@ -84,24 +86,24 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			data.postedRequest[i].source = "postedRequest";
 			$scope.mergedList.push(data.postedRequest[i]);
 		}
-		for (var i = 0; i < data.appliedRequest.length; i++) {
-			data.appliedRequest[i].source = "appliedRequest";
-			$scope.mergedList.push(data.appliedRequest[i]);
+		for (var j = 0; j < data.appliedRequest.length; j++) {
+			data.appliedRequest[j].source = "appliedRequest";
+			$scope.mergedList.push(data.appliedRequest[j]);
 		}		
-		for (var i = 0; i < data.postedRides.length; i++) {
-			data.postedRides[i].source = "postedRides";
-			$scope.mergedList.push(data.postedRides[i]);
+		for (var k = 0; k < data.postedRides.length; k++) {
+			data.postedRides[k].source = "postedRides";
+			$scope.mergedList.push(data.postedRides[k]);
 		}
-		for (var i = 0; i < data.appliedRides.length; i++) {
-			data.appliedRides[i].source = "appliedRides";
-			$scope.mergedList.push(data.appliedRides[i]);
+		for (var l = 0; l < data.appliedRides.length; l++) {
+			data.appliedRides[l].source = "appliedRides";
+			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		console.log($scope.mergedList);
+		console.log(data);
 	};
 
 	$scope.isDefined = function(v) {
-		console.log(v);
+		//console.log(v);
 		if (typeof v === 'undefined'){
 			return false;
 		}else {
@@ -145,35 +147,26 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			},
 			size: 'sm'
 		}).result.then(function(callback){
-			callback && callback();
+			if (callback){
+				callback();
+			}
 
 		});
-	}
-
-
-
-
-
-
-
-
-
-
-
+	};
 
 	var init = function(){
 		//if userinfo is cached
 		if (UserService.userInfo === {}) {
 			UserService.getRideHistory().then(function(res){
 				importData(res.data);
-			})
+			});
 		}
 		//get user info then get history
 		else {
 			UserService.saveUserInfo().then(function(firstRes){
 				UserService.getRideHistory().then(function(res){
 					importData(res.data);
-				})
+				});
 			});
 		}
 	}();

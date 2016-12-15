@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 var ObjectId = require('mongoose').Types.ObjectId;
 
 
-var removeSensitiveData = '-password -salt -resetPasswordToken -resetPasswordExpires -session';
+var notSensitiveData = '-password -salt -resetPasswordToken -resetPasswordExpires -session';
 
 var removeUnprovidedFields = function(listOfPeople) {
     for (var p of listOfPeople){
@@ -45,7 +45,7 @@ exports.list = function(req, res) {
 
     var findRequests = function (next, callback)  {
         //find all posted requests
-        Request.find({user: user_id}).populate('driverList.userid', removeSensitiveData).exec(function(err, requests){
+        Request.find({user: user_id}).populate('driverList.userid', notSensitiveData).exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 
     var findRides = function (next, callback) {
         //find posted rides
-        Ride.find({user: user_id}).populate('passengerList.userid', removeSensitiveData).exec(function(err, rides){
+        Ride.find({user: user_id}).populate('passengerList.userid', notSensitiveData).exec(function(err, rides){
             if (err){
                 return res.status(400).send(err);
             }
@@ -120,7 +120,7 @@ exports.list = function(req, res) {
 
     var findAnsweredRequests = function (next, callback) {
         //find all answered requests
-        Ride.find({'driverList.userid': ObjectId(user_id)}).populate('user','displayName').exec(function(err, requests){
+        Request.find({'driverList.userid': ObjectId(user_id)}).populate('user','displayName').exec(function(err, requests){
             if (err){
                 return res.status(400).send(err);
             }
@@ -129,8 +129,8 @@ exports.list = function(req, res) {
                     message: 'No requests has been found'
                 });
             }else{
-                //console.log("find rided requests");
-                //console.log(requests);
+                // console.log("find rided requests");
+                // console.log(requests);
                 _.assign(ret.appliedRequest, requests);  //extend listAsDriver with ride
                 if (next.length) {
                     next[0](next.slice(1, next.length), callback);
