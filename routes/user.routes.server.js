@@ -16,9 +16,15 @@ module.exports = function(app) {
 	app.route('/api/data/userinfo').post(users.userinfo);
 
 	//OAUTH
-	// Setting the facebook oauth routes
 	app.route('/api/auth/facebook').get(users.oauthCall('facebook', {
 		scope: ['email']
 	}));
 	app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
+	
+	// app.route('/api/auth/wechat').get(users.oauthCall('wechat', {
+	// 	scope: ['snsapi_userinfo']
+	// }));
+	// app.route('/api/auth/wechat/callback').get(users.oauthCallback('wechat'));
+
+
 };
