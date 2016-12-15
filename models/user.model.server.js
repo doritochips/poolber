@@ -49,7 +49,8 @@ var UserSchema = new Schema({
   session: {
     type: String,
     trim: true,
-    default: '-1'
+    default: '-1',
+    index: true
   },
   phone:{
     type:String,

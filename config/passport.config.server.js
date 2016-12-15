@@ -3,7 +3,6 @@
 var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	FacebookStrategy = require('passport-facebook').Strategy,
-	WechatStrategy = require('passport-wechat').Strategy,
 	User = require('mongoose').model('User');
 var users = require('../controllers/users.controller.server.js');
 
