@@ -23,7 +23,7 @@ var shasum = crypto.createHash('sha1');
 exports.signup = function (req, res) {
 	
 	// Init Variables
-    console.log(req.body);
+    //console.log(req.body);
 	var user = new User(req.body);
 	var message = null;
 
@@ -34,7 +34,7 @@ exports.signup = function (req, res) {
 	// Then save the user
 	user.save(function (err) {
 		if (err) {
-            console.log(err);
+            //console.log(err);
             if (err.code === 11000){
                 return res.status(400).send({errorMsg: "Email in use, you sure you don't have an account?"});
             }
@@ -50,12 +50,12 @@ exports.signup = function (req, res) {
 			var new_session = shasum.digest('hex').toString();			
 			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
 				if(error){
-					console.log(error);
+					//console.log(error);
 					res.status(400).send(error);
 				}else{
 					req.login(user, function (err) {
 						if (err) {
-		                    console.log(err);
+		                    //console.log(err);
 							res.status(400).send(err);
 						} else {
 							res.send(new_session);
@@ -88,12 +88,12 @@ exports.signin = function (req, res, next) {
 			var new_session = shasum.digest('hex').toString();			
 			User.update({_id: user._id}, {$set:{session: new_session}}, function(error){
 				if(error){
-					console.log(error);
+					//console.log(error);
 					res.status(400).send(error);
 				}else{
 					req.login(user, function (err) {
 						if (err) {
-		                    console.log(err);
+		                    //console.log(err);
 							res.status(400).send(err);
 						} else {
 							res.send(new_session);
@@ -113,7 +113,7 @@ exports.userinfo = function(req, res) {
 	
 	User.find({session:req.body.session}).exec(function(error, user){
 		if(error){
-			console.log(error);
+			//console.log(error);
 			res.status(400).send(error);
 		}else{
 			if(user.length === 0){
@@ -134,7 +134,7 @@ exports.userinfo = function(req, res) {
 exports.signout = function (req, res) {
 	User.update({session: req.body.session}, {$set:{session: -1}}, function(error){
 		if(error){
-			console.log(error);
+			//console.log(error);
 			res.status(500).send(error);
 		}else{
 			res.send("logout success");
@@ -199,7 +199,7 @@ exports.forgot = function(req,res,next) {
 						message: 'An email has been sent to the provided email with further instructions.'
 					});
 				} else {
-					console.log(err);
+					//console.log(err);
 					return res.status(400).send({
 						message: 'Failure sending email'
 					});
@@ -246,7 +246,7 @@ exports.reset = function (req, res, next) {
 					if (passwordDetails.newPassword === passwordDetails.verifyPassword) {
 
 						user.password = passwordDetails.newPassword;
-						console.log(user);
+						//console.log(user);
 						user.resetPasswordToken = undefined;
 						user.resetPasswordExpires = undefined;
 
@@ -289,12 +289,12 @@ exports.reset = function (req, res, next) {
 
 exports.saveProfile = function(req, res){
 	var user = req.body;
-	console.log(user);
+	//console.log(user);
 	User.update({session: user.session}, 
 		{$set:{displayName: user.displayName, email: user.email, phone:user.phone, wechat: user.wechat}},
 		function(error){
 		if(error){
-			console.log(error);
+			//console.log(error);
 			res.status(500).send(error);
 		}else{
 			res.send("success");
@@ -331,9 +331,6 @@ exports.oauthCall = function (strategy, scope) {
 exports.oauthCallback = function (strategy) {
 	return function (req, res, next) {
 		passport.authenticate(strategy, function (err, user, redirectURL) {
-			console.log(err);
-			console.log(user);
-			console.log(redirectURL);
 			if (err) {
 				return res.redirect('/#/login?err=' + encodeURIComponent(err));
 			}
@@ -351,6 +348,7 @@ exports.oauthCallback = function (strategy) {
 	};
 };
 
+
 /**
  * Helper function to save or update a OAuth user profile
  */
@@ -358,7 +356,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 	if (!req.user) {
 		User.findOne({email:providerUserProfile.email}, function (err, user) {
 			if (err) {
-				console.log(err);
+				//console.log(err);
 				return done(err);
 			} else {
 				var new_session = shasum.digest('hex').toString();
