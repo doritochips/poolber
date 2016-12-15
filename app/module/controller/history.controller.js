@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
+dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
 	
 	$scope.postedRequest = [];
 	$scope.appliedRequest = [];
@@ -90,16 +90,68 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 			data.appliedRequest[j].source = "appliedRequest";
 			$scope.mergedList.push(data.appliedRequest[j]);
 		}		
-		for (var m = 0; m < data.postedRides.length; m++) {
-			data.postedRides[m].source = "postedRides";
-			$scope.mergedList.push(data.postedRides[m]);
+		for (var k = 0; k < data.postedRides.length; k++) {
+			data.postedRides[k].source = "postedRides";
+			$scope.mergedList.push(data.postedRides[k]);
 		}
-		for (var n = 0; n < data.appliedRides.length; n++) {
-			data.appliedRides[n].source = "appliedRides";
-			$scope.mergedList.push(data.appliedRides[n]);
+		for (var l = 0; l < data.appliedRides.length; l++) {
+			data.appliedRides[l].source = "appliedRides";
+			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		console.log($scope.mergedList);
+		console.log(data);
+	};
+
+	$scope.isDefined = function(v) {
+		//console.log(v);
+		if (typeof v === 'undefined'){
+			return false;
+		}else {
+			return true;
+		}
+	};
+
+
+	//Modal Control
+	$scope.viewDetail = function(ride){
+		$uibModal.open({
+			animation: true,
+			arialLabelledBy:'modal-title',
+			arialDescribedBy:'modal-body',
+			templateUrl: 'views/modals/history-detail.component.html',
+			controller: function($scope, $uibModalInstance, $timeout){	
+				$scope.ride = ride;
+
+				$scope.goToRideList = function(newURL){
+					$uibModalInstance.close(function(){	//callback after close
+						$window.location.href = newURL;
+					});
+				};
+
+				$scope.delete = function(){
+					var result = confirm("Are you sure you want to delete this?");
+					if(result){
+						$uibModalInstance.close(function(){	//callback after close
+							//delete callback goes here!!!!!!!!!!
+						});
+					}
+				};
+
+				$scope.submit = function(){
+					$uibModalInstance.close();
+				};
+
+				$scope.validate = function(){
+					return true;
+				};
+			},
+			size: 'sm'
+		}).result.then(function(callback){
+			if (callback){
+				callback();
+			}
+
+		});
 	};
 
 	var init = function(){

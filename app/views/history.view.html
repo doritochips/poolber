@@ -28,9 +28,9 @@
                     <div class="tl-entry">
                         <div class="tl-time"><i>{{ride.startTime | date:'h:mm a, MMM d '}}</i></div>
                         <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.source)"><i ng-class="defineIconClass(ride.source)"></i></div>
-                        <div class="tl-content">
-                            <h4 class="tl-tile text-primary">{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</h4>
-                            <small><i>{{GenerateNote(ride.source)}}</i></small>
+                        <div class="tl-content clicky" ng-click="viewDetail(ride)">
+                            <h4 class="tl-tile text-primary"> <a>{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</a></h4>
+                            <small><i>{{GenerateNote(ride.source)}}. Click to view detail</i></small>
                         </div>
                     </div>
                 </div>

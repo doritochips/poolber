@@ -1,0 +1,90 @@
+<div class="modal-header bg-dark">
+    <h4 class="modal-title " id="modal-title">{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</h4>
+</div>
+<div class="modal-body" id="modal-body">    
+    <td style="text-align: right">
+    <table>
+        <tr>
+            <td><b>From</b></td>
+            <td>{{ride.startTime | date:'h:mm a, MMM d '}}</td>
+        </tr>
+        <tr>
+            <td><b>To</b></td>
+            <td>{{ride.startTime | date:'h:mm a, MMM d '}}</td>
+        </tr>
+        <tr>
+            <td><b>Passengers&nbsp&nbsp</b></td>
+            <td>{{ride.passenger}} Person</td>
+        </tr>
+        
+        <tr>
+            <td><b>Posted on</b></td>
+            <td>{{ride.created | date:'MMM d, yyyy'}}</td>
+        </tr>
+        
+        <tr ng-if="ride.price || ride.price == 0">
+            <td><b>Price</b></td>
+            <td>${{ride.price}}</td>
+        </tr>
+    </table>
+    </td>
+    <hr>
+    <!-- posted Request template -->
+    <div ng-if="ride.source === 'postedRequest'">
+        <h5>Drivers:</h5>
+        <!-- if none, link to list rides -->
+        <div ng-if="ride.driverList.length < 1">
+            <p><i>No one has responded to your request yet, why don't you go to <a class="clicky" ng-click="goToRideList('#/')">Ride List</a></i></p>
+        </div>
+        <!-- ng-repeat -->
+        <div ng-repeat="p in ride.driverList">
+            <p>{{p.userid.displayName}}</p>
+            <ul>
+                <li ng-if="p.userid.email">
+                    Email: {{p.userid.email}}
+                </li>
+                <li ng-if="p.userid.phone">
+                    Phone: {{p.userid.phone}}
+                </li>
+                <li ng-if="p.userid.wechat">
+                    Wechat: {{p.userid.wechat}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- posted ride template -->
+    <div ng-if="ride.source === 'postedRides'">
+        <div ng-if="ride.passengerList.length < 1">
+            <p><i>No one has responded to your ride yet, why don't you go to <a class="clicky" ng-click="goToRideList('#/requestList')">Request List</a></i></p>
+        </div>
+        <!-- ng-repeat -->
+        <div ng-repeat="p in ride.passengerList">
+        <p>{{p.userid.displayName}}</p>
+        <ul>
+            <li ng-if="p.userid.email">
+                Email: {{p.userid.email}}
+            </li>
+            <li ng-if="p.userid.phone">
+                Phone: {{p.userid.phone}}
+            </li>
+            <li ng-if="p.userid.wechat">
+                Wechat: {{p.userid.wechat}}
+            </li>
+        </ul>
+        </div>
+    </div>
+    <!-- applied request template -->
+    <div ng-if="ride.source === 'appliedRequest'">
+        <h5>Passenger:</h5>
+        <p>{{ride.user.displayName}}</p>
+    </div>
+    <!-- applied ride template -->
+    <div ng-if="ride.source === 'appliedRides'">
+        <h5>Driver:</h5>
+        <p>{{ride.user.displayName}}</p>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-danger" type="button" ng-click="delete()">Delete</button>
+    <button class="btn btn-success" type="button" ng-click="submit()">OK</button> 
+</div>
