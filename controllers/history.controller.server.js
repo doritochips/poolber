@@ -49,7 +49,7 @@ exports.deleteRidePost = function(req, res){
                 }
             });
         }
-    })
+    });
 };
 
 
