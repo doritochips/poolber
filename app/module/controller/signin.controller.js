@@ -32,7 +32,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 				console.log(err.data);
 				$scope.errorMsg = err.data.message;
 			});
-		}
+		};
 
 
 }]);

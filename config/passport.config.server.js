@@ -4,7 +4,7 @@ var passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	FacebookStrategy = require('passport-facebook').Strategy,
 	User = require('mongoose').model('User');
-var users = require('../controllers/users.controller.server.js')
+var users = require('../controllers/users.controller.server.js');
 
 module.exports = function (app, db) {
 	// Serialize sessions
@@ -40,7 +40,7 @@ module.exports = function (app, db) {
 			}
 			return done(null, user);
 		});
-	})
+	});
 
 
 	//define facebook strategy
@@ -70,7 +70,7 @@ module.exports = function (app, db) {
 		};
 		// Save the user OAuth profile
 		users.saveOAuthUserProfile(req, providerUserProfile, done);
-	})
+	});
 
 
 	passport.use(Local);

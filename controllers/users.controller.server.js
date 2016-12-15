@@ -361,8 +361,8 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 				console.log(err);
 				return done(err);
 			} else {
+				var new_session = shasum.digest('hex').toString();
 				if (!user) {
-					var new_session = shasum.digest('hex').toString();
 					user = new User({
 						firstName: providerUserProfile.firstName,
 						lastName: providerUserProfile.lastName,
@@ -378,7 +378,6 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 						return done(err, user);
 					});
 				} else {
-					var new_session = shasum.digest('hex').toString();
 					user.session = new_session;
 					user.save(function(err){
 						return done(err, user);
@@ -389,21 +388,18 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 			}
 		});
 	} else {
+		// NOT IMPLEMENTED YET
 		// User is already logged in, join the provider data to the existing user
 		var user = req.user;
-
 		// Check if user exists, is not signed in using this provider, and doesn't have that provider data already configured
 		if (user.provider !== providerUserProfile.provider && (!user.additionalProvidersData || !user.additionalProvidersData[providerUserProfile.provider])) {
 			// Add the provider data to the additional provider data field
 			if (!user.additionalProvidersData) {
 				user.additionalProvidersData = {};
 			}
-
 			user.additionalProvidersData[providerUserProfile.provider] = providerUserProfile.providerData;
-
 			// Then tell mongoose that we've updated the additionalProvidersData field
 			user.markModified('additionalProvidersData');
-
 			// And save the user
 			user.save(function (err) {
 				return done(err, user, '/settings/accounts');
