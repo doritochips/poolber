@@ -63,7 +63,8 @@ exports.update = function(req,res) {
 };
 
 exports.list = function(req, res) {
-    Request.find().exec(function(err, requests) {
+    var cutoff = new Date();
+    Request.find({endTime: {$gte: cutoff}}).exec(function(err, requests) {
         if (err){
             return res.status(400).send({
                 message:err
@@ -176,8 +177,6 @@ exports.offerRide = function(req, res){
                             });
                         });
                     });
-                  
-                                        
                 });                
             }
         });
