@@ -124,7 +124,6 @@ exports.userinfo = function(req, res) {
 			}
 			user[0].password = undefined;
 			user[0].salt = undefined;
-			//console.log(user);
 			res.json(user);
 		}
 	});
