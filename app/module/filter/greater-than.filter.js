@@ -11,10 +11,10 @@ dash.filter('greaterThan', function() {
 			angular.forEach(input, function (item) {
  
 				if (item.passenger >= passengerNum) {
-					output.push(item)
+					output.push(item);
 				}
 			});
 		}
 		return output;
-	}
+	};
 });

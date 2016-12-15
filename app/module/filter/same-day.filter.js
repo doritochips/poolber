@@ -15,5 +15,5 @@ dash.filter('sameDay', function() {
 			}
 		});
 		return output;
-	}
+	};
 });
