@@ -96,10 +96,10 @@ exports.requestByID = function(req, res, next, id) {
     });
 };
 
-exports.offerRequest = function(req, res){
+exports.offerRide = function(req, res){
     //console.log(req.body);
     var requestObject = req.body;
-    Request.findOne({_id: requestObject.ride_id}, function(err, response){
+    Request.findOne({_id: requestObject.request_id}, function(err, response){
         var exist = false;
         response.driverList.forEach(function(it){
             if(it.userid === requestObject.driver_id){
@@ -114,7 +114,7 @@ exports.offerRequest = function(req, res){
         }
     });
     function callback(){
-        Request.update({_id: requestObject.ride_id},
+        Request.update({_id: requestObject.request_id},
         {$push: {'driverList':
             {
                 userid: requestObject.driver_id,
@@ -128,7 +128,7 @@ exports.offerRequest = function(req, res){
                 res.send(500).send(err);
             }else{                           
                 //construct the email 
-                Request.find({_id: requestObject.ride_id}, function(err, response){
+                Request.find({_id: requestObject.request_id}, function(err, response){
                     var date = response[0].startTime.getMonth() + 1;
                     date = date + "." + response[0].startTime.getDate();
                     var startTime = response[0].startTime.getHours() + ":" + response[0].startTime.getMinutes();
@@ -156,7 +156,7 @@ exports.offerRequest = function(req, res){
                                 var mailOption = {
                                     to: driverRes[0].email,
                                     from: '"Poolber Support" <support@poolber.ca>',
-                                    subject: 'Poolber | Request Request',
+                                    subject: 'Poolber | Ride Offer',
                                     html: emailHTML
                                 };
 

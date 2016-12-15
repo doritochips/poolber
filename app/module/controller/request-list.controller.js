@@ -54,7 +54,7 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','Use
 				},
 				size: 'sm'
 			}).result.then(function(selected){
-				$http.post("/api/offerRide",{
+				$http.post("/api/request/offer_ride",{
 					selected: selected,
 					request_id: request._id,
 					driver_id: $scope.user._id
