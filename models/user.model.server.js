@@ -29,7 +29,8 @@ var UserSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    default: ''
+    default: '',
+    index: true
 	},
   password: {
     type: String,
@@ -49,7 +50,8 @@ var UserSchema = new Schema({
   session: {
     type: String,
     trim: true,
-    default: '-1'
+    default: '-1',
+    index: true
   },
   phone:{
     type:String,

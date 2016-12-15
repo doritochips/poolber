@@ -12,10 +12,10 @@
 }
 
 .collapse-td{
-	padding:0px !important;
+	padding:0 !important;
 }
 .callout{
-	margin:0px;
+	margin:0;
 }
 
 .background-orange{
@@ -47,7 +47,7 @@
 
 .modal-list{	
 	list-style-type: none;
-	padding:0px;
+	padding:0;
 }
 
 .error p{
@@ -59,7 +59,7 @@
 }
 
 .page {
-	padding-bottom: 0px;
+	padding-bottom: 0;
 }
 
 /*customize panel-box*/
@@ -79,32 +79,34 @@
 	font-size:15px;
 }
 .panel-box .list-justified-container{
-	padding: 0px
+	padding: 0;
 }
 .panel-box ul.list-justified{
 	padding-top: 5px
 }
 .callout{
 	text-align: left;
+	padding-bottom: 0;
 }
 .callout .alert{
 	text-align: center;
 }
-.border-bot{
-	padding:20px 30px;
-	border-bottom: 1px solid;
-}
+
 .btn-set{
-	text-align:right;
+	text-align:center;
 }
 .btn-pink{
 	background-color:#ff4e8e;
 	border-color:#ff4e8e;
 	color:white;
 }
+.btn-sky{
+	background-color:#2196f3;
+	border-color:#2196f3;
+	color:white;	
+}
 .collapse-btn{
 	position: absolute;
     margin-top: -30px;
     right: 40px;
-
 }

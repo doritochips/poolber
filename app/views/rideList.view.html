@@ -1,14 +1,13 @@
-<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}">
-</toaster-container>
 <section>
     <div class="page page-form">
             <!-- add new filter -->
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading" ng-click="toggleFilter()">
-                        <strong><span class="fa fa-filter"></span> Find a Ride</strong>
-                        <div class="pull-right">
-                            <button ng-show="showFilter" class="btn btn-pink btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span>Search</button>
+                        <strong><span class="fa fa-filter"></span> Apply Filter <i ng-hide="showFilter">(click to expand)</i></strong>
+                        <div class="pull-right" ng-show="showFilter">
+                            <button class="btn btn-default btn-xs" ng-click="clearFilter(); $event.stopPropagation();"><span class="fa fa-ban" ></span> Clear</button> &nbsp
+                            <button class="btn btn-pink btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span> Search</button>
                         </div>
                     </div>
                     <div class="panel-body" uib-collapse="!showFilter">
@@ -19,7 +18,7 @@
                                 </div>
                                 <div class="inside-row">
                                     <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
-                                        <select class="col-sm-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]" ng-options="city for city in cities">              
+                                        <select class="col-md-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]" ng-options="city for city in cities">              
                                             </select>
                                         </span>
                                     </div>
@@ -30,7 +29,7 @@
                                     </div>
                                     <div class="inside-row">
                                         <span class="ui-select" ng-class="{invalid: invalidDestination}">
-                                            <select ng-init="form.destination = cities[0]" class="col-sm-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
+                                            <select ng-init="form.destination = cities[0]" class="col-md-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
                                             </select>
                                         </span>
                                     </div>
@@ -49,7 +48,7 @@
                                 </p>                
                             </div> 
                             <div ng-show="invalidInput">
-                                <div class="col-sm-6">
+                                <div class="col-md-6">
                                   <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
                               </div>
 
@@ -64,10 +63,10 @@
         <div>
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{rides.length}} Rides Found</strong></div>
+                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{filtered.length}} Rides Found</strong></div>
                     <div class="panel-body" style="overflow-x:scroll;">
 
-                        <section ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize" class="panel panel-box panel-border">
+                        <section ng-repeat="ride in rides |greaterThan:filter.passengers|sameDay:filter.date| filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize | filter:query as filtered" class="panel panel-box panel-border">
                             <div class="panel-top bg-dark">
                                 <h3 class="capitalize">
                                 <div class="stamp">
@@ -81,36 +80,38 @@
                             <div class="list-justified-container">
                                 <div uib-collapse="isCollapsed">
                                         <div class="callout callout-dark col-md-12">
-                                            <h4>Details</h4>
-                                            <div class="border-bot">
-                                                <div class="col-sm-6">
+                                            <form class="form-horizontal">
+                                            <h3>Details</h3>
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
                                                     <b>Number of Passengers:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>{{ride.passenger}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>{{ride.passenger}}</p>    
                                                 </div>                                                
                                             </div>
-                                            
-                                            <div class="border-bot">
-                                                <div class="col-sm-6">
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
                                                     <b>Fee per Passenger:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>${{ride.price}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>${{ride.price}}</p>    
                                                 </div>                                                
                                             </div>
-
-                                            <div ng-show="ride.note" class="border-bot">                                                
-                                                <div class="col-sm-6">
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-show="ride.note" class="form-group">                                                
+                                                <div class="col-md-6">
                                                     <b>Note:</b>    
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>{{ride.note}}</b>    
+                                                <div class="col-md-6">
+                                                    <p>{{ride.note}}</p>    
                                                 </div>  
                                                 
                                             </div>    
-                                            
-                                            <div ng-hide="ride.isMine" class="border-bot btn-set">                                                
+                                            <div ng-show="ride.note" class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-hide="ride.isMine" class="form-group btn-set">                                                
                                                 <div ng-hide="ride.isApplied">
                                                     <button class="btn btn-dark" ng-click="requestRide(ride)">Request this ride</button>
                                                 </div>
@@ -118,6 +119,7 @@
                                                     <div class="alert alert-success" style="text-transform: none;">You have applied to this ride</div>
                                                 </div>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 <ul class="list-justified text-center">                                    

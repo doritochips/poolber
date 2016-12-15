@@ -1,3 +1,5 @@
+"use strict";
+
 front.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider){
 	$locationProvider.hashPrefix('');
 	$locationProvider.html5Mode(false);

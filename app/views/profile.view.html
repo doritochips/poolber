@@ -1,11 +1,8 @@
-<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}">
-</toaster-container>
-
 <div class="page page-dashboard">    
 	<div class="col-md-8 col-md-offset-2">
 
 		<div class="panel panel-profile">
-			<div class="panel-heading text-center bg-info">
+			<div class="panel-heading text-center bg-dark">
 				<h2>Driver's Lisence
                 </h2>
 
@@ -122,17 +119,16 @@
                 </div>
             </div>
         </li>
-    <li class="col-md-12">
-        Note: If you are a driver, passengers' contact information will be emailed to you if they select your posted ride.
-        If you are a passenger, your information can be send to the driver by one click which means you do not have to fill your information all the time.
-
-    </li>
-    <div ng-show="showCar" class="car">
-    </div> 
-
-
+        <div class="car" ng-if="newFeature"></div>
 </ul>
 </div>
+        <div class="row">
+            <div class="col-md-12">
+            <small>
+                Your Privacy is our first priority. <br> If you are a <i>passenger</i>, your saved information can be <b>emailed</b> to the driver. <br>If you are a <i>driver</i>, passengers' contact info will be <b>emailed</b> to you if they select your posted ride. Cool features such as text, wechat alarts, or <a ng-click="getNewFeature" class="clicky">this</a> are coming soon!
+            </small>
+            </div>
+        </div>
 </div>                
 </div>                                  
 </div>	

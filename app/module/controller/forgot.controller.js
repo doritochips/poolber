@@ -1,3 +1,5 @@
+"use strict";
+
 front.controller("ForgotCtrl", ['$window','$scope', '$http', 
 	function($window, $scope, $http){
 		// user

@@ -1,8 +1,10 @@
+"use strict";
+
 dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
 	var roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
-		if (quarterHours == 4)
+		if (quarterHours === 4)
 		{
 		    time.setHours(time.getHours()+1);
 		}
@@ -32,7 +34,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 	// get user id
 	
 	$scope.form.user_id = UserService.getUserId();
-	if($scope.form.user_id == ""){
+	if($scope.form.user_id === ""){
 		UserService.getUserInfo().then(function(res){
 			$scope.form.user_id = res.data[0]._id;
 		});
@@ -73,18 +75,18 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 			console.log(err);
 		});
 
-	}
+	};
 
 
 
 
 	function validation(){
-		if($scope.form.departure == "Select a city"){
+		if($scope.form.departure === "Select a city"){
 			$scope.errorMsg = "Please select a departure location.";
 			$scope.noError = false;
 			return false;
 		}
-		if($scope.form.destination == "Select a city"){
+		if($scope.form.destination === "Select a city"){
 			$scope.errorMsg = "Please select a destination.";
 			$scope.noError = false;
 			return false;
@@ -122,4 +124,4 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 		return true;
 	}
 		
-}])
+}]);

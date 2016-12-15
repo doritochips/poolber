@@ -1,3 +1,149 @@
-<toaster-container toaster-options="{'time-out': 2000, 'close-button':true, 'position-class': 'toast-bottom-right', 'limit': 5}">
-</toaster-container>
-request list page
+<section>
+    <div class="page page-form">
+            <!-- add new filter -->
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading" ng-click="toggleFilter()">
+                        <strong><span class="fa fa-filter"></span> Apply Filter <i ng-hide="showFilter">(click to expand)</i></strong>
+                        <div class="pull-right" ng-show="showFilter">
+                            <button class="btn btn-default btn-xs" ng-click="clearFilter(); $event.stopPropagation();"><span class="fa fa-ban" ></span> Clear</button> &nbsp
+                            <button class="btn btn-sky btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span> Search</button>
+                        </div>
+                    </div>
+                    <div class="panel-body" uib-collapse="!showFilter">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <div class="inside-row">
+                                    <label for="departure">Departure</label>
+                                </div>
+                                <div class="inside-row">
+                                    <span class="ui-select ng-invalid" ng-class="{invalid: invalidDeparture}">
+                                        <select class="col-md-6" ng-model="form.departure" id="departure" ng-init="form.departure = cities[0]" ng-options="city for city in cities">              
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="inside-row">
+                                        <label for="departure">Destination</label>
+                                    </div>
+                                    <div class="inside-row">
+                                        <span class="ui-select" ng-class="{invalid: invalidDestination}">
+                                            <select ng-init="form.destination = cities[0]" class="col-md-6" ng-model="form.destination" id="destination" ng-options="city for city in cities">     
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="Destination City">Passengers</label>
+                                    <input min="1" max="6" class="form-control col-sm-4" ng-class="{invalid: invalidPassenger}" placeholder="Number of Passengers" type="number" ng-model="form.passengers">
+                                </div>   
+                                <div class="col-md-3">
+                                    <label for="date">Date</label>  
+                                    <p class="input-group">
+                                      <input ng-class="{invalid: invalidDate}" id="datepicker" type="text" class="form-control" uib-datepicker-popup datepicker-template-url="/views/components/datepicker.html" datepicker-popup-template-url="/views/components/datepickerPopup.html" datepicker-options="dateOptions" ng-model="form.date" is-open="popup.opened"/>
+                                      <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open()"><i class="fa fa-calendar-o"></i></button>
+                                    </span>
+                                </p>                
+                            </div> 
+                            <div ng-show="invalidInput">
+                                <div class="col-md-6">
+                                  <p class="text-danger">&nbsp&nbsp*Invalid Input</p> 
+                              </div>
+
+                          </div>
+
+                      </div>
+                  </div>                    
+              </div>
+          </div>  
+    </div>
+    <div class="page page-table">
+        <div>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{filtered.length}} Requests Found</strong></div>
+                    <div class="panel-body" style="overflow-x:scroll;">
+
+                        <section ng-repeat="request in requests |greaterThan:filter.passengers|sameDay:filter.date| filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize | filter:query as filtered" class="panel panel-box panel-border">
+                            <div class="panel-top bg-dark">
+                                <h3 class="capitalize">
+                                <div class="stamp">
+                                <div ng-show="request.isMine" class="mine-stamp"></div>
+                                <div ng-show="request.isApplied" class="applied-stamp"></div>
+                                </div>
+                                {{request.departure}} - {{request.destination}}                                   
+                                </h3>
+                                <a class="btn btn-sky collapse-btn" ng-click="isCollapsed = !isCollapsed"><span class="fa" ng-class="{'fa-chevron-down': isCollapsed, 'fa-chevron-up': !isCollapsed}"></span></a>
+                            </div>
+                            <div class="list-justified-container">
+                                <div uib-collapse="isCollapsed">
+                                        <div class="callout callout-dark col-md-12">
+                                            <form class="form-horizontal">
+                                            <h3>Details</h3>
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-6">
+                                                    <b>Number of Passengers:</b>    
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{request.passenger}}</p>    
+                                                </div>                                                
+                                            </div>                                            
+                                            <div class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-show="request.note" class="form-group">                                                
+                                                <div class="col-md-6">
+                                                    <b>Note:</b>    
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>{{request.note}}</p>    
+                                                </div>  
+                                                
+                                            </div>    
+                                            <div ng-show="request.note" class="divider divider-dashed divider-sm pull-in"></div>
+                                            <div ng-hide="request.isMine" class="form-group btn-set">                                                
+                                                <div ng-hide="request.isApplied">
+                                                    <button class="btn btn-dark" ng-click="sendOffer(request)">Offer Ride</button>
+                                                </div>
+                                                <div ng-show="request.isApplied">
+                                                    <div class="alert alert-success" style="text-transform: none;">You have offered to this request</div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <ul class="list-justified text-center">                                    
+                                    <li>
+                                        <h4>Schedule Date</h4>
+                                        <p class="text-muted">
+                                            {{request.startTime | date: format: 'yyyy-mmmm-dd'}}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <h4>Schedule Time</h4>
+                                        <p class="text-muted">
+                                            {{request.startTime | date:'shortTime'}} - {{request.endTime | date:'shortTime'}}
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <div>
+                            <p>
+                                Show
+                                <select class="btn btn-xs btn-default dropdown-toggle" ng-model="pageSize" ng-options="x for x in options">
+                                </select>
+                                per page &nbsp &nbsp
+                                <button class="btn btn-direction btn-left btn-primary" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">Prev</button>
+                                {{currentPage+1}}/{{numberOfPages()}}
+                                <button class="btn btn-direction btn-right btn-primary" ng-disabled="currentPage >= requests.length/pageSize - 1" ng-click="currentPage=currentPage+1">Next</button></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>

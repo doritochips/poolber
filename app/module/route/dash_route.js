@@ -1,3 +1,5 @@
+"use strict";
+
 dash.config(function($routeProvider, $locationProvider){
 	$locationProvider.hashPrefix('');
 	$locationProvider.html5Mode(false);
@@ -6,6 +8,11 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/",{
 		templateUrl:"views/rideList.view.html",
 		controller: "rideListCtrl",
+		css: '/styles/ride-list.css'
+	})
+	.when("/requestList",{
+		templateUrl:"views/requestList.view.html",
+		controller: "requestListCtrl",
 		css: '/styles/ride-list.css'
 	})
 	.when("/requestRide", {
@@ -31,12 +38,8 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/history",{
 		templateUrl:"views/history.view.html",
 		controller: "historyCtrl"
-	})
-	.when("/requestList",{
-		templateUrl:"views/requestList.view.html",
-		controller: "requestListCtrl"
-	})
+	})	
 	.otherwise({
 		redirectTo:'/404'
 	});
-})
+});

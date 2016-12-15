@@ -1,3 +1,5 @@
+"use strict";
+
 dash.directive('poolHeader', ['UserService', '$window', function(UserService, $window){
 	return{
 		templateUrl:'views/layout/header.view.html',
@@ -6,7 +8,7 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 			
 			scope.showNav = function(){	
 				var toggle = document.querySelectorAll("#nav-container")[0].style.display; 							
-				if(toggle == "block"){
+				if(toggle === "block"){
 					document.querySelectorAll("#nav-container")[0].style.display = "none";	
 				}else{
 					document.querySelectorAll("#nav-container")[0].style.display = "block";	
@@ -43,12 +45,12 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 				UserService.logoutUser().then(function(res){
 					$window.location.href = '/#/';	
 				});				
-			}
+			};
 
 			var init = function(){
 				UserService.saveUserInfo();
 			}();
 			
 		}	
-	}
+	};
 }]);
