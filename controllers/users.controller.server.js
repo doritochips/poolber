@@ -122,7 +122,6 @@ exports.userinfo = function(req, res) {
 			}
 			user[0].password = undefined;
 			user[0].salt = undefined;
-			//console.log(user);
 			res.json(user);
 		}
 	});
@@ -359,6 +358,9 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 				//console.log(err);
 				return done(err);
 			} else {
+				var current_date = (new Date()).valueOf().toString();
+				var random = Math.random().toString();
+				shasum.update(current_date + random);
 				var new_session = shasum.digest('hex').toString();
 				if (!user) {
 					user = new User({
