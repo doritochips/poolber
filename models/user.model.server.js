@@ -29,7 +29,8 @@ var UserSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    default: ''
+    default: '',
+    index: true
 	},
   password: {
     type: String,
