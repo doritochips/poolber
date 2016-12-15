@@ -25,7 +25,9 @@
     "morgan": "^1.7.0",
     "nodemailer": "^2.6.4",
     "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "passport-wechat": "^2.0.4",
     "swig": "^1.4.2",
     "twilio": "^2.11.1",
     "validator": "^6.1.0"
