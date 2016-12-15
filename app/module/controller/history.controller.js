@@ -99,7 +99,6 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		console.log(data);
 	};
 
 	$scope.isDefined = function(v) {
@@ -111,6 +110,42 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		}
 	};
 
+	var getRoleURL = function(ride){
+		var roleUrl = '';
+		if (driverList.indexOf(ride.source) >= 0){
+			roleUrl = '/api/delete_ride_post/';
+		}
+		else {
+			roleUrl = '/api/delete_request_post/';
+		}
+		return roleUrl;
+	};
+
+	var deletePost = function(ride){
+		var data = {
+			session: UserService.session
+		};
+		$http.post(getRoleURL(ride) + ride._id, data).then(function(data){
+			var rideIndex = $scope.mergedList.indexOf(ride);
+			console.log(rideIndex);
+			if (rideIndex >=0){
+				$scope.mergedList.splice(rideIndex, 1);
+			}
+		}, function(err){
+			console.log(err);
+		});
+	};
+
+	var removeFromList = function(ride){
+		var data = {
+			session: UserService.session
+		};
+		$http.post(getRoleURL(ride) + ride._id, data).then(function(data){
+
+		}, function(err){
+
+		});
+	};
 
 	//Modal Control
 	$scope.viewDetail = function(ride){
@@ -129,9 +164,16 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 				};
 
 				$scope.delete = function(){
-					var result = confirm("Are you sure you want to delete this?");
+					var result = confirm("Are you sure you want to delete?");
 					if(result){
 						$uibModalInstance.close(function(){	//callback after close
+							if(postedList.indexOf(ride.source) >= 0){
+								deletePost(ride);
+							}
+							else {
+								removeFromList(ride);
+							}
+
 							//delete callback goes here!!!!!!!!!!
 						});
 					}
@@ -153,6 +195,9 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 
 		});
 	};
+
+
+
 
 	var init = function(){
 		//if userinfo is cached

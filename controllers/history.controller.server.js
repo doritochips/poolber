@@ -9,6 +9,8 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 
 var notSensitiveData = '-password -salt -resetPasswordToken -resetPasswordExpires -session';
+var driverList = ['postedRides', 'appliedRequest'];
+var postedList = ['postedRides', 'postedRequest'];
 
 var removeUnprovidedFields = function(listOfPeople) {
     for (var p of listOfPeople){
@@ -24,6 +26,49 @@ var removeUnprovidedFields = function(listOfPeople) {
     }
     return listOfPeople;
 };
+
+exports.deleteRidePost = function(req, res){
+    var postID = req.params.id;
+    var sessionKey = req.body.session;
+    User.findOne({session:sessionKey}).exec(function(err, user){
+        if (err){
+            return res.status(400).send(err);
+        }
+        else if (!user){
+            return res.status(400).send({
+                message: 'You do not have the right to delete'
+            });
+        }
+        else {
+            Ride.find({_id: postID}).remove().exec(function(err, ride){
+                if (err){
+                    return res.status(400).send(err);
+                }
+                else{
+                    return res.jsonp({ok: ride.result.ok});
+                }
+            });
+        }
+    })
+};
+
+
+exports.deleteRequestPost = function(req, res){
+    var post = req.body.ride;
+    var sessionKey = req.body.session;
+
+    if (driverList.indexOf(post.source) < 0){
+
+    }
+    
+
+};
+
+exports.removeFromList = function(req, res){
+
+};
+
+
 
 exports.list = function(req, res) {
     var user_id = req.params.id;
