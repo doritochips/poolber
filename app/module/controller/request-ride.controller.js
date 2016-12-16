@@ -1,7 +1,7 @@
 "use strict";
 
 dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user',function($http, $scope, toaster, CityList, user){
-	var roundTime = function(time){
+	$scope.roundTime = function(time){
 
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
