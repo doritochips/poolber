@@ -1,6 +1,11 @@
 "use strict";
+
 var msg = require('../controllers/msg.controller.server.js');
+var policy = require('../policies/auth.policy.server.js');
 
 module.exports = function(app) {
-	app.get('/api/msg/send', msg.send);
+
+	app.route('/api/msg/send').all(policy.isLoggedIn)
+		.post(msg.send);
+
 };

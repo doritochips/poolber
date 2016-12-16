@@ -1,11 +1,20 @@
 "use strict";
 
 var requests = require('../controllers/request.controller.server.js');
+var policy = require('../policies/auth.policy.server.js');
+
 
 module.exports = function(app) {
-	app.post('/api/request', requests.post);
-	app.post('/api/request/offer_ride', requests.offerRide);
-	app.get('/api/requests', requests.list);
-	app.get('/api/request/:id', requests.read);
 
+	app.route('/api/request').all(policy.isLoggedIn)
+		.post(requests.post);
+
+	app.route('/api/request/offer_ride').all(policy.isLoggedIn)
+		.post(requests.offerRide);
+
+	app.route('/api/requests').all(policy.isLoggedIn)
+		.get(requests.list);
+
+	app.route('/api/request/:id').all(policy.isLoggedIn)
+		.get(requests.read);
 };
