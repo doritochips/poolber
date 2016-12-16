@@ -1,7 +1,7 @@
 'use strict';
 
-dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
-	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
+dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster',
+	function($window, $scope, $http, CityList, user, $uibModal, toaster){
 		
 
 		
@@ -96,10 +96,8 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','Use
 			$scope.numberOfPages = function(){
 				return Math.ceil($scope.requests.length/$scope.pageSize);
 			};
-			UserService.getUserInfo().then(function(res){				
-				$scope.user = res.data[0];
-				addRelations($scope.user._id);
-			});						
+			$scope.user = user.data[0];
+			addRelations($scope.user._id);
 		};
 
 		$scope.clearFilter = function(){

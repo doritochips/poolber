@@ -14,11 +14,12 @@
   <link href="../styles/app.css" rel="stylesheet">
   <script src="bower_components/angular/angular.min.js"></script>
 </head>
-<body id="app" class="app ng-scope" ng-cloak>  
-  <section pool-header id="header" class="header-container ng-scope header-fixed bg-white">  
+<body id="app" class="app" ng-cloak ng-controller="Cache">  
+  <div class="mask" ng-show="!cacheFinished"></div>
+  <section ng-show="cacheFinished" pool-header progress="cacheFinished" id="header" class="header-container header-fixed bg-white">  
   </section>
-  <div class="main-container">
-    <aside pool-sidebar   id="nav-container" class="nav-container ng-scope nav-fixed nav-vertical bg-dark">
+  <div ng-show="cacheFinished" class="main-container">
+    <aside pool-sidebar   id="nav-container" class="nav-container nav-fixed nav-vertical bg-dark">
     </aside>
     <div id="content" class="content-container">
       <section class="view-container animate-fade-up">
@@ -46,6 +47,7 @@
   <!-- config -->
   <script src="module/config/config.js"></script>  
   <!-- controler -->
+  <script src="module/controller/cache.controller.js"></script>
   <script src="module/controller/profile.controller.js"></script>
   <script src="module/controller/ride-list.controller.js"></script>
   <script src="module/controller/request-list.controller.js"></script>

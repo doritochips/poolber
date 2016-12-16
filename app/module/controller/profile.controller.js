@@ -1,6 +1,6 @@
 "use strict";
 
-dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
+dash.controller("profileCtrl", ["$scope","$location", "$http", "user", "toaster", "$window", function($scope, $location, $http, user, toaster, $window){
 
 	// init
 	$scope.editing = false;
@@ -8,21 +8,11 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 	$scope.newFeature = false;
 	var backup = {};
 
-	UserService.getUserInfo().then(function(res){				
-		if(res === "failure"){
-			$window.location.href = '/#/login';	
-			return;
-		}
-		console.log(res.data[0]);
-		$scope.user = res.data[0];				
-		backup.displayName = res.data[0].displayName;		
-		backup.email = res.data[0].email;
-		backup.phone = res.data[0].phone;
-		backup.wechat = res.data[0].wechat;
-	
-	}, function(err){
-		$window.location.href = '/#/login';
-	});
+	$scope.user = user.data[0];				
+	backup.displayName = user.data[0].displayName;		
+	backup.email = user.data[0].email;
+	backup.phone = user.data[0].phone;
+	backup.wechat = user.data[0].wechat;
 
 
 	// car manipulate according to window size
@@ -55,7 +45,7 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "UserService", "t
 				email: $scope.user.email,
 				phone: $scope.user.phone,
 				wechat: $scope.user.wechat,
-				session: UserService.getSession()
+				id: $scope.user._id 
 			}).then(function(res){
 				if(res){				
 					toaster.pop('success', "Success", "Your profile has been updated!");			

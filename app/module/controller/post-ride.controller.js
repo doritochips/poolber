@@ -1,6 +1,8 @@
 "use strict";
 
-dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
+dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user', function($http, $scope, toaster, CityList, user){	
+	
+
 	$scope.roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
@@ -12,6 +14,12 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		time.setMinutes(rounded);
 		return time;
 	};
+
+
+	$scope.open = function(){
+		$scope.popup.opened  = true;		
+	};
+
 	// hardcode data	
 	$scope.cities = CityList.commonCities;
 	$scope.passengers = [1,2,3,4];		
@@ -23,7 +31,6 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		endTime: $scope.roundTime(new Date()),
 		price: 0
 	};
-	console.log($scope.form);
 	$scope.popup = {
 		opened:false
 	};
@@ -31,25 +38,16 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 	    formatYear: 'yy',
 	    minDate: new Date()
 	};	
-	// get user id
+	// get user id		
+	$scope.form.user_id = user.data[0]._id;	
 	
-	$scope.form.user_id = UserService.getUserId();
-	if($scope.form.user_id === ""){
-		UserService.getUserInfo().then(function(res){
-			$scope.form.user_id = res.data[0]._id;
-		});
-	}
+	$scope.submit = function(){				
 
-	$scope.open = function(){
-		$scope.popup.opened  = true;		
-	};
-	
-	$scope.submit = function(){
 		if(!validation()){
 			return;
 		}
 
-		// manipulate date
+		//manipulate date
 		var year = $scope.form.date.getFullYear();
 		var month = $scope.form.date.getMonth();
 		var day = $scope.form.date.getDate();
@@ -82,6 +80,7 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserS
 		});
 
 	};
+	
 
 	function validation(){
 		if($scope.form.departure === $scope.form.departure){
