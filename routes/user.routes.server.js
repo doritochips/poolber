@@ -21,9 +21,11 @@ module.exports = function(app) {
 		scope: ['email']
 	}));
 	app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
-	
-	app.route('/api/auth/wechat').get(wechat.oauthCall);
-	app.route('/api/auth/wechat/callback/:info').get(wechat.oauthCallback);
-	app.route('/api/auth/wechat/callback/:info').post(wechat.oauthCallback);
+
+	app.route('/api/auth/wechat').get(users.oauthCall('facebook', {}));
+	app.route('/api/auth/wechat/callback/:info').get(users.oauthCallback('wechat');	
+
+	// app.route('/api/auth/wechat').get(wechat.oauthCall);
+	// app.route('/api/auth/wechat/callback/:info').get(wechat.oauthCallback);
 
 };
