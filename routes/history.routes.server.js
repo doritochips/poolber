@@ -6,7 +6,7 @@ var policy = require('../policies/auth.policy.server.js');
 module.exports = function(app) {
 	// Setting up the users authentication api
 	app.route('/api/history/:id').all(policy.isLoggedIn)
-		.post(history.list);
+		.get(history.list);
 
 	app.route('/api/delete_ride_post/:id').all(policy.isLoggedIn)
 		.post(history.deleteRidePost);

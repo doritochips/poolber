@@ -12,8 +12,8 @@ module.exports = function(app) {
 		.post(rides.requestRide);
 
 	app.route('/api/rides').all(policy.everyone)
-		.post(rides.list);
+		.get(rides.list);
 
 	app.route('/api/ride/:id').all(policy.everyone)
-		.post(rides.read);		
+		.get(rides.read);		
 };

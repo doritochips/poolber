@@ -12,9 +12,9 @@ module.exports = function(app) {
 	app.route('/api/request/offer_ride').all(policy.isLoggedIn)
 		.post(requests.offerRide);
 
-	app.route('/api/requests').all(policy.isLoggedIn)
+	app.route('/api/requests').all(policy.everyone)
 		.get(requests.list);
 
-	app.route('/api/request/:id').all(policy.isLoggedIn)
+	app.route('/api/request/:id').all(policy.everyone)
 		.get(requests.read);
 };
