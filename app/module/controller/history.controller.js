@@ -1,21 +1,24 @@
-"use strict";
+'use strict';
 
-dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "toaster", "$window", function($scope, $location, $http, UserService, toaster, $window){
+dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
 	
 	$scope.postedRequest = [];
 	$scope.appliedRequest = [];
 	$scope.postedRides = [];
 	$scope.appliedRides = [];
-
 	$scope.mergedList = [];
-	var driverList = ['postedRides', 'appliedRequest'];
-	var postedList = ['postedRides', 'postedRequest'];
+	var optionsForDrivers = ['postedRides', 'appliedRequest'];
+	var optionsForPosting = ['postedRides', 'postedRequest'];
 	$scope.viewAsDriver = 'passenger';
+
+	$scope.passengerViewEmpty = false;
+	$scope.driverViewEmpty = false;
+
 	$scope.showElement = function(type){
 		if ($scope.viewAsDriver === 'driver'){
-			return driverList.indexOf(type) > -1;
+			return optionsForDrivers.indexOf(type) > -1;
 		}else{
-			return driverList.indexOf(type) <= -1;
+			return optionsForDrivers.indexOf(type) <= -1;
 		}
 	};
 
@@ -90,17 +93,136 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "t
 			data.appliedRequest[j].source = "appliedRequest";
 			$scope.mergedList.push(data.appliedRequest[j]);
 		}		
-		for (var m = 0; m < data.postedRides.length; m++) {
-			data.postedRides[m].source = "postedRides";
-			$scope.mergedList.push(data.postedRides[m]);
+		for (var k = 0; k < data.postedRides.length; k++) {
+			data.postedRides[k].source = "postedRides";
+			$scope.mergedList.push(data.postedRides[k]);
 		}
-		for (var n = 0; n < data.appliedRides.length; n++) {
-			data.appliedRides[n].source = "appliedRides";
-			$scope.mergedList.push(data.appliedRides[n]);
+		for (var l = 0; l < data.appliedRides.length; l++) {
+			data.appliedRides[l].source = "appliedRides";
+			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		console.log($scope.mergedList);
+		
+		if ($scope.postedRequest.length + $scope.appliedRides.length === 0){
+			$scope.passengerViewEmpty = true;
+		}
+		if ($scope.postedRides.length + $scope.appliedRequest.length === 0){
+			$scope.driverViewEmpty = true;
+		}
 	};
+
+	$scope.isDefined = function(v) {
+		//console.log(v);
+		if (typeof v === 'undefined'){
+			return false;
+		}else {
+			return true;
+		}
+	};
+
+	var getPostsURL = function(ride){
+		var roleUrl = '';
+		if (optionsForDrivers.indexOf(ride.source) >= 0){
+			roleUrl = '/api/delete_ride_post/';
+		}
+		else {
+			roleUrl = '/api/delete_request_post/';
+		}
+		return roleUrl;
+	};
+
+
+
+	var deletePost = function(ride){
+		var data = {
+			session: UserService.session
+		};
+		$http.post(getPostsURL(ride) + ride._id, data).then(function(data){
+			var rideIndex = $scope.mergedList.indexOf(ride);
+			if (rideIndex >=0){
+				$scope.mergedList.splice(rideIndex, 1);
+			}
+		}, function(err){
+			console.log(err);
+		});
+	};
+
+	// var getRemoveListURL = function(ride){
+	// 	var roleUrl = '';
+	// 	if (optionsForDrivers.indexOf(ride.source) >= 0){
+	// 		roleUrl = '/api/remove_from_driver_list/';
+	// 	}
+	// 	else {
+	// 		roleUrl = '/api/remove_from_passenger_list/';
+	// 	}
+	// 	return roleUrl;
+	// };
+
+
+	// var removeFromList = function(ride){
+	// 	var data = {
+	// 		session: UserService.session
+	// 	};
+	// 	$http.post(getRemoveListURL(ride) + ride._id, data).then(function(data){
+	// 		var rideIndex = $scope.mergedList.indexOf(ride);
+	// 		if (rideIndex >=0){
+	// 			$scope.mergedList.splice(rideIndex, 1);
+	// 		}
+	// 	}, function(err){
+	// 		console.log(err);
+	// 	});
+	// };
+
+	//Modal Control
+	$scope.viewDetail = function(ride){
+		$uibModal.open({
+			animation: true,
+			arialLabelledBy:'modal-title',
+			arialDescribedBy:'modal-body',
+			templateUrl: 'views/modals/history-detail.component.html',
+			controller: function($scope, $uibModalInstance, $timeout){	
+				$scope.ride = ride;
+
+				$scope.goToRideList = function(newURL){
+					$uibModalInstance.close(function(){	//callback after close
+						$window.location.href = newURL;
+					});
+				};
+
+				$scope.delete = function(){
+					var result = confirm("Are you sure you want to delete?");
+					if(result){
+						$uibModalInstance.close(function(){	//callback after close
+							if(optionsForPosting.indexOf(ride.source) >= 0){
+								deletePost(ride);
+							}
+							// else {
+							//  REMOVE FROM LIST, DISABLED
+							// 	removeFromList(ride);
+							// }
+						});
+					}
+				};
+
+				$scope.submit = function(){
+					$uibModalInstance.close();
+				};
+
+				$scope.validate = function(){
+					return true;
+				};
+			},
+			size: 'sm'
+		}).result.then(function(callback){
+			if (callback){
+				callback();
+			}
+
+		});
+	};
+
+
+
 
 	var init = function(){
 		//if userinfo is cached

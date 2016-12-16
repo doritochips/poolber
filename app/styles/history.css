@@ -7,3 +7,15 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.clicky {
+	cursor: pointer;
+}
+
+.nothing{
+	text-align: center;
+}
+
+.center{
+	text-align: center;
+}

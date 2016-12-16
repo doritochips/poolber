@@ -63,7 +63,8 @@ exports.update = function(req,res) {
 };
 
 exports.list = function(req, res) {
-    Ride.find().sort({startTime: -1}).exec(function(err, rides) {
+    var cutoff = new Date();
+    Ride.find({endTime: {$gte: cutoff}}).exec(function(err, rides) {
         if (err){
             return res.status(400).send({
                 message:err
@@ -183,14 +184,10 @@ exports.requestRide = function(req, res){
                                         });
                                     }
                                 });
-
                                 //send text message
-
                             });
                         });
                     });
-                  
-                                        
                 });                
             }
         });

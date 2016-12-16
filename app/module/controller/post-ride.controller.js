@@ -83,6 +83,11 @@ dash.controller("postRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user'
 	
 
 	function validation(){
+		if($scope.form.departure === $scope.form.departure){
+			$scope.errorMsg = "Invalid destination (departure).";
+			$scope.noError = false;
+			return false;
+		}
 		if($scope.form.price < 0){
 			$scope.errorMsg = "Please enter a valid price.";
 			$scope.noError = false;

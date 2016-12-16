@@ -12,7 +12,24 @@
             </div>
         </div>
         <br>
-        <section class="ui-timeline" ng-repeat="ride in mergedList">
+        <div ng-if="passengerViewEmpty && (viewAsDriver == 'passenger')">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 nothing">
+                    <h2 class="center">No History As Passenger Yet</h2>
+                    <h3 class="center">Why Don't You Go To <a href="#/"> Ride List </a></h3>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="driverViewEmpty && (viewAsDriver == 'driver')">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 nothing">
+                    <h2 class="center">No History As Driver Yet</h2>
+                    <h3 class="center">Why Don't You Go To <a href="#/requestList"> Request List </a></h3>
+                </div>
+            </div>
+        </div>        
+        <section class="ui-timeline" ng-repeat="ride in mergedList | filter:query as numShown">
 <!--             <article class="tl-item">
                 <div class="tl-body">
                     <div class="tl-entry">
@@ -28,9 +45,9 @@
                     <div class="tl-entry">
                         <div class="tl-time"><i>{{ride.startTime | date:'h:mm a, MMM d '}}</i></div>
                         <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.source)"><i ng-class="defineIconClass(ride.source)"></i></div>
-                        <div class="tl-content">
-                            <h4 class="tl-tile text-primary">{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</h4>
-                            <small><i>{{GenerateNote(ride.source)}}</i></small>
+                        <div class="tl-content clicky" ng-click="viewDetail(ride)">
+                            <h4 class="tl-tile text-primary"> <a>{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</a></h4>
+                            <small><i>{{GenerateNote(ride.source)}}. Click to view detail</i></small>
                         </div>
                     </div>
                 </div>

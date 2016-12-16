@@ -4,9 +4,10 @@
             <div class="col-md-8">
                 <div class="panel panel-default">
                     <div class="panel-heading" ng-click="toggleFilter()">
-                        <strong><span class="fa fa-filter"></span> Find a Ride</strong>
-                        <div class="pull-right">
-                            <button ng-show="showFilter" class="btn btn-pink btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span>Search</button>
+                        <strong><span class="fa fa-filter"></span> Apply Filter <i ng-hide="showFilter">(click to expand)</i></strong>
+                        <div class="pull-right" ng-show="showFilter">
+                            <button class="btn btn-default btn-xs" ng-click="clearFilter(); $event.stopPropagation();"><span class="fa fa-ban" ></span> Clear</button> &nbsp
+                            <button class="btn btn-pink btn-xs" ng-click="applyFilter(); $event.stopPropagation();"><span class="fa fa-plus" ></span> Search</button>
                         </div>
                     </div>
                     <div class="panel-body" uib-collapse="!showFilter">
@@ -62,10 +63,10 @@
         <div>
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{rides.length}} Rides Found</strong></div>
+                    <div class="panel-heading"><strong><span class="fa fa-list"></span> {{filtered.length}} Rides Found</strong></div>
                     <div class="panel-body" style="overflow-x:scroll;">
 
-                        <section ng-repeat="ride in rides | filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize" class="panel panel-box panel-border">
+                        <section ng-repeat="ride in rides |greaterThan:filter.passengers|sameDay:filter.date| filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize | filter:query as filtered" class="panel panel-box panel-border">
                             <div class="panel-top bg-dark">
                                 <h3 class="capitalize">
                                 <div class="stamp">

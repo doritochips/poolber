@@ -2,6 +2,7 @@
 
 dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user',function($http, $scope, toaster, CityList, user){
 	var roundTime = function(time){
+
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
 		if (quarterHours === 4)
@@ -21,8 +22,8 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 	$scope.errorMsg = "";
 	$scope.noError = true;
 	$scope.form = {				
-		startTime: roundTime(new Date()),
-		endTime: roundTime(new Date())
+		startTime: $scope.roundTime(new Date()),
+		endTime: $scope.roundTime(new Date())
 	};
 	$scope.popup = {
 		opened:false
@@ -60,7 +61,12 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 			if(res){				
 				toaster.pop('success', "Success", "Your request has been posted!");
 				$scope.form = {
-					user_id: user_id
+					user_id: user_id,
+					startTime: $scope.roundTime(new Date()),
+					endTime: $scope.roundTime(new Date()),
+					departure: "Select a city",
+					destination: "Select a city",
+					passenger: 1,
 				};				
 			}else{
 				toaster.pop('error', "Failure", "Some unexpected error occurs!");
@@ -75,6 +81,11 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 
 
 	function validation(){
+		if($scope.form.departure === $scope.form.departure){
+			$scope.errorMsg = "Invalid destination (departure).";
+			$scope.noError = false;
+			return false;
+		}
 		if($scope.form.departure === "Select a city"){
 			$scope.errorMsg = "Please select a departure location.";
 			$scope.noError = false;
