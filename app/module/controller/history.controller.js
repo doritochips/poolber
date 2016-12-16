@@ -6,11 +6,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 	$scope.appliedRequest = [];
 	$scope.postedRides = [];
 	$scope.appliedRides = [];
-
 	$scope.mergedList = [];
 	var optionsForDrivers = ['postedRides', 'appliedRequest'];
 	var optionsForPosting = ['postedRides', 'postedRequest'];
 	$scope.viewAsDriver = 'passenger';
+
+	$scope.passengerViewEmpty = false;
+	$scope.driverViewEmpty = false;
+
 	$scope.showElement = function(type){
 		if ($scope.viewAsDriver === 'driver'){
 			return optionsForDrivers.indexOf(type) > -1;
@@ -99,7 +102,13 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		console.log(data);
+		
+		if ($scope.postedRequest.length + $scope.appliedRides.length === 0){
+			$scope.passengerViewEmpty = true;
+		}
+		if ($scope.postedRides.length + $scope.appliedRequest.length === 0){
+			$scope.driverViewEmpty = true;
+		}
 	};
 
 	$scope.isDefined = function(v) {
