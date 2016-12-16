@@ -85,6 +85,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-danger" type="button" ng-click="delete()">Delete</button>
+    <button ng-if="ride.source === 'postedRides' || ride.source === 'postedRequest'" class="btn btn-danger" type="button" ng-click="delete()">Delete</button>
     <button class="btn btn-success" type="button" ng-click="submit()">OK</button> 
 </div>

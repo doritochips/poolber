@@ -8,14 +8,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 	$scope.appliedRides = [];
 
 	$scope.mergedList = [];
-	var driverList = ['postedRides', 'appliedRequest'];
-	var postedList = ['postedRides', 'postedRequest'];
+	var optionsForDrivers = ['postedRides', 'appliedRequest'];
+	var optionsForPosting = ['postedRides', 'postedRequest'];
 	$scope.viewAsDriver = 'passenger';
 	$scope.showElement = function(type){
 		if ($scope.viewAsDriver === 'driver'){
-			return driverList.indexOf(type) > -1;
+			return optionsForDrivers.indexOf(type) > -1;
 		}else{
-			return driverList.indexOf(type) <= -1;
+			return optionsForDrivers.indexOf(type) <= -1;
 		}
 	};
 
@@ -99,6 +99,7 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
+		console.log(data);
 	};
 
 	$scope.isDefined = function(v) {
@@ -110,9 +111,9 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		}
 	};
 
-	var getRoleURL = function(ride){
+	var getPostsURL = function(ride){
 		var roleUrl = '';
-		if (driverList.indexOf(ride.source) >= 0){
+		if (optionsForDrivers.indexOf(ride.source) >= 0){
 			roleUrl = '/api/delete_ride_post/';
 		}
 		else {
@@ -121,13 +122,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		return roleUrl;
 	};
 
+
+
 	var deletePost = function(ride){
 		var data = {
 			session: UserService.session
 		};
-		$http.post(getRoleURL(ride) + ride._id, data).then(function(data){
+		$http.post(getPostsURL(ride) + ride._id, data).then(function(data){
 			var rideIndex = $scope.mergedList.indexOf(ride);
-			console.log(rideIndex);
 			if (rideIndex >=0){
 				$scope.mergedList.splice(rideIndex, 1);
 			}
@@ -136,16 +138,31 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		});
 	};
 
-	var removeFromList = function(ride){
-		var data = {
-			session: UserService.session
-		};
-		$http.post(getRoleURL(ride) + ride._id, data).then(function(data){
+	// var getRemoveListURL = function(ride){
+	// 	var roleUrl = '';
+	// 	if (optionsForDrivers.indexOf(ride.source) >= 0){
+	// 		roleUrl = '/api/remove_from_driver_list/';
+	// 	}
+	// 	else {
+	// 		roleUrl = '/api/remove_from_passenger_list/';
+	// 	}
+	// 	return roleUrl;
+	// };
 
-		}, function(err){
 
-		});
-	};
+	// var removeFromList = function(ride){
+	// 	var data = {
+	// 		session: UserService.session
+	// 	};
+	// 	$http.post(getRemoveListURL(ride) + ride._id, data).then(function(data){
+	// 		var rideIndex = $scope.mergedList.indexOf(ride);
+	// 		if (rideIndex >=0){
+	// 			$scope.mergedList.splice(rideIndex, 1);
+	// 		}
+	// 	}, function(err){
+	// 		console.log(err);
+	// 	});
+	// };
 
 	//Modal Control
 	$scope.viewDetail = function(ride){
@@ -167,14 +184,13 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 					var result = confirm("Are you sure you want to delete?");
 					if(result){
 						$uibModalInstance.close(function(){	//callback after close
-							if(postedList.indexOf(ride.source) >= 0){
+							if(optionsForPosting.indexOf(ride.source) >= 0){
 								deletePost(ride);
 							}
-							else {
-								removeFromList(ride);
-							}
-
-							//delete callback goes here!!!!!!!!!!
+							// else {
+							//  REMOVE FROM LIST, DISABLED
+							// 	removeFromList(ride);
+							// }
 						});
 					}
 				};

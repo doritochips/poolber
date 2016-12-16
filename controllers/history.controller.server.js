@@ -40,12 +40,12 @@ exports.deleteRidePost = function(req, res){
             });
         }
         else {
-            Ride.find({_id: postID}).remove().exec(function(err, ride){
+            Ride.find({_id: postID}).remove().exec(function(err, result){
                 if (err){
                     return res.status(400).send(err);
                 }
                 else{
-                    return res.jsonp({ok: ride.result.ok});
+                    return res.jsonp(result);
                 }
             });
         }
@@ -54,20 +54,79 @@ exports.deleteRidePost = function(req, res){
 
 
 exports.deleteRequestPost = function(req, res){
-    var post = req.body.ride;
+    var postID = req.params.id;
     var sessionKey = req.body.session;
-
-    if (driverList.indexOf(post.source) < 0){
-
-    }
-    
-
+    User.findOne({session:sessionKey}).exec(function(err, user){
+        if (err){
+            return res.status(400).send(err);
+        }
+        else if (!user){
+            return res.status(400).send({
+                message: 'You do not have the right to delete'
+            });
+        }
+        else {
+            Request.find({_id: postID}).remove().exec(function(err, result){
+                if (err){
+                    return res.status(400).send(err);
+                }
+                else{
+                    return res.jsonp(result);
+                }
+            });
+        }
+    });
 };
 
-exports.removeFromList = function(req, res){
+// exports.removeFromDriverList = function(req, res){
+//     var postID = req.params.id;
+//     var sessionKey = req.body.session;
+//     User.findOne({session:sessionKey}).exec(function(err, user){
+//         if (err){
+//             return res.status(400).send(err);
+//         }
+//         else if (!user){
+//             return res.status(400).send({
+//                 message: 'Action unauthorized'
+//             });
+//         }
+//         else {
+//             Request.update({_id: postID},{'$pull': {'driverList': {'userid': user._id}}}).exec(function(err, result){
+//                 if (err){
+//                     return res.status(400).send(err);
+//                 }
+//                 else{
+//                     return res.jsonp(result);
+//                 }
+//             });
+//         }
+//     });
+// };
 
-};
-
+// exports.removeFromPassengerList = function(req, res){
+//     var postID = req.params.id;
+//     var sessionKey = req.body.session;
+//     User.findOne({session:sessionKey}).exec(function(err, user){
+//         if (err){
+//             return res.status(400).send(err);
+//         }
+//         else if (!user){
+//             return res.status(400).send({
+//                 message: 'Action unauthorized'
+//             });
+//         }
+//         else {
+//             Ride.update({_id: postID},{'$pull': {'passengerList': {'userid': user._id}}}).exec(function(err, result){
+//                 if (err){
+//                     return res.status(400).send(err);
+//                 }
+//                 else{
+//                     return res.jsonp(result);
+//                 }
+//             });
+//         }
+//     });
+// };
 
 
 exports.list = function(req, res) {
