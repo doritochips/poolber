@@ -233,10 +233,8 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 		}
 		//get user info then get history
 		else {
-			UserService.saveUserInfo().then(function(firstRes){
-				UserService.getRideHistory().then(function(res){
-					importData(res.data);
-				});
+			UserService.getRideHistory().then(function(res){
+				importData(res.data);
 			});
 		}
 	}();

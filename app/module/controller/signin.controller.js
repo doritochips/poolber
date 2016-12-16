@@ -14,7 +14,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		$scope.submitUserinfo = function(){
 			$scope.user.email = $scope.user.email.toLowerCase();
 			$http.post("/api/auth/signin", $scope.user).then(function(res){				
-				$window.location.href = '/dash.html?' + res.data;
+				$window.location.href = '/dash.html?' + res.data + "#/history";
 			}, function(err){
 				$scope.duplicateKey = true;
 				console.log(err.data);
@@ -25,8 +25,7 @@ front.controller("SigninCtrl", ['$window','$scope', '$http',
 		$scope.facebookLogin = function(){
 			$scope.redirectTo = '/';
 			$http.post("api/auth/facebook",$scope.redirectTo).then(function(res){
-				console.log(res.data);
-				$window.location.href = '/dash.html?' + res.data;
+				console.log(res.data + "#/history");
 			}, function(err){
 				$scope.duplicateKey = true;
 				console.log(err.data);

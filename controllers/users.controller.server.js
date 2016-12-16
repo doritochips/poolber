@@ -341,7 +341,7 @@ exports.oauthCallback = function (strategy) {
 					return res.redirect('/#/login');
 				}
 				var sessionRedirectURL = user.session;
-				return res.redirect('/dash.html?' + sessionRedirectURL + '#/');
+				return res.redirect('/dash.html?' + sessionRedirectURL + '#/history');
 			});
 		})(req, res, next);
 	};

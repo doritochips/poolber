@@ -5,7 +5,7 @@ dash.controller("Cache", ['UserService','$scope','$window', function(UserService
 
 	UserService.getUserInfoForDirectives().then(function(res){				
 		if(res.data === "failure"){
-			$window.location.href = '/#/login';	
+			//$window.location.href = '/#/login';	
 			return;
 		}	
 		UserService.saveUserInfo(res.data[0]);
