@@ -73,11 +73,11 @@ module.exports = function (app, db) {
 		users.saveOAuthUserProfile(req, providerUserProfile, done);
 	});
 
-	define wechat strategy
+	//define wechat strategy
 	var Wechat = new WechatStrategy({
 		appID: 'wxfe8d08cc30586362',						//'wx02d33dd17d1d0461',
 		appSecret: '3b9b6424f581913f22417f305abf6960',			//'d3361be9785345690c17213176415cf2',
-		callbackURL: 'https://poolberwechat.herokuapp.com/api/auth/wechat/callback',
+		callbackURL: '/api/auth/wechat/callback',
 		scope: 'snsapi_base',
 		state: '123'
 	},
