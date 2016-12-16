@@ -2,6 +2,7 @@
 
 var passport = require('passport');
 var users = require('../controllers/users.controller.server.js')
+var wechat = require('../controllers/wechat.controller.server.js')
 
 module.exports = function(app) {
 	// Setting up the users authentication api
@@ -21,10 +22,8 @@ module.exports = function(app) {
 	}));
 	app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
 	
-	// app.route('/api/auth/wechat').get(users.oauthCall('wechat', {
-	// 	scope: ['snsapi_userinfo']
-	// }));
-	// app.route('/api/auth/wechat/callback').get(users.oauthCallback('wechat'));
-
+	app.route('/api/auth/wechat').get(wechat.oauthCall);
+	app.route('/api/auth/wechat/callback/:info').get(wechat.oauthCallback);
+	app.route('/api/auth/wechat/callback/:info').post(wechat.oauthCallback);
 
 };
