@@ -288,8 +288,8 @@ exports.reset = function (req, res, next) {
 
 exports.saveProfile = function(req, res){
 	var user = req.body;
-	//console.log(user);
-	User.update({session: user.session}, 
+	console.log(user);
+	User.update({_id: user.id}, 
 		{$set:{displayName: user.displayName, email: user.email, phone:user.phone, wechat: user.wechat}},
 		function(error){
 		if(error){

@@ -1,7 +1,7 @@
 'use strict';
 
-dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserService', '$uibModal', 'toaster',
-	function($window, $scope, $http, CityList, UserService, $uibModal, toaster){
+dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster',
+	function($window, $scope, $http, CityList, user, $uibModal, toaster){
 		
 
 		
@@ -96,10 +96,9 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','UserSe
 			$scope.numberOfPages = function(){
 				return Math.ceil($scope.rides.length/$scope.pageSize);
 			};
-			UserService.getUserInfo().then(function(res){				
-				$scope.user = res.data[0];
-				addRelations($scope.user._id);
-			});						
+			
+			$scope.user = user.data[0];
+			addRelations($scope.user._id);				
 		};
 
 

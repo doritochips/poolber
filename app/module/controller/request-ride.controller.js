@@ -1,6 +1,6 @@
 "use strict";
 
-dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','UserService',function($http, $scope, toaster, CityList, UserService){
+dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user',function($http, $scope, toaster, CityList, user){
 	var roundTime = function(time){
 		var mins = time.getMinutes();
 		var quarterHours = Math.round(mins/15);
@@ -32,14 +32,8 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','Us
 	    minDate: new Date()
 	};	
 	// get user id
+	$scope.form.user_id = user.data[0]._id;
 	
-	$scope.form.user_id = UserService.getUserId();
-	if($scope.form.user_id === ""){
-		UserService.getUserInfo().then(function(res){
-			$scope.form.user_id = res.data[0]._id;
-		});
-	}
-
 	$scope.open = function(){
 		$scope.popup.opened  = true;		
 	};

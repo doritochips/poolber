@@ -22,7 +22,7 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 			//assign default
 			$scope.classList = ["","","",""];
 			//list ride, assign the index as active class
-			var routeList = ["/history","/requestRide","/postRide","/","/requestList"];
+			var routeList = ["/history","/requestRide","/postRide","/rideList","/requestList"];
 			$scope.classList[routeList.indexOf($location.path())] = $scope.activeClass;
 			//console.log($scope.classList);
 		}();
