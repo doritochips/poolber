@@ -22,8 +22,8 @@ module.exports = function(app) {
 	}));
 	app.route('/api/auth/facebook/callback').get(users.oauthCallback('facebook'));
 
-	app.route('/api/auth/wechat').get(users.oauthCall('facebook', {}));
-	app.route('/api/auth/wechat/callback/:info').get(users.oauthCallback('wechat');	
+	app.route('/api/auth/wechat').get(users.oauthCall('wechat', {}));
+	app.route('/api/auth/wechat/callback/:info').get(users.oauthCallback('wechat'));	
 
 	// app.route('/api/auth/wechat').get(wechat.oauthCall);
 	// app.route('/api/auth/wechat/callback/:info').get(wechat.oauthCallback);
