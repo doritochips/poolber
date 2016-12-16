@@ -10,6 +10,6 @@ dash.factory('httpRequestInterceptor', ['$location', function ($location) {
 	};
 }]);
 
-dash.config(function ($httpProvider) {
+dash.config(['$httpProvider', function ($httpProvider) {
 	$httpProvider.interceptors.push('httpRequestInterceptor');
-});
+}]);
