@@ -72,6 +72,11 @@ var UserSchema = new Schema({
     type: String,
     required: 'Provider is required'
   },
+  providerID: {
+    type: String,
+    trim: true,
+    index: true
+  },
   providerData: {},
   additionalProvidersData: {}
   // username: {

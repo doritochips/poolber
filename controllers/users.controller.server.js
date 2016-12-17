@@ -353,7 +353,7 @@ exports.oauthCallback = function (strategy) {
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 	if (!req.user) {
-		User.findOne({email:providerUserProfile.email}, function (err, user) {
+		User.findOne({providerID:providerUserProfile.providerID, provider: providerUserProfile.provider}, function (err, user) {
 			if (err) {
 				//console.log(err);
 				return done(err);
@@ -371,6 +371,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 						profileImageURL: providerUserProfile.profileImageURL,
 						provider: providerUserProfile.provider,
 						providerData: providerUserProfile.providerData,
+						providerID: providerUserProfile.providerID,
 						session: new_session
 					});
 					// And save the user
