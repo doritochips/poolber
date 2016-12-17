@@ -81,7 +81,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 
 
 	function validation(){
-		if($scope.form.departure === $scope.form.departure){
+		if($scope.form.departure === $scope.form.destination){
 			$scope.errorMsg = "Invalid destination (departure).";
 			$scope.noError = false;
 			return false;
