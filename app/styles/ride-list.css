@@ -11,6 +11,11 @@
   text-transform: capitalize;
 }
 
+.center{
+	text-align: center;
+}
+
+
 .collapse-td{
 	padding:0 !important;
 }

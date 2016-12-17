@@ -65,7 +65,15 @@
                 <div class="panel panel-default">
                     <div class="panel-heading"><strong><span class="fa fa-list"></span> {{filtered.length}} Requests Found</strong></div>
                     <div class="panel-body" style="overflow-x:scroll;">
-
+                        <div ng-if="filtered.length === 0">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3 nothing">
+                                    <h1 class="center"><i class="fa fa-grav fa-5x"></i></h1>
+                                    <h2 class="center">No Available Requests Found</h2>
+                                    <h3 class="center">Why Don't You Go Post your <a href="#/postRide">Ride</a></h3>
+                                </div>
+                            </div>
+                        </div> 
                         <section ng-repeat="request in requests |greaterThan:filter.passengers|sameDay:filter.date| filter:{destination: filter.destination}| filter:{departure: filter.departure}|startFrom:currentPage*pageSize | limitTo:pageSize | filter:query as filtered" class="panel panel-box panel-border">
                             <div class="panel-top bg-dark">
                                 <h3 class="capitalize">
