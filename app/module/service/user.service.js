@@ -21,13 +21,7 @@ dash.factory('UserService', ["$location", "$http", "$window", function($location
 			method: 'post',
 			url: 'api/data/userinfo',
 			data: {"session": session}
-		});
-		promise.success(function(data){
-			if(data === "failure"){
-				$window.location.href="/#/login";
-			}
-			return data;
-		});
+		});		
 
 		return promise;
 	};	
