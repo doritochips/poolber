@@ -28,7 +28,5 @@ exports.oauthCall = function (req, res) {
  * OAuth callback
  */
 exports.oauthCallback = function (req, res) {
-	return function (req, res, next) {
-		console.log(req.params.info);
-	};
+	return res.send({"message": "wtf"});
 };

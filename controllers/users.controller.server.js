@@ -318,7 +318,9 @@ var noReturnUrls = [
  * OAuth provider call
  */
 exports.oauthCall = function (strategy, scope) {
+
 	return function (req, res, next) {
+		console.log("calling... ");
 		// Authenticate
 		passport.authenticate(strategy, scope)(req, res, next);
 	};
@@ -328,7 +330,9 @@ exports.oauthCall = function (strategy, scope) {
  * OAuth callback
  */
 exports.oauthCallback = function (strategy) {
+	
 	return function (req, res, next) {
+		console.log("in call back");
 		passport.authenticate(strategy, function (err, user, redirectURL) {
 			if (err) {
 				return res.redirect('/#/login?err=' + encodeURIComponent(err));
