@@ -9,7 +9,6 @@ dash.config(function($routeProvider, $locationProvider){
 		templateUrl:"views/ride_list.view.html",
 		controller: "rideListCtrl",
 		css: '/styles/ride-list.css',
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){				
 				return UserService.getUserInfo();
@@ -20,7 +19,6 @@ dash.config(function($routeProvider, $locationProvider){
 		templateUrl:"views/request_list.view.html",
 		controller: "requestListCtrl",
 		css: '/styles/ride-list.css',
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){				
 				return UserService.getUserInfo();
@@ -30,7 +28,6 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/requestRide", {
 		templateUrl:"views/request_ride.view.html",
 		controller:"requestRideCtrl",
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){				
 				return UserService.getUserInfo();
@@ -40,7 +37,6 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/postRide",{
 		templateUrl:"views/post_ride.view.html",
 		controller:"postRideCtrl",
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){				
 				return UserService.getUserInfo();
@@ -54,7 +50,6 @@ dash.config(function($routeProvider, $locationProvider){
 		templateUrl:"views/profile.view.html",
 		controller: "profileCtrl",
 		css:"/styles/profile.css",
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){
 				return UserService.getUserInfo();
@@ -64,7 +59,6 @@ dash.config(function($routeProvider, $locationProvider){
 	.when("/history",{
 		templateUrl:"views/history.view.html",
 		controller: "historyCtrl",
-		reloadOnSearch: false,
 		resolve:{
 			user: function(UserService){
 				return UserService.getUserInfo();
