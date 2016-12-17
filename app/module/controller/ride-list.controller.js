@@ -15,7 +15,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user',
 				arialDescribedBy:'modal-body',
 				templateUrl: 'views/components/requestRideModal.html',
 				controller: function($scope, $uibModalInstance, $timeout){	
-
+					$scope.user = user.data[0];
 					$scope.selected = {
 						email: false,
 						phone: false,
@@ -94,8 +94,6 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user',
 			$scope.numberOfPages = function(){
 				return Math.ceil($scope.rides.length/$scope.pageSize);
 			};
-			
-			$scope.user = user.data[0];
 			addRelations($scope.user._id);				
 		};
 
@@ -168,7 +166,7 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user',
 		//initialize
 		var init = function(){
 			$scope.form = {};
-			$scope.user = {};
+			$scope.user = user.data[0];
 			$scope.filter = {};
 			$scope.cities = CityList.commonCities;
 			$scope.dateOptions = {

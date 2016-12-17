@@ -1,6 +1,6 @@
 "use strict";
 
-dash.controller("profileCtrl", ["$scope","$location", "$http", "user", "toaster", "$window", function($scope, $location, $http, user, toaster, $window){
+dash.controller("profileCtrl", ["$scope","$http", "user", "toaster", "$window", function($scope, $http, user, toaster, $window){
 
 	// init
 	$scope.editing = false;
