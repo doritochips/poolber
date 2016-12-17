@@ -2,6 +2,7 @@
 
 var passport = require('passport');
 var users = require('../controllers/users.controller.server.js')
+var policy = require('../policies/auth.policy.server.js');
 
 module.exports = function(app) {
 	// Setting up the users authentication api
@@ -12,7 +13,8 @@ module.exports = function(app) {
 	app.route('/api/auth/reset/:token').get(users.validateResetToken);
 	app.route('/api/auth/reset/:token').post(users.reset);
 
-	app.route('/api/data/saveProfile').post(users.saveProfile);
+	app.route('/api/data/saveProfile').all(policy.isLoggedIn)
+		.post(users.saveProfile);
 	app.route('/api/data/userinfo').post(users.userinfo);
 
 	//OAUTH

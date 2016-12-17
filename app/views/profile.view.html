@@ -33,11 +33,33 @@
             <div class="panel-body">
                 <div class="media media-body">
                     <ul class="list-unstyled list-info">
+                    
+                    <li class="col-md-12">
+                        <div class="col-md-4">
+                         <span class="icon glyphicon glyphicon-envelope">
+                         </span>
+                         <label>Email Address
+                         </label>
+
+                     </div>
+
+                     <div ng-hide="editing && !isLocalProvider" class="col-md-4">
+                         <span>{{user.email}}
+                         </span>
+                         <br> <small ng-show="editing && isLocalProvider"> <i>Email used for log-in cannot be changed</i></small>
+                     </div>
+
+                     <div ng-show="editing" class="col-md-8">
+                         <input ng-if="!isLocalProvider" class="form-control" ng-show="editing" ng-model="user.email" maxlength="30">
+                     </div>
+                    </li>   
+
+
                         <li class="col-md-12">
                          <div class="col-md-4">
                              <span class="icon glyphicon glyphicon-user">
                              </span>
-                             <label>Name/名前
+                             <label>Display Name
                              </label>
 
                          </div>
@@ -48,36 +70,15 @@
                          </div>
                          <div ng-show="editing" class="col-md-8">
                              <input class="form-control" ng-show="editing" ng-model="user.displayName">
-
                          </div>                         
-
                      </li>
-                     <li class="col-md-12">
+ 
 
-                        <div class="col-md-4">
-                         <span class="icon glyphicon glyphicon-envelope">
-                         </span>
-                         <label>Email/メル
-                         </label>
-
-                     </div>
-                     <div ng-hide="editing" class="col-md-4">
-                         <span>{{user.email}}
-                         </span>
-
-                     </div>
-                     <div ng-show="editing" class="col-md-8">
-                         <input class="form-control" ng-show="editing" ng-model="user.email" maxlength="30">
-
-                     </div>
-
-
-                 </li>                                
                  <li class="col-md-12">
                      <div class="col-md-4">
                          <span class="icon glyphicon glyphicon-earphone">
                          </span>
-                         <label>Contact/番号
+                         <label>Contact
                          </label>
 
                      </div>
@@ -88,7 +89,6 @@
                   </div>
                   <div ng-show="editing" class="col-md-8">
                      <input class="form-control" phone-input ng-show="editing" ng-model="user.phone">
-
                  </div>
 
              </li>
@@ -111,11 +111,11 @@
             <div class="row">                               
                 <div class="submit-set pull-right"> 
                     <button ng-show="!editing" class="btn btn-md btn-info" ng-click="editInfo()">Edit
-                    </button>                     
-                    <button ng-show="editing" class="btn btn-md btn-success" ng-click="saveInfo()">Submit
-                    </button> &nbsp
-                    <button ng-show="editing" class="btn bnt-md btn-danger"
-                    ng-click="cancelEdit()">Cancel</button>
+                    </button>   
+                    <button ng-show="editing" class="btn bnt-md btn-default"
+                    ng-click="cancelEdit()">Cancel</button>    &nbsp              
+                    <button ng-show="editing" class="btn btn-md btn-dark" ng-click="saveInfo()">Submit</button> 
+                    
                 </div>
             </div>
         </li>
@@ -125,7 +125,7 @@
         <div class="row">
             <div class="col-md-12">
             <small>
-                Your Privacy is our first priority. <br> If you are a <i>passenger</i>, your saved information can be <b>emailed</b> to the driver. <br>If you are a <i>driver</i>, passengers' contact info will be <b>emailed</b> to you if they select your posted ride. Cool features such as text, wechat alarts, or <a ng-click="getNewFeature" class="clicky">this</a> are coming soon!
+                Your Privacy is our first priority. <br> If you are a <i>passenger</i>, your saved information can be <b>emailed</b> to the driver. <br>If you are a <i>driver</i>, passengers' contact info will be <b>emailed</b> to you if they select your posted ride. Cool features such as text, wechat alarts, or <a ng-click="getNewFeature" class="clicky"><b>this</b></a> are coming soon!
             </small>
             </div>
         </div>

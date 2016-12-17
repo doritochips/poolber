@@ -8,11 +8,20 @@ dash.controller("profileCtrl", ["$scope","$http", "user", "toaster", "$window", 
 	$scope.newFeature = false;
 	var backup = {};
 
-	$scope.user = user.data[0];				
-	backup.displayName = user.data[0].displayName;		
-	backup.email = user.data[0].email;
-	backup.phone = user.data[0].phone;
-	backup.wechat = user.data[0].wechat;
+	var init = function (){
+		$scope.user = user.data[0];				
+		backup.displayName = user.data[0].displayName;		
+		backup.email = user.data[0].email;
+		backup.phone = user.data[0].phone;
+		backup.wechat = user.data[0].wechat;
+		if (user.data[0].provider === "local"){
+			$scope.isLocalProvider = true;
+		}
+		else {
+			$scope.isLocalProvider = false;
+		}
+	}();
+
 
 
 	// car manipulate according to window size

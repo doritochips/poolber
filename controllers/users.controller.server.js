@@ -287,16 +287,33 @@ exports.reset = function (req, res, next) {
 };
 
 exports.saveProfile = function(req, res){
-	var user = req.body;
-	console.log(user);
-	User.update({_id: user.id}, 
-		{$set:{displayName: user.displayName, email: user.email, phone:user.phone, wechat: user.wechat}},
-		function(error){
-		if(error){
-			//console.log(error);
-			res.status(500).send(error);
-		}else{
-			res.send("success");
+	var userInfo = req.body;
+	User.findOne({_id: userInfo.id}).exec(function(err, user){
+		if(err){
+			res.status(400).send(err);
+		}
+		else{
+			if (user.provider === 'local'){
+				user.displayName = userInfo.displayName;
+				user.phone = userInfo.phone;
+				user.wechat = userInfo.wechat;
+				console.log("no email is saved");
+			}
+			else {
+				user.displayName = userInfo.displayName;
+				user.email = userInfo.email;
+				user.phone = userInfo.phone; 
+				user.wechat =  userInfo.wechat;
+				console.log("email saved");
+			}
+			user.save(function(error){
+				if (error){
+					res.status(400).send(error);
+				}
+				else {
+					res.send("success");
+				}
+			});
 		}
 	});
 };
