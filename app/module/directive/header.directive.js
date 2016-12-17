@@ -16,6 +16,12 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 				}
 
 			});
+
+			scope.$on("navClicking", function(e, isMobile){
+				if(isMobile){
+					document.querySelectorAll("#nav-container")[0].style.display = "none";
+				}
+			});
 			scope.showNav = function(){	
 				var toggle = document.querySelectorAll("#nav-container")[0].style.display; 							
 				if(toggle === "block"){

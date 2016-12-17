@@ -1,6 +1,6 @@
 "use strict";
 
-dash.directive("poolSidebar", ['$location', '$routeParams', function($location, $routeParams ){
+dash.directive("poolSidebar", ['$location', '$routeParams', '$rootScope', '$window', function($location, $routeParams, $rootScope, $window){
     var controller = ['$scope', function($scope){
 		
 		$scope.driverMode = true;
@@ -14,6 +14,7 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
 				$scope.classList[i] = "";
 			}
 			$scope.classList[s] = $scope.activeClass;
+			$rootScope.$broadcast("navClicking", ($window.innerWidth < 768));
 		};
 
 		var init = function(){
@@ -30,9 +31,6 @@ dash.directive("poolSidebar", ['$location', '$routeParams', function($location, 
     return{
         templateUrl:'views/layout/sidebar.view.html',
         restrict:'A',
-        controller: controller,
-        link: function(scope, element, attr){
-			// get _id
-		}
+        controller: controller        
     };
 }]);
