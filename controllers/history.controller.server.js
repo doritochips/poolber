@@ -161,11 +161,6 @@ exports.list = function(req, res) {
 		Request.find({user: user_id}).populate('driverList.userid', notSensitiveData).exec(function(err, requests){
 			if (err){
 				return res.status(400).send(err);
-			}
-			else if (requests.length === 0){
-				return res.status(404).send({
-					message: 'No requests has been found'
-				});
 			}else{
 				for (var request of requests){
 					request.driverList = removeUnprovidedFields(request.driverList);
@@ -188,11 +183,6 @@ exports.list = function(req, res) {
 			if (err){
 				//console.log(err);
 				return res.status(400).send(err);
-			}
-			else if (!rides){
-				return res.status(404).send({
-					message: 'No rides has been found'
-				});
 			}else{
 				//console.log("find requested rides");
 				//console.log(rides);
@@ -211,11 +201,6 @@ exports.list = function(req, res) {
 		Ride.find({user: user_id}).populate('passengerList.userid', notSensitiveData).exec(function(err, rides){
 			if (err){
 				return res.status(400).send(err);
-			}
-			else if (!rides){
-				return res.status(404).send({
-					message: 'No rides has been found'
-				});
 			}else{
 				for (var ride of rides){
 					ride.passengerList = removeUnprovidedFields(ride.passengerList);
@@ -236,11 +221,6 @@ exports.list = function(req, res) {
 		Request.find({'driverList.userid': ObjectId(user_id)}).populate('user','displayName').exec(function(err, requests){
 			if (err){
 				return res.status(400).send(err);
-			}
-			else if (!requests){
-				return res.status(404).send({
-					message: 'No requests has been found'
-				});
 			}else{
 				// console.log("find rided requests");
 				// console.log(requests);
@@ -255,7 +235,7 @@ exports.list = function(req, res) {
 	};
 
 	var finalCallback = function() {
-		res.json(ret);
+		return res.json(ret);
 	};
 
 	//call each function
