@@ -2,7 +2,7 @@
 
 dash.controller("Cache", ['UserService','$scope','$window', function(UserService, $scope, $window){
 	$scope.cacheFinished = false;
-
+	$scope.hideLoading = true;
 	UserService.getUserInfoForDirectives().then(function(res){				
 		if(res.data === "failure"){
 			$window.location.href = '/#/login';	
@@ -12,5 +12,14 @@ dash.controller("Cache", ['UserService','$scope','$window', function(UserService
 		$scope.cacheFinished = true;
 	}, function(err){
 		$window.location.href = '/#/login';
+	});
+
+	$scope.$on("loading", function(e, data){
+		if(data === "start"){
+			$scope.hideLoading = false;
+		}else{
+			$scope.hideLoading = true;
+		}
+
 	});
 }]);

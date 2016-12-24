@@ -79,7 +79,16 @@ input:checked + .slider:before {
   -ms-transform: translateX(165px);
   transform: translateX(165px);
 }
-
+/*mask*/
+.mask{
+  background-color:#000;
+  background: url(/source/bg-pattern/bg-pattern-loading.gif) no-repeat fixed center rgba(38, 43, 55, 0.6);
+  background-size:150px 150px;
+  width: 100%;
+  height: 100%;
+  position: fixed;  
+  z-index: 9999;
+}
 /* Rounded sliders */
 .slider.round {
   border-radius: 34px;

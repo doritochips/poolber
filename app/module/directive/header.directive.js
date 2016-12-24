@@ -9,6 +9,13 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 		},
 		link: function(scope, element, attr){	
 			
+			scope.fromSwitchingMode = false;
+
+			scope.$on("switchMode", function(event, data){
+				scope.fromSwitchingMode = true;
+				$window.location.href = '#/'+ data;
+			});
+
 			var unwatch = scope.$watch('cacheProgress', function(new_val, old_val){
 				if(new_val){
 					scope.user = UserService.getUser();
@@ -35,9 +42,12 @@ dash.directive('poolHeader', ['UserService', '$window', function(UserService, $w
 			angular.element($window).bind('resize', function(){
 				scope.width = $window.innerWidth;				
 				// change is 960px width
-				if(scope.width >= 768){				
-					document.querySelectorAll("#nav-container")[0].style.display = "block";		
+				if(scope.width >= 768){
+					console.log(scope.fromSwitchingMode);			
+					document.querySelectorAll("#nav-container")[0].style.display = "block";	
+					scope.fromSwitchingMode = false;
 				}else{
+					console.log(scope.fromSwitchingMode);	
 					document.querySelectorAll("#nav-container")[0].style.display = "none";
 				}
 				scope.$digest();

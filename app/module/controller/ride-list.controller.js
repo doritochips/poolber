@@ -1,7 +1,7 @@
 'use strict';
 
-dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster',
-	function($window, $scope, $http, CityList, user, $uibModal, toaster){
+dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster', '$rootScope',
+	function($window, $scope, $http, CityList, user, $uibModal, toaster, $rootScope){
 
 		//toggle filter
 		$scope.toggleFilter = function(){
@@ -52,11 +52,13 @@ dash.controller("rideListCtrl", ['$window','$scope', '$http', 'CityList','user',
 				},
 				size: 'sm'
 			}).result.then(function(selected){
+				$rootScope.$broadcast("loading","start");
 				$http.post("/api/requestRide",{
 					selected: selected,
 					ride_id: ride._id,
 					passenger_id: $scope.user._id
 				}).then(function(res){
+					$rootScope.$broadcast("loading","end");
 					//toast message
 					if(res.data === "success"){
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
