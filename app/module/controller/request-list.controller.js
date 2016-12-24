@@ -1,7 +1,7 @@
 'use strict';
 
-dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster',
-	function($window, $scope, $http, CityList, user, $uibModal, toaster){
+dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster', '$rootScope',
+	function($window, $scope, $http, CityList, user, $uibModal, toaster, $rootScope){
 		
 		
 		//toggle filter
@@ -53,11 +53,13 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 				},
 				size: 'sm'
 			}).result.then(function(selected){
-				$http.post("/api/request/offer_ride",{
+				$rootScope.$broadcast("loading","start");
+				$http.post("/api/request/offer_ride",{					
 					selected: selected,
 					request_id: request._id,
 					driver_id: $scope.user._id
 				}).then(function(res){
+					$rootScope.$broadcast("loading","end");
 					//toast message
 					if(res.data === "success"){
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						

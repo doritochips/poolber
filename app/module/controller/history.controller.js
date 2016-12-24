@@ -1,6 +1,6 @@
 'use strict';
 
-dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
+dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window","$rootScope", function($scope, $location, $http, UserService, $uibModal, $window, $rootScope){
 	
 	$scope.postedRequest = [];
 	$scope.appliedRequest = [];
@@ -233,15 +233,18 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 
 
 	var init = function(){
+		$rootScope.$broadcast("loading", "start");
 		//if userinfo is cached
 		if (UserService.userInfo === {}) {
 			UserService.getRideHistory().then(function(res){
+				$rootScope.$broadcast("loading", "end");
 				importData(res.data);
 			});
 		}
 		//get user info then get history
 		else {
 			UserService.getRideHistory().then(function(res){
+				$rootScope.$broadcast("loading", "end");
 				importData(res.data);
 			});
 		}

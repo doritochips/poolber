@@ -57,7 +57,8 @@ dash.directive("poolSidebar", ['$location', '$routeParams', '$rootScope', '$wind
 				t = 3;
 			}
 			if (t){
-				$window.location.href = '#/'+ $scope.reverseDict[t];
+				$rootScope.$broadcast("switchMode", $scope.reverseDict[t]);
+				// $window.location.href = '#/'+ $scope.reverseDict[t];
 			}
 			$scope.driverMode = !$scope.driverMode;
 		};
