@@ -56,12 +56,12 @@ dash.controller("profileCtrl", ["$scope","$http", "user", "toaster", "$window", 
 				wechat: $scope.user.wechat,
 				id: $scope.user._id 
 			}).then(function(res){
-				if(res){				
 					toaster.pop('success', "Success", "Your profile has been updated!");			
-				}else{
-					toaster.pop('error', "Failure", "Some unexpected error occurs!");
 				}
-			});
+				, function (err) {
+					toaster.pop('error', "Opps", err.data);
+					$scope.cancelEdit();
+				});
 		$scope.editing = false;
 	};
 	$scope.cancelEdit = function(){

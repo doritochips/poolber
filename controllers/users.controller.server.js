@@ -290,28 +290,26 @@ exports.saveProfile = function(req, res){
 	var userInfo = req.body;
 	User.findOne({_id: userInfo.id}).exec(function(err, user){
 		if(err){
-			res.status(400).send(err);
+			return res.status(400).send(err);
 		}
 		else{
 			if (user.provider === 'local'){
 				user.displayName = userInfo.displayName;
 				user.phone = userInfo.phone;
 				user.wechat = userInfo.wechat;
-				console.log("no email is saved");
 			}
 			else {
 				user.displayName = userInfo.displayName;
 				user.email = userInfo.email;
 				user.phone = userInfo.phone; 
 				user.wechat =  userInfo.wechat;
-				console.log("email saved");
 			}
 			user.save(function(error){
 				if (error){
-					res.status(400).send(error);
+					return res.status(400).send("Email is currently in use");
 				}
 				else {
-					res.send("success");
+					return res.send("success");
 				}
 			});
 		}
