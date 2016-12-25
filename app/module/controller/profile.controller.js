@@ -57,8 +57,7 @@ dash.controller("profileCtrl", ["$scope","$http", "user", "toaster", "$window", 
 				id: $scope.user._id 
 			}).then(function(res){
 					toaster.pop('success', "Success", "Your profile has been updated!");			
-				}
-				, function (err) {
+				}, function (err) {
 					toaster.pop('error', "Opps", err.data);
 					$scope.cancelEdit();
 				});
