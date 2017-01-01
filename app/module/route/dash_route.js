@@ -44,7 +44,7 @@ dash.config(function($routeProvider, $locationProvider){
 		}
 	})
 	.when("/404",{
-		templateUrl:"views/error/404.view.html"
+		templateUrl:"views/error/404.view.html"		
 	})	
 	.when("/profile",{
 		templateUrl:"views/profile.view.html",

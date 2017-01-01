@@ -57,7 +57,6 @@ module.exports = function (app, db) {
 		var providerData = profile._json;
 		providerData.accessToken = accessToken;
 		providerData.refreshToken = refreshToken;
-
 		// Create the user OAuth profile
 		var providerUserProfile = {
 			firstName: profile.name.givenName,
@@ -66,7 +65,7 @@ module.exports = function (app, db) {
 			email: profile.emails ? profile.emails[0].value : undefined,
 			profileImageURL: (profile.id) ? '//graph.facebook.com/' + profile.id + '/picture?type=large' : undefined,
 			provider: 'facebook',
-			providerIdentifierField: 'id',
+			providerID: profile.id,
 			providerData: providerData
 		};
 		// Save the user OAuth profile

@@ -1,6 +1,6 @@
 "use strict";
 
-dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user',function($http, $scope, toaster, CityList, user){
+dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','user','$rootScope', function($http, $scope, toaster, CityList, user, $rootScope){
 	$scope.roundTime = function(time){
 
 		var mins = time.getMinutes();
@@ -40,10 +40,11 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 	};
 	
 	$scope.submit = function(){
+
 		if(!validation()){
 			return;
 		}
-
+		$rootScope.$broadcast("loading", "start");
 		// manipulate date
 		var user_id = $scope.form.user_id;
 		var year = $scope.form.date.getFullYear();
@@ -58,6 +59,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 		$scope.form.endTime = new Date(year, month, day, endingH, endingM);
 
 		$http.post('/api/request', $scope.form).then(function(res){
+			$rootScope.$broadcast("loading", "end");
 			if(res){				
 				toaster.pop('success', "Success", "Your request has been posted!");
 				$scope.form = {
@@ -81,7 +83,7 @@ dash.controller("requestRideCtrl", ["$http", "$scope", 'toaster', 'CityList','us
 
 
 	function validation(){
-		if($scope.form.departure === $scope.form.departure){
+		if($scope.form.departure === $scope.form.destination){
 			$scope.errorMsg = "Invalid destination (departure).";
 			$scope.noError = false;
 			return false;

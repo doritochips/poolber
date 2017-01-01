@@ -287,16 +287,31 @@ exports.reset = function (req, res, next) {
 };
 
 exports.saveProfile = function(req, res){
-	var user = req.body;
-	console.log(user);
-	User.update({_id: user.id}, 
-		{$set:{displayName: user.displayName, email: user.email, phone:user.phone, wechat: user.wechat}},
-		function(error){
-		if(error){
-			//console.log(error);
-			res.status(500).send(error);
-		}else{
-			res.send("success");
+	var userInfo = req.body;
+	User.findOne({_id: userInfo.id}).exec(function(err, user){
+		if(err){
+			return res.status(400).send(err);
+		}
+		else{
+			if (user.provider === 'local'){
+				user.displayName = userInfo.displayName;
+				user.phone = userInfo.phone;
+				user.wechat = userInfo.wechat;
+			}
+			else {
+				user.displayName = userInfo.displayName;
+				user.email = userInfo.email;
+				user.phone = userInfo.phone; 
+				user.wechat =  userInfo.wechat;
+			}
+			user.save(function(error){
+				if (error){
+					return res.status(400).send("Email is currently in use");
+				}
+				else {
+					return res.send("success");
+				}
+			});
 		}
 	});
 };
@@ -355,7 +370,7 @@ exports.oauthCallback = function (strategy) {
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 	if (!req.user) {
-		User.findOne({email:providerUserProfile.email}, function (err, user) {
+		User.findOne({providerID:providerUserProfile.providerID, provider: providerUserProfile.provider}, function (err, user) {
 			if (err) {
 				//console.log(err);
 				return done(err);
@@ -373,6 +388,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
 						profileImageURL: providerUserProfile.profileImageURL,
 						provider: providerUserProfile.provider,
 						providerData: providerUserProfile.providerData,
+						providerID: providerUserProfile.providerID,
 						session: new_session
 					});
 					// And save the user

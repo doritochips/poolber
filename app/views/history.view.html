@@ -1,0 +1,61 @@
+<link href="../styles/history.css" rel="stylesheet"> 
+<div class="page">
+    
+    <div class="ui-timline-container">
+        <!-- Rounded switch -->
+        <div class="row">
+            <div class="text-center">
+                <span class="btn-group">
+                    <label class="btn btn-default" ng-model="viewAsDriver" uib-btn-radio="'passenger'" uncheckable>View As Passenger&nbsp</label>
+                    <label class="btn btn-default" ng-model="viewAsDriver" uib-btn-radio="'driver'" uib-uncheckable="uncheckable">&nbsp&nbsp View As Driver &nbsp&nbsp</label>
+                </span>
+            </div>
+        </div>
+        <br>
+        <div ng-if="passengerViewEmpty && (viewAsDriver == 'passenger')">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 nothing">
+                    <h1 class="center"><i class="fa fa-child fa-5x"></i></h1>
+                    <h2 class="center">No History As Passenger Yet</h2>
+                    <h3 class="center">Why Don't You Go To <a href="#/"> Ride List </a></h3>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="driverViewEmpty && (viewAsDriver == 'driver')">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 nothing">
+                    <h1 class="center"><i class="fa fa-car fa-5x"></i></h1>
+                    <h2 class="center">No History As Driver Yet</h2>
+                    <h3 class="center">Why Don't You Go To <a href="#/requestList"> Request List </a></h3>
+                </div>
+            </div>
+        </div>        
+        <section class="ui-timeline" ng-repeat="ride in mergedList | filter:query as numShown">
+<!--             <article class="tl-item">
+                <div class="tl-body">
+                    <div class="tl-entry">
+                        <div class="tl-caption">
+                            <a href="javascript:;" class="btn btn-primary btn-block">Today</a>
+                        </div>
+                    </div>
+                </div>
+            </article> -->
+
+            <article class="tl-item" ng-class="defineMainClass(ride.source)" ng-if="showElement(ride.source)">
+                <div class="tl-body">
+                    <div class="tl-entry">
+                        <div class="tl-time"><i>{{ride.startTime | date:'h:mm a, MMM d '}}</i></div>
+                        <div class="tl-icon btn-icon-round btn-icon btn-icon-thin" ng-class="defineIconColorClass(ride.source)"><i ng-class="defineIconClass(ride.source)"></i></div>
+                        <div class="tl-content clicky" ng-click="viewDetail(ride)">
+                            <h4 class="tl-tile text-primary"> <a>{{ride.departure | capitalize}} - {{ride.destination | capitalize}}</a></h4>
+                            <small><i>{{GenerateNote(ride.source)}}. Click to view detail</i></small>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+
+</div>
+

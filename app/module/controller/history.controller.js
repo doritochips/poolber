@@ -1,6 +1,6 @@
 'use strict';
 
-dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window", function($scope, $location, $http, UserService, $uibModal, $window){
+dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$uibModal", "$window","$rootScope", function($scope, $location, $http, UserService, $uibModal, $window, $rootScope){
 	
 	$scope.postedRequest = [];
 	$scope.appliedRequest = [];
@@ -102,7 +102,11 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			$scope.mergedList.push(data.appliedRides[l]);
 		}
 		$scope.mergedList = $scope.mergedList.sort(compare);
-		
+		$scope.checkEmptyView();
+
+	};
+
+	$scope.checkEmptyView = function(){
 		if ($scope.postedRequest.length + $scope.appliedRides.length === 0){
 			$scope.passengerViewEmpty = true;
 		}
@@ -138,10 +142,14 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 			session: UserService.session
 		};
 		$http.post(getPostsURL(ride) + ride._id, data).then(function(data){
-			var rideIndex = $scope.mergedList.indexOf(ride);
-			if (rideIndex >=0){
-				$scope.mergedList.splice(rideIndex, 1);
-			}
+			var allLists = [$scope.mergedList, $scope.postedRequest, $scope.postedRides, $scope.appliedRequest, $scope.postedRides];
+			for (var x in allLists){
+				var rideIndex = allLists[x].indexOf(ride);
+				if (rideIndex >=0){
+					allLists[x].splice(rideIndex, 1);
+				}
+			}	
+			$scope.checkEmptyView();	
 		}, function(err){
 			console.log(err);
 		});
@@ -225,15 +233,18 @@ dash.controller("historyCtrl", ["$scope","$location", "$http", "UserService", "$
 
 
 	var init = function(){
+		$rootScope.$broadcast("loading", "start");
 		//if userinfo is cached
 		if (UserService.userInfo === {}) {
 			UserService.getRideHistory().then(function(res){
+				$rootScope.$broadcast("loading", "end");
 				importData(res.data);
 			});
 		}
 		//get user info then get history
 		else {
 			UserService.getRideHistory().then(function(res){
+				$rootScope.$broadcast("loading", "end");
 				importData(res.data);
 			});
 		}

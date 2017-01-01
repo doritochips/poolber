@@ -1,6 +1,6 @@
 "use strict";
 
-dash.factory('UserService', ["$location", "$http", function($location, $http){
+dash.factory('UserService', ["$location", "$http", "$window", function($location, $http, $window){
 	// getting userInfo in controller: UserService.data[0]
 
 	var userService = {	
@@ -21,7 +21,7 @@ dash.factory('UserService', ["$location", "$http", function($location, $http){
 			method: 'post',
 			url: 'api/data/userinfo',
 			data: {"session": session}
-		});
+		});		
 
 		return promise;
 	};	

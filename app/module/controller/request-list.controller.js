@@ -1,9 +1,8 @@
 'use strict';
 
-dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster',
-	function($window, $scope, $http, CityList, user, $uibModal, toaster){
+dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','user', '$uibModal', 'toaster', '$rootScope',
+	function($window, $scope, $http, CityList, user, $uibModal, toaster, $rootScope){
 		
-
 		
 		//toggle filter
 		$scope.toggleFilter = function(){
@@ -17,7 +16,7 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 				arialDescribedBy:'modal-body',
 				templateUrl: 'views/components/requestRideModal.html',
 				controller: function($scope, $uibModalInstance, $timeout){	
-
+					$scope.user = user.data[0];
 					$scope.selected = {
 						email: false,
 						phone: false,
@@ -54,11 +53,13 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 				},
 				size: 'sm'
 			}).result.then(function(selected){
-				$http.post("/api/request/offer_ride",{
+				$rootScope.$broadcast("loading","start");
+				$http.post("/api/request/offer_ride",{					
 					selected: selected,
 					request_id: request._id,
 					driver_id: $scope.user._id
 				}).then(function(res){
+					$rootScope.$broadcast("loading","end");
 					//toast message
 					if(res.data === "success"){
 						toaster.pop('success', "Success", "Your contact has been sent to the driver!");						
@@ -95,8 +96,7 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 			var l = $scope.requests.length;
 			$scope.numberOfPages = function(){
 				return Math.ceil($scope.requests.length/$scope.pageSize);
-			};
-			$scope.user = user.data[0];
+			};			
 			addRelations($scope.user._id);
 		};
 
@@ -147,7 +147,7 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 		//initialize
 		var init = function(){
 			$scope.form = {};
-			$scope.user = {};
+			$scope.user = user.data[0];
 			$scope.filter = {};
 			$scope.cities = CityList.commonCities;
 			$scope.dateOptions = {

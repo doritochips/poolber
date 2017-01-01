@@ -1,6 +1,6 @@
 "use strict";
 
-dash.controller("profileCtrl", ["$scope","$location", "$http", "user", "toaster", "$window", function($scope, $location, $http, user, toaster, $window){
+dash.controller("profileCtrl", ["$scope","$http", "user", "toaster", "$window", function($scope, $http, user, toaster, $window){
 
 	// init
 	$scope.editing = false;
@@ -8,11 +8,20 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "user", "toaster"
 	$scope.newFeature = false;
 	var backup = {};
 
-	$scope.user = user.data[0];				
-	backup.displayName = user.data[0].displayName;		
-	backup.email = user.data[0].email;
-	backup.phone = user.data[0].phone;
-	backup.wechat = user.data[0].wechat;
+	var init = function (){
+		$scope.user = user.data[0];				
+		backup.displayName = user.data[0].displayName;		
+		backup.email = user.data[0].email;
+		backup.phone = user.data[0].phone;
+		backup.wechat = user.data[0].wechat;
+		if (user.data[0].provider === "local"){
+			$scope.isLocalProvider = true;
+		}
+		else {
+			$scope.isLocalProvider = false;
+		}
+	}();
+
 
 
 	// car manipulate according to window size
@@ -47,12 +56,11 @@ dash.controller("profileCtrl", ["$scope","$location", "$http", "user", "toaster"
 				wechat: $scope.user.wechat,
 				id: $scope.user._id 
 			}).then(function(res){
-				if(res){				
 					toaster.pop('success', "Success", "Your profile has been updated!");			
-				}else{
-					toaster.pop('error', "Failure", "Some unexpected error occurs!");
-				}
-			});
+				}, function (err) {
+					toaster.pop('error', "Opps", err.data);
+					$scope.cancelEdit();
+				});
 		$scope.editing = false;
 	};
 	$scope.cancelEdit = function(){
