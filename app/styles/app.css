@@ -82,6 +82,7 @@ input:checked + .slider:before {
 /*mask*/
 .mask{
   background-color:#000;
+  background: rgb(38, 43, 55);
   background: url(/source/bg-pattern/bg-pattern-loading.gif) no-repeat fixed center rgba(38, 43, 55, 0.6);
   background-size:150px 150px;
   width: 100%;
