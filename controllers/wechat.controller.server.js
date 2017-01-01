@@ -1,3 +1,5 @@
+'use strict';
+
 var OAuth = require('wechat-oauth');
 var client = new OAuth('your appid', 'your secret');
 

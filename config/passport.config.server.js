@@ -74,31 +74,29 @@ module.exports = function (app, db) {
 
 	//define wechat strategy
 	var Wechat = new WechatStrategy({
-		appID: 'wxfe8d08cc30586362',						//'wx02d33dd17d1d0461',
-		appSecret: '3b9b6424f581913f22417f305abf6960',			//'d3361be9785345690c17213176415cf2',
-		callbackURL: 'https://oefjnsikjf.localtunnel.me/api/auth/wechat/callback',
-		scope: 'snsapi_base',
+		appID: 'wx3b75bcb08db37e6a', //wxfe8d08cc30586362',				
+		appSecret: '3c22fc0a9a9dd092a06580613a5c0022', //'3b9b6424f581913f22417f305abf6960',		
+		callbackURL: 'http://www.poolber.ca/api/auth/wechat/callback',
+		scope: 'snsapi_userinfo',
 		state: '123',
 	},
-	function (req, accessToken, refreshToken, profile, expires_in, done) {
+	function (accessToken, refreshToken, profile, expires_in, done) {
 		// Set the provider data and include tokens
 		console.log(profile);
-		var providerData = profile._json;
+		var providerData = profile;
 		providerData.accessToken = accessToken;
 		providerData.refreshToken = refreshToken;
 
 		// Create the user OAuth profile
 		var providerUserProfile = {
-			firstName: profile.name.givenName,
-			lastName: profile.name.familyName,
-			displayName: profile.displayName,
-			email: profile.emails ? profile.emails[0].value : undefined,
+			displayName: profile.nickname,
 			provider: 'wechat',
-			providerIdentifierField: 'id',
+			providerID: profile.openid,
 			providerData: providerData
 		};
 		// Save the user OAuth profile
-		users.saveOAuthUserProfile(req, providerUserProfile, done);
+
+		users.saveOAuthUserProfile({}, providerUserProfile, done);
 	});
 
 
