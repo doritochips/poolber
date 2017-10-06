@@ -7,6 +7,7 @@ front.config(['$routeProvider','$locationProvider', function($routeProvider, $lo
 	$routeProvider
 	.when("/",{
 		templateUrl:"views/home.view.html",
+		controller:"HomeCtrl",
 		css:"styles/landing.css"
 	})
 	.when("/login", {

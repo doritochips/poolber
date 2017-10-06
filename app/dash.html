@@ -15,8 +15,7 @@
   <script src="bower_components/angular/angular.min.js"></script>
 </head>
 <body id="app" class="app" ng-cloak ng-controller="Cache">  
-  <div class="mask" ng-hide="cacheFinished"></div>
-  <div class="mask" ng-hide="hideLoading"></div>
+  <div class="mask" ng-hide="hideLoading && cacheFinished"></div>
   <section ng-show="cacheFinished" pool-header progress="cacheFinished" id="header" class="header-container header-fixed bg-white">  
   </section>
   <div ng-show="cacheFinished" class="main-container">

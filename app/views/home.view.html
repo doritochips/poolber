@@ -3,15 +3,28 @@
   <div class="hp_top_banner">
       <div class="row row-no-padding">
           <div class="col-sm-6">
-              <div class="blue_left">
-                  
-                  <h1 id="white" style="margin-bottom: 0px;">FIND YOURSELF A</h1>
-                  
+              <div class="blue_left" ng-hide="showRides">                  
+                  <h1 id="white" style="margin-bottom: 0px;">FIND YOURSELF A</h1>                  
                   <h1 id="tall">RIDE</h1>
                   <br>
-                  <p> <a href="#/login" class="white_link" id="left_link"> view all available rides</a></p>
-                  
-              </div>
+                  <p> <a ng-click="seeRides()" class="white_link" id="left_link"> view all available rides</a></p>                  
+              </div> 
+              <table class="landing-table" ng-show="showRides">
+                <tr>
+                  <th>Departure</th>
+                  <th>Destination</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Price</th>
+                </tr>
+                <tr ng-repeat="ride in rides" ng-repeat="ride in rides">
+                  <td data-th="Departure">{{ride.departure}}</td>
+                  <td data-th="Destination">{{ride.destination}}</td>
+                  <td data-th="Date">{{ride.startTime | date: format: 'yyyy-mmmm-dd'}}</td>
+                  <td data-th="Time">{{ride.startTime | date:'shortTime'}} - {{ride.endTime | date:'shortTime'}}</td>
+                  <td data-th="Price">{{ride.price}}</td>
+                </tr>               
+              </table>
           </div>
           <div class="col-sm-6">
               <div class="orange_right">

@@ -138,7 +138,7 @@ dash.controller("requestListCtrl", ['$window','$scope', '$http', 'CityList','use
 		//List requests
 
 		$http.get('/api/requests').then(function(res){
-			$scope.requests = res.data;			
+			$scope.requests = res.data;
 			processData();
 		},function(res){
 			console.log(res);
